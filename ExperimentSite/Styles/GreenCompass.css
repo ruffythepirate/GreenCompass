@@ -1,0 +1,33 @@
+/* Containers */
+
+.section {
+    background-color: #A0A0A0;
+    padding: 20px;
+    margin: 20px;
+    
+}
+
+/* Tables */
+
+table {
+    border-spacing: 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+th {
+    font-size: 14px;
+    font-weight: normal;
+    color:  #039;
+    border-bottom: 2px solid #6678b1;
+    padding: 10px 8px;
+}
+
+td {
+    color:  #009;
+    padding: 9px 8px 0;
+    vertical-align: top;
+    display: table-cell;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
