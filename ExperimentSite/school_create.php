@@ -30,8 +30,34 @@ function msg($s) {
     <div class="section">
     <h3><?php print msg('Create School')?></h3>
         <form method="post">
-            <input type="text" id="schoolName">
-            <input type="" id="schoolName">
+            Name: <input type="text" id="schoolName"><br>
+            Country: 
+            <select id="schoolName">
+                <?php 
+                       function countrySort( $a, $b ) {
+            return $a->name == $b->name ? 0 : ( $a->name > $b->name ) ? 1 : -1;
+                }
+
+        //We load the countries so that we can group on the later.        
+        $query = 'SELECT countryid, name FROM Countries';
+        $result = $databaseConnection->query($query);
+        while($row = $result->fetch_object())
+        {
+            $countries[] = $row;
+        }
+        $result->close();
+                    
+        usort( $countries, 'countrySort' );    
+        
+        foreach($countries as $country)
+        {
+            print "<option value=\"$country->countryid\">";
+            print "$country->name";
+            print "</option>";
+        }
+        ?>
+                </select><br>
+            <input type="button" id="submit" value="Create">
         </form>
     </div>
 
