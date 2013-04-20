@@ -5,7 +5,7 @@
     function logged_on()
     {
         return isset($_SESSION['userid']);
-    }
+    }  
 
     function confirm_is_admin() {
         if (!logged_on())

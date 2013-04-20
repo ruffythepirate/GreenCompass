@@ -4,7 +4,7 @@
 
 <?php
 $messages = array (
-    'se'=> array(
+    'se'=> array( //ok
         'Admin Schools' =>
             'Administrera skolor',
         'Schools' => 'Skolor',
