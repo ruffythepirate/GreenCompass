@@ -41,7 +41,7 @@ function msg($s) {
         return $s;
     }
 }?>
-<form>
+<form action="getworkshoptranslation.php">
     <input type="hidden" value="<?php $workshoptranslationid?>">
     <h3><?php print msg('Background')?></h3>
     <textarea id="background"><?php print $background ?></textarea>
