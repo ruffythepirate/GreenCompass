@@ -1,13 +1,15 @@
     <?php 
         include("Includes/header.php");         
         include("workshop_post_methods.php");         
+        include ("/Scripts/script_workshop_edit.php");
      ?>
 
 <?php
     $id = $_REQUEST[id];
     $workshop = getWorkshop($databaseConnection, $id);
+   
+    $workshopTranslations = getWorkshopTranslations($databaseConnection, $id);
 
-    //$workshopTranslations = getWorkshopTranslations($databaseConnection, $_REQUEST['id']);
 ?>
 
     <div id="main">
@@ -23,34 +25,37 @@
                 }
             ?>
         </select>
-        <a href="#">Create for New Language</a>
+        <a id="Button_CreateNew" href="#">Create for New Language</a>
     </div>
 
+    <div id="WorkshopForms">
     <?php 
-       // foreach($workshopTranslations as $translation)
-       // {
-       //     createWorkshopTranslationForm($databaseConnection, $translation);
-       // }
+        foreach($workshopTranslations as $translation)
+        {
+            createWorkshopTranslationForm($databaseConnection, $translation);
+        }
     ?>
-
+    </div>
+   
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
-<div id="newtranslationpopup" class="popup">
+<div id="newtranslationpopup" class="popup" hidden="hidden">
     Select the language to create a translation for:
-    <form method="POST" action="">
         <select>
             <?php
-                $languages = getWorkshopsUntranslatedLanguages($databaseConnection, $workshop->workshopid);
+                $languages = getWorkshopsUntranslatedLanguages($databaseConnection, $id);
                 foreach($languages as $language)
                 {
                     echo "<option value=\"$language->languageid\">$language->name</option>";
                 }
             ?>
         </select>
-        <input type="submit" />
-    </form>
+        <a id="AddLanguage" href="#" class="button">Add</a>        <a id="CloseAddLanguage" href="#" class="button">Close</a>
+
 </div>
 
 <?php 
     include ("/Includes/footer.php");
  ?>
+
+

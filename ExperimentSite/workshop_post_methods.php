@@ -1,3 +1,4 @@
+,
 <?php
     function validate($params)
     {
@@ -65,11 +66,9 @@
 
     function getWorkshopsUntranslatedLanguages($databaseConnection, $workshopid)
     {
-        $workshopid = mysql_real_escape_string($workshopid);
+        //mysql_real_escape_string($workshopid);
        //We load the countries so that we can group on the later.        
-        $query = 'SELECT languageid, name '
-                + 'FROM languages '
-                + 'WHERE languageid NOT IN (SELECT languageid FROM workshoptranslations WHERE workshopid=$workshopid';
+        $query = "SELECT languageid, name FROM languages WHERE languageid NOT IN (SELECT languageid FROM workshoptranslations WHERE workshopid=$workshopid)";
         $result = $databaseConnection->query($query);
         $languages = array();
         while($row = $result->fetch_object())
@@ -99,12 +98,11 @@
 
     function getWorkshopTranslations($databaseConnection, $workshopid)
     {
-        $workshopid = mysql_real_escape_string($workshopid);
+        //$workshopid = mysql_real_escape_string($workshopid);
         //We load the countries so that we can group on the later.        
-        $query = "SELECT workshoptranslationid, workshopid, title, languageid, background, goals, expectedresults, timeline, createddate "
-                 + "FROM Workshops "
-                 + "WHERE workshopid=$workshopid";
+        $query = "SELECT workshoptranslationid, workshopid, title, languageid, background, goals, expectedresults, timeline, createddate FROM workshoptranslations WHERE workshopid=$workshopid";
         $result = $databaseConnection->query($query);
+
         $workshopTranslations = array();
         while($row = $result->fetch_object())
         {
@@ -115,7 +113,7 @@
         return $workshopTranslations;
     }
 
-    function createWorkshopTranslationForm($databaseConnection, $workshopTranslation)
+    function createWorkshopTranslationForm($workshopTranslation)
     {
         echo '<div class="section">';
         echo '<form action="workshop_edit.php" method="POST">';
