@@ -1,12 +1,12 @@
 <?php
 class WorkshopTranslation {
-    var languageid;
-    var workshopid;
-    var workshoptranslationid;
-    var title;
-    var background;
-    var goals;
-    var timeplan;
-    var expectedinformation;
+    public $languageid;
+    public $workshopid;
+    public $workshoptranslationid;
+    public $title;
+    public $background;
+    public $goals;
+    public $timeplan;
+    public $expectedinformation;
 }
 ?>

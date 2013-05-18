@@ -79,9 +79,24 @@
         return $languages;    
     }
 
+    function getWorkshopsTranslatedLanguages($databaseConnection, $workshopid)
+    {
+        //mysql_real_escape_string($workshopid);
+       //We load the countries so that we can group on the later.        
+        $query = "SELECT languageid, name FROM languages WHERE languageid IN (SELECT languageid FROM workshoptranslations WHERE workshopid=$workshopid)";
+        $result = $databaseConnection->query($query);
+        $languages = array();
+        while($row = $result->fetch_object())
+        {
+            array_push($languages, $row);
+        }
+        $result->close();
+        return $languages;    
+    }
+
     function getWorkshop($databaseConnection, $workshopid)
     {
-        $workshopid = mysql_real_escape_string($workshopid);
+        $workshopid;
         //We load the countries so that we can group on the later.        
         $query = "SELECT workshopid, workshopname, createddate FROM Workshops WHERE workshopid='$workshopid'";
         $result = $databaseConnection->query($query);
@@ -116,7 +131,9 @@
     function createWorkshopTranslationForm($workshopTranslation)
     {
         echo '<div class="section">';
+        echo '<h3>Translation</h3>';
         echo '<form action="workshop_edit.php" method="POST">';
+        echo '<fieldset>';
         echo "<input type=\"hidden\" name=\"languageid\" value=\"$workshopTranslation->languageid\"/>";
         echo "<input type=\"hidden\" name=\"workshopid\" value=\"$workshopTranslation->workshopid\"/>";
         echo "<input type=\"hidden\" name=\"workshoptranslationid\" value=\"$workshopTranslation->workshoptranslationid\"/>";
@@ -130,6 +147,8 @@
         echo "<input type=\"text\" name=\"timeplan\" value=\"$workshopTranslation->timeline\"/>";
         echo "<h3>Expected Information</h3>";
         echo "<input type=\"text\" name=\"expectedinformation\" value=\"$workshopTranslation->expectedresults\"/>";
+        echo "<input type=\"submit\" value=\"save\"/>";
+        echo '</fieldset>';
         echo '</form>';
         echo '</div>';
 

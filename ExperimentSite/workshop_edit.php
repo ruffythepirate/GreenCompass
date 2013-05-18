@@ -16,15 +16,21 @@
 
     <div class="section">  
         <h3>Editing workshop. <?php $workshop->workshopname ?></h3>
-        <select>
             <?php 
-                $languages = getLanguages($databaseConnection);
+                $languages = getWorkshopsTranslatedLanguages($databaseConnection, $id);
+                if(count($languages) > 0)
+                {
+                echo "<select>";
                 foreach($languages as $language)
                 {
                     echo "<option value=\"$language->languageid\">$language->name</option>";
                 }
+                echo "</select>";
+                } else 
+                {
+                echo "There are currently no translations for this workshop.";                   
+                }
             ?>
-        </select>
         <a id="Button_CreateNew" href="#">Create for New Language</a>
     </div>
 
@@ -41,7 +47,7 @@
 
 <div id="newtranslationpopup" class="popup" hidden="hidden">
     Select the language to create a translation for:
-        <select>
+        <select id="NewLanguageSelect">
             <?php
                 $languages = getWorkshopsUntranslatedLanguages($databaseConnection, $id);
                 foreach($languages as $language)
