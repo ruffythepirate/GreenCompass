@@ -3,5 +3,7 @@
     include('/Classes/class.workshoptranslation.php');
     
     $newWorkshopTranslation = new WorkshopTranslation();
+    $newWorkshopTranslation->languageid = $_REQUEST["languageid"];
+    $newWorkshopTranslation->workshopid = $_REQUEST["workshopid"];
     createWorkshopTranslationForm($newWorkshopTranslation)
 ?>

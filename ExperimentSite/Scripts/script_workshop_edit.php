@@ -13,10 +13,11 @@
             //We Add a form to the page.
             
             var languageId = $('#NewLanguageSelect').val();
+            var workshopId = $('#WorkshopId').val();
              $.ajax({
                 type: "GET",
                 url: "ajax_new_language.php",
-                data: {languageid: languageId }
+                data: {languageid: languageId, workshopid: workshopId }
                 })
                 .done(
                 function( result ) {

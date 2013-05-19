@@ -124,7 +124,6 @@
             array_push($workshopTranslations, $row);
         }
         $result->close();
-
         return $workshopTranslations;
     }
 
@@ -132,7 +131,7 @@
     {
         echo '<div class="section">';
         echo '<h3>Translation</h3>';
-        echo '<form action="workshop_edit.php" method="POST">';
+        echo "<form action=\"workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
         echo '<fieldset>';
         echo "<input type=\"hidden\" name=\"languageid\" value=\"$workshopTranslation->languageid\"/>";
         echo "<input type=\"hidden\" name=\"workshopid\" value=\"$workshopTranslation->workshopid\"/>";
@@ -144,14 +143,13 @@
         echo "<h3>Goals</h3>";
         echo "<input type=\"text\" name=\"goals\" value=\"$workshopTranslation->goals\"/>";
         echo "<h3>Timeplan</h3>";
-        echo "<input type=\"text\" name=\"timeplan\" value=\"$workshopTranslation->timeline\"/>";
+        echo "<input type=\"text\" name=\"timeline\" value=\"$workshopTranslation->timeline\"/>";
         echo "<h3>Expected Information</h3>";
-        echo "<input type=\"text\" name=\"expectedinformation\" value=\"$workshopTranslation->expectedresults\"/>";
+        echo "<input type=\"text\" name=\"expectedresults\" value=\"$workshopTranslation->expectedresults\"/>";
         echo "<input type=\"submit\" value=\"save\"/>";
         echo '</fieldset>';
         echo '</form>';
         echo '</div>';
-
     }
 ?>
 

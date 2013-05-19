@@ -1,5 +1,6 @@
     <?php 
         include("Includes/header.php");         
+        include("Classes/class.workshoptranslation.php");         
         include("workshop_post_methods.php");         
         include ("/Scripts/script_workshop_edit.php");
      ?>
@@ -8,7 +9,23 @@
     $id = $_REQUEST[id];
     $workshop = getWorkshop($databaseConnection, $id);
    
-    $workshopTranslations = getWorkshopTranslations($databaseConnection, $id);
+
+    //We save the data that has been entered.
+    if('POST' == $_SERVER['REQUEST_METHOD'])
+    {
+        $postedWorkshop = WorkshopTranslation::fromDictionary($_POST);
+        $successful = $postedWorkshop->saveToDatabase($databaseConnection);
+        if(successful)
+        {
+            echo "Translation has been saved to the database!";
+        }
+        else
+        {
+            echo "Saving translation to database failed!";
+            
+        }
+    
+    }
 
 ?>
 
@@ -36,9 +53,11 @@
 
     <div id="WorkshopForms">
     <?php 
+        $workshopTranslations = getWorkshopTranslations($databaseConnection, $id);
+
         foreach($workshopTranslations as $translation)
         {
-            createWorkshopTranslationForm($databaseConnection, $translation);
+            createWorkshopTranslationForm($translation);
         }
     ?>
     </div>
@@ -46,6 +65,8 @@
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <div id="newtranslationpopup" class="popup" hidden="hidden">
+    <?php
+        echo "<input id=\"WorkshopId\" type=\"hidden\" value=\"$id\"/>";?>
     Select the language to create a translation for:
         <select id="NewLanguageSelect">
             <?php

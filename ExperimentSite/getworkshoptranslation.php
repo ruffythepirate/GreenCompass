@@ -48,7 +48,7 @@ function msg($s) {
     <h3><?php print msg('Goals')?></h3>
     <textarea id="goals"><?php print $goals ?></textarea>
     <h3><?php print msg('Timeplan')?></h3>
-    <textarea id="timeplan"><?php print $timeline ?></textarea>
+    <textarea id="timeline"><?php print $timeline ?></textarea>
     <h3><?php print msg('Expected Information')?></h3>
     <textarea id="expected information"><?php print $expectedresults ?></textarea>
 
