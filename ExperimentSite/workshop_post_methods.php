@@ -96,7 +96,6 @@
 
     function getWorkshop($databaseConnection, $workshopid)
     {
-        $workshopid;
         //We load the countries so that we can group on the later.        
         $query = "SELECT workshopid, workshopname, createddate FROM Workshops WHERE workshopid='$workshopid'";
         $result = $databaseConnection->query($query);
@@ -129,7 +128,7 @@
 
     function createWorkshopTranslationForm($workshopTranslation)
     {
-        echo '<div class="section">';
+        echo '<div id="translationSection_'.$workshopTranslation->languageid .'"class="section translationSection">';
         echo '<h3>Translation</h3>';
         echo "<form action=\"workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
         echo '<fieldset>';

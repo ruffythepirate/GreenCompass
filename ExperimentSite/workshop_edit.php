@@ -8,7 +8,6 @@
 <?php
     $id = $_REQUEST[id];
     $workshop = getWorkshop($databaseConnection, $id);
-   
 
     //We save the data that has been entered.
     if('POST' == $_SERVER['REQUEST_METHOD'])
@@ -32,12 +31,12 @@
     <div id="main">
 
     <div class="section">  
-        <h3>Editing workshop. <?php $workshop->workshopname ?></h3>
+        <h3>Editing workshop <?php echo "\"$workshop->workshopname\""; ?>.</h3>
             <?php 
                 $languages = getWorkshopsTranslatedLanguages($databaseConnection, $id);
                 if(count($languages) > 0)
                 {
-                echo "<select>";
+                echo '<select id="translationLanguage">';
                 foreach($languages as $language)
                 {
                     echo "<option value=\"$language->languageid\">$language->name</option>";
