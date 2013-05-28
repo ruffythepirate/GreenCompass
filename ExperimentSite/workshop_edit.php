@@ -36,7 +36,7 @@
                 $languages = getWorkshopsTranslatedLanguages($databaseConnection, $id);
                 if(count($languages) > 0)
                 {
-                echo '<select id="translationLanguage">';
+                echo '<select id="translation-language">';
                 foreach($languages as $language)
                 {
                     echo "<option value=\"$language->languageid\">$language->name</option>";
@@ -47,10 +47,10 @@
                 echo "There are currently no translations for this workshop.";                   
                 }
             ?>
-        <a id="Button_CreateNew" href="#">Create for New Language</a>
+        <a id="button-create-new" href="#">Create for New Language</a>
     </div>
 
-    <div id="WorkshopForms">
+    <div id="workshop-forms">
     <?php 
         $workshopTranslations = getWorkshopTranslations($databaseConnection, $id);
 
@@ -60,14 +60,21 @@
         }
     ?>
     </div>
+        <div id="workshop-preview" class="section">
+            <div class="title"></div>
+            <div class="background"></div>
+            <div class="goals"></div>
+            <div class="timeline"></div>
+            <div class="expectedresults"></div>
+        </div>
    
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
-<div id="newtranslationpopup" class="popup" hidden="hidden">
+<div id="new-translation-popup" class="popup" hidden="hidden">
     <?php
         echo "<input id=\"WorkshopId\" type=\"hidden\" value=\"$id\"/>";?>
     Select the language to create a translation for:
-        <select id="NewLanguageSelect">
+        <select id="new-language-select">
             <?php
                 $languages = getWorkshopsUntranslatedLanguages($databaseConnection, $id);
                 foreach($languages as $language)
@@ -76,7 +83,7 @@
                 }
             ?>
         </select>
-        <a id="AddLanguage" href="#" class="button">Add</a>        <a id="CloseAddLanguage" href="#" class="button">Close</a>
+        <a id="add-language" href="#" class="button">Add</a>        <a id="close-add-language" href="#" class="button">Close</a>
 
 </div>
 

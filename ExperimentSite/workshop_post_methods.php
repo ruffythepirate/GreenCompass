@@ -128,7 +128,7 @@
 
     function createWorkshopTranslationForm($workshopTranslation)
     {
-        echo '<div id="translationSection_'.$workshopTranslation->languageid .'"class="section translationSection">';
+        echo '<div id="translation-section-'.$workshopTranslation->languageid .'"class="section translation-section">';
         echo '<h3>Translation</h3>';
         echo "<form action=\"workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
         echo '<fieldset>';
@@ -138,13 +138,13 @@
         echo "<h3>Title</h3>";
         echo "<input type=\"text\" name=\"title\" value=\"$workshopTranslation->title\"/>";
         echo "<h3>Background</h3>";
-        echo "<input type=\"text\" name=\"background\" value=\"$workshopTranslation->background\"/>";
+        echo "<textarea name=\"background\">$workshopTranslation->background</textarea>";
         echo "<h3>Goals</h3>";
-        echo "<input type=\"text\" name=\"goals\" value=\"$workshopTranslation->goals\"/>";
+        echo "<textarea name=\"goals\">$workshopTranslation->goals</textarea>";
         echo "<h3>Timeplan</h3>";
-        echo "<input type=\"text\" name=\"timeline\" value=\"$workshopTranslation->timeline\"/>";
+        echo "<textarea name=\"timeline\">$workshopTranslation->timeline</textarea>";
         echo "<h3>Expected Information</h3>";
-        echo "<input type=\"text\" name=\"expectedresults\" value=\"$workshopTranslation->expectedresults\"/>";
+        echo "<textarea name=\"expectedresults\">$workshopTranslation->expectedresults</textarea>";
         echo "<input type=\"submit\" value=\"save\"/>";
         echo '</fieldset>';
         echo '</form>';
