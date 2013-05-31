@@ -61,5 +61,51 @@
         });
 
 
+        updateWorkshopPreview();
     });
-</script>   
+    function getTranslationLanguageId() {
+        return $('#translation-language').val();
+    }
+
+    function createBulletList(stringToMakeListFrom) {
+        var bulletList = '';
+        var bullets = new Array();
+        if (stringToMakeListFrom != "" && typeof stringToMakeListFrom != "undefined") {
+            bullets = stringToMakeListFrom.split('\n');
+        }
+        $.each(bullets, function (idx, bullet) {
+            bulletList += ('<li>' + bullet.replace(/(<\/?)script/g, "$1noscript") + '</li>');
+        });
+        return bulletList;
+    }
+
+    function getPreviewWorkshopTitle() {
+        return $('#input-title-' + getTranslationLanguageId()).val();
+    }
+
+    function getPreviewWorkshopBackground() {
+        return $('#input-background-' + getTranslationLanguageId()).val();
+    }
+
+    function getPreviewGoals() {
+        return createBulletList($('#input-goals-' + getTranslationLanguageId()).val());
+    }
+
+    function getPreviewTimeline() {
+        return createBulletList($('#input-timeline-' + getTranslationLanguageId()).val());
+    }
+
+    function getPreviewExpectedResults() {
+        return createBulletList($('#input-expected-information-' + getTranslationLanguageId()).val());
+    }
+
+    function updateWorkshopPreview() {
+        var title = getPreviewWorkshopTitle();
+        $('.title').html(title);
+        $('#workshop-preview .background').html(getPreviewWorkshopBackground());
+        $('#workshop-preview .goals ul').html(getPreviewGoals());
+        $('#workshop-preview .timeline ul').html(getPreviewTimeline());
+        $('#workshop-preview .expected-results ul').html(getPreviewExpectedResults());
+    }
+
+</script>

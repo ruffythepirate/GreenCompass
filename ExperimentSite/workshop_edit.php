@@ -1,4 +1,5 @@
     <?php 
+        $pageTitle = 'Edit Workshop';
         include("Includes/header.php");         
         include("Classes/class.workshoptranslation.php");         
         include("workshop_post_methods.php");         
@@ -63,9 +64,9 @@
         <div id="workshop-preview" class="section">
             <div class="title"></div>
             <div class="background"></div>
-            <div class="goals"></div>
-            <div class="timeline"></div>
-            <div class="expectedresults"></div>
+            <div class="goals"><ul></ul></div>
+            <div class="timeline"><ul></ul></div>
+            <div class="expected-results"><ul></ul></div>
         </div>
    
 </div> <!-- End of outer-wrapper which opens in header.pho -->

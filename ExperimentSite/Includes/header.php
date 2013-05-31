@@ -3,7 +3,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>My Site's Title</title>
+        <title><?php 
+            if($pageTitle != null)
+            {
+                echo "$pageTitle";                
+            }
+            else
+            {
+                echo "Green Compass";
+            }
+    ?></title>
         <link href="/Styles/Site.css" rel="stylesheet" type="text/css" />
         <link href="/Styles/GreenCompass.css" rel="stylesheet" type="text/css" />
         <meta name="viewport" content="width=device-width, initial-scale=1"> 

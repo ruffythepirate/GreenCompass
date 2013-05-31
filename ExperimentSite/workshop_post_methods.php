@@ -128,27 +128,40 @@
 
     function createWorkshopTranslationForm($workshopTranslation)
     {
-        echo '<div id="translation-section-'.$workshopTranslation->languageid .'"class="section translation-section">';
-        echo '<h3>Translation</h3>';
-        echo "<form action=\"workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
-        echo '<fieldset>';
-        echo "<input type=\"hidden\" name=\"languageid\" value=\"$workshopTranslation->languageid\"/>";
-        echo "<input type=\"hidden\" name=\"workshopid\" value=\"$workshopTranslation->workshopid\"/>";
-        echo "<input type=\"hidden\" name=\"workshoptranslationid\" value=\"$workshopTranslation->workshoptranslationid\"/>";
-        echo "<h3>Title</h3>";
-        echo "<input type=\"text\" name=\"title\" value=\"$workshopTranslation->title\"/>";
-        echo "<h3>Background</h3>";
-        echo "<textarea name=\"background\">$workshopTranslation->background</textarea>";
-        echo "<h3>Goals</h3>";
-        echo "<textarea name=\"goals\">$workshopTranslation->goals</textarea>";
-        echo "<h3>Timeplan</h3>";
-        echo "<textarea name=\"timeline\">$workshopTranslation->timeline</textarea>";
-        echo "<h3>Expected Information</h3>";
-        echo "<textarea name=\"expectedresults\">$workshopTranslation->expectedresults</textarea>";
-        echo "<input type=\"submit\" value=\"save\"/>";
-        echo '</fieldset>';
-        echo '</form>';
-        echo '</div>';
+        echo "\n".'<div id="translation-section-'.$workshopTranslation->languageid .'"class="section translation-section">';
+        echo "\n".'<h3>Translation</h3>';
+        echo "\n"."<form action=\"workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
+        echo "\n".'<fieldset>';
+        echo "\n"."<input type=\"hidden\" name=\"languageid\" value=\"$workshopTranslation->languageid\"/>";
+        echo "\n"."<input type=\"hidden\" name=\"workshopid\" value=\"$workshopTranslation->workshopid\"/>";
+        echo "\n"."<input type=\"hidden\" name=\"workshoptranslationid\" value=\"$workshopTranslation->workshoptranslationid\"/>";
+        echo "\n"."<h3>Title</h3>";
+        echo "\n"."<input id=\"input-title-$workshopTranslation->languageid\" type=\"text\" name=\"title\" value=\"$workshopTranslation->title\"/>";
+        echo "\n"."<h3>Background</h3>";
+        echo "\n"."<textarea id=\"input-background-$workshopTranslation->languageid\" name=\"background\">$workshopTranslation->background</textarea>";
+        echo "\n"."<h3>Goals</h3>";
+        echo "\n"."<textarea id=\"input-goals-$workshopTranslation->languageid\" name=\"goals\">$workshopTranslation->goals</textarea>";
+        echo "\n"."<h3>Timeplan</h3>";
+        echo "\n"."<textarea id=\"input-timeline-$workshopTranslation->languageid\" name=\"timeline\">$workshopTranslation->timeline</textarea>";
+        echo "\n"."<h3>Expected Information</h3>";
+        echo "\n"."<textarea id=\"input-expected-information-$workshopTranslation->languageid\" name=\"expectedresults\">$workshopTranslation->expectedresults</textarea>";
+        echo "\n"."<input type=\"submit\" value=\"save\"/>";
+        echo "\n".'</fieldset>';
+        echo "\n".'</form>';
+        echo "\n".'</div>';
+        echo "\n".'<script>';
+        echo "\n".'$(document).ready(function () {';
+        echo "\n"."$('#input-title-$workshopTranslation->languageid').change(function() { ";
+        echo "\n".'updateWorkshopPreview();';
+        echo "\n".'});';
+        echo "\n"."$('#input-background-$workshopTranslation->languageid').change(function() { ";
+        echo "\n".'updateWorkshopPreview();';
+        echo "\n".'});';
+        echo "\n"."$('#translation-section-$workshopTranslation->languageid textarea').change(function() { ";
+        echo "\n".'updateWorkshopPreview();';
+        echo "\n".'});';
+        echo "\n".'});';
+        echo "\n".'</script>';
     }
 ?>
 
