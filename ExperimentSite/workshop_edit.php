@@ -63,11 +63,34 @@
     </div>
         <div id="workshop-preview" class="section">
             <div class="title"></div>
+            <h3>Background</h3>
             <div class="background"></div>
+            <h3>Goals</h3>
             <div class="goals"><ul></ul></div>
+            <h3>Timeline</h3>
             <div class="timeline"><ul></ul></div>
+            <h3>Expected Results</h3>
             <div class="expected-results"><ul></ul></div>
         </div>
+
+    <div class="section">  
+        <form id="upload-file" action="admin_upload.php" method="POST" enctype="multipart/form-data">
+
+        <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000"/>
+        <input type="hidden" id="workshopId" name="workshopId" value="<?php echo "$id";?>"/>
+
+        <fieldset>
+        <legend>Workshop File Upload</legend>
+            <div><input type="file" id="file-select" name="fileselect[]" multiple="multiple"/>
+            <div id="file-drag">or drop files here</div>
+                </div>
+            <div id="submit-button">
+            <button type="submit">Upload Files</button>
+            </div>
+        </fieldset>
+        </form>
+    </div>
+
    
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
@@ -87,6 +110,8 @@
         <a id="add-language" href="#" class="button">Add</a>        <a id="close-add-language" href="#" class="button">Close</a>
 
 </div>
+
+
 
 <?php 
     include ("/Includes/footer.php");

@@ -80,7 +80,7 @@
     }
 
     function getPreviewWorkshopTitle() {
-        return $('#input-title-' + getTranslationLanguageId()).val();
+        return '<h2>' + $('#input-title-' + getTranslationLanguageId()).val() + '</h2>';
     }
 
     function getPreviewWorkshopBackground() {
