@@ -1,4 +1,18 @@
 <script type="text/javascript">
+
+    function handleFileDrop(event) {
+        $(event.target).removeClass("hover");
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        var files = event.dataTransfer.files;
+        //Add the data to the form.
+        for (var i = 0; i < files.length; i++) {
+            uploadFile(files[i]);
+        }
+    }
+
     $(document).ready(function () {
 
         $('#button-create-new').click(function () {
@@ -30,6 +44,39 @@
                 });
         });
 
+        $('#ajax-upload-button').click(function () {
+            var fileSelect = $('#file-select');
+
+            uploadFile(fileSelect.val());
+        });
+
+        //Activates drag and drop
+        if (window.FileReader && Modernizr.draganddrop) {
+            var fileDrag = $('#file-drop-zone');
+
+            fileDrag.bind('dragover', function (event) {
+                $(event.target).addClass("hover");
+            });
+
+            fileDrag.bind('dragleave', function (event) {
+                $(event.target).removeClass("hover");
+            });
+
+            $(document).bind('drop dragover', function (e) {
+                e.preventDefault();
+            });
+
+            fileDrag.css('display', 'block');
+
+            var fileDrop = document.getElementById('file-drop-zone');
+
+            fileDrop.addEventListener('drop', handleFileDrop, false);
+
+        }
+
+
+
+
         function unloadPopupBox() {    // TO Unload the Popupbox
             $('#new-translation-popup').fadeOut("slow");
             $("#container").css({ // this is just for style        
@@ -60,9 +107,44 @@
             toggleVisibleTranslation();
         });
 
-
         updateWorkshopPreview();
+
+
     });
+
+    function uploadFile(file) {
+        var formData = new FormData($('#upload-file')[0]);
+        formData.append('file', file)
+        $.ajax({
+            url: 'admin_upload.php',  //server script to process data
+            type: 'POST',
+            xhr: function () {  // custom xhr
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // check if upload property exists
+                //    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
+                }
+                return myXhr;
+            },
+            //Ajax events
+            beforeSend: function () {
+                $('#upload-feedback').html('<h3>Upload starting...</h3>')
+            },
+            success: function () {
+                $('#upload-feedback').html('<h3>file uploaded!</h3>')
+            },
+            error: function () {
+                $('#upload-feedback').html('<h3>file upload failed!</h3>')
+            },
+            // Form data
+            data: formData,
+            //Options to tell JQuery not to process data or worry about content-type
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    }
+
+
     function getTranslationLanguageId() {
         return $('#translation-language').val();
     }

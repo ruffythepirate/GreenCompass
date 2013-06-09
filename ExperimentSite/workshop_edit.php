@@ -82,13 +82,16 @@
         <fieldset>
         <legend>Workshop File Upload</legend>
             <div><input type="file" id="file-select" name="fileselect[]" multiple="multiple"/>
-            <div id="file-drag">or drop files here</div>
+            <div id="file-drop-zone">or drop files here</div>
                 </div>
             <div id="submit-button">
+                <a id="ajax-upload-button" href="#">Ajax Upload Button</a>
             <button type="submit">Upload Files</button>
             </div>
         </fieldset>
         </form>
+        <div id="upload-feedback">
+        </div>
     </div>
 
    
