@@ -49,7 +49,7 @@ CreatedDate : DateTime</panel_attributes>
 WorkshopFileId : Guid
 WorkshopId : Guid
 LanguageId : Guid?
-Path : nvarchar(100)
+Filename : nvarchar(100)
 Size : int
 UserId : Guid
 CreatedDate : DateTime</panel_attributes>
@@ -190,7 +190,7 @@ CreatedDate : DateTime
 BatchWorkshopFileId : Guid
 BatchWorkshopId : Guid
 LanguageId : Guid?
-Path : nvarchar(100)
+Filename : nvarchar(100)
 Size : int
 UserId : Guid
 CreatedDate : DateTime</panel_attributes>

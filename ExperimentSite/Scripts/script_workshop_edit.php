@@ -71,7 +71,6 @@
             var fileDrop = document.getElementById('file-drop-zone');
 
             fileDrop.addEventListener('drop', handleFileDrop, false);
-
         }
 
 
@@ -121,7 +120,7 @@
             xhr: function () {  // custom xhr
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // check if upload property exists
-                //    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
+                    //    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
                 }
                 return myXhr;
             },
@@ -129,8 +128,8 @@
             beforeSend: function () {
                 $('#upload-feedback').html('<h3>Upload starting...</h3>')
             },
-            success: function () {
-                $('#upload-feedback').html('<h3>file uploaded!</h3>')
+            success: function (data, textStatus, jqXHR) {
+                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data);
             },
             error: function () {
                 $('#upload-feedback').html('<h3>file upload failed!</h3>')

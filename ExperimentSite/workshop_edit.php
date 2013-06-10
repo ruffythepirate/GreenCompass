@@ -22,9 +22,7 @@
         else
         {
             echo "Saving translation to database failed!";
-            
         }
-    
     }
 
 ?>
@@ -74,6 +72,17 @@
         </div>
 
     <div class="section">  
+
+        <?php 
+            $workshopFiles = getWorkshopFiles($databaseConnection, $id);
+            if($workshopFiles != NULL && sizeof($workshopFiles) > 0)
+            {
+                echo "Got files, aint that nice!?";
+
+            }
+        ?>
+
+
         <form id="upload-file" action="admin_upload.php" method="POST" enctype="multipart/form-data">
 
         <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="30000000"/>
@@ -113,9 +122,6 @@
         <a id="add-language" href="#" class="button">Add</a>        <a id="close-add-language" href="#" class="button">Close</a>
 
 </div>
-
-
-
 <?php 
     include ("/Includes/footer.php");
  ?>

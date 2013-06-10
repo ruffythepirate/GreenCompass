@@ -110,6 +110,21 @@
         return $returnResult;
     }
 
+    function getWorkshopFiles($databaseConnection, $workshopid)
+    {
+        $query = "SELECT WorkshopFileId, WorkshopId, LanguageId, filename, size, userid, createddate FROM workshopfiles WHERE workshopid=$workshopid";
+
+        $result = $databaseConnection->query($query);
+        
+        $workshopFiles = array();
+        while($row = $result->fetch_object())
+        {
+            array_push($workshopFiles, $row);
+        }
+        $result->close();
+        return $workshopFiles;
+    }
+
     function getWorkshopTranslations($databaseConnection, $workshopid)
     {
         //$workshopid = mysql_real_escape_string($workshopid);
