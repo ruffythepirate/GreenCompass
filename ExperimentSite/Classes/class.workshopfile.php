@@ -41,22 +41,22 @@
                 $exists = WorkshopFile::fromDatabase($databaseConnection, $this->workshopfileid) != null;            
                 if($exists)
                 {
-                    $this->updateToDatabase($databaseConnection);
+                    return $this->updateToDatabase($databaseConnection);
                 }
                 else{
-                    $this->insertToDatabase($databaseConnection);
+                    return $this->insertToDatabase($databaseConnection);
                 }
             } else 
             {
-                $this->insertToDatabase($databaseConnection);
+                return $this->insertToDatabase($databaseConnection);
             }
         }
     
         private function insertToDatabase($databaseConnection)
         {
-            $query = "INSERT INTO workshopfiles workshopid, languageid, filename, size, userid, createddate "
+            $query = "INSERT INTO workshopfiles (workshopid, languageid, filename, size, userid, createddate) "
                     . " VALUES ($this->workshopid, $this->languageid, '$this->filename', $this->size, $this->userid, NOW())";
-    
+            echo "$query";
                     if(!mysqli_query($databaseConnection, $query))
                     {
                         echo mysql_error();

@@ -24,7 +24,7 @@ if($fileName)
     file_put_contents($uploadFolder . $fileName, file_get_contents('php://input'));
 
     $fileMetadata = WorkshopFile::fromDictionary($_POST);
-    $fileMetadata.saveToDatabase();
+    $fileMetadata->saveToDatabase($databaseConnection);
 
     echo "$fileName has been uploaded successfully! (alt 1)";
     exit();
@@ -35,10 +35,15 @@ if($fileName)
                 $file['tmp_name'],
                 $uploadFolder . $fileName);
             $fileMetadata = WorkshopFile::fromDictionary($_POST);
-            $fileMetadata->saveToDatabase($databaseConnection);
-
-            echo "<p>$fileName has been uploaded successfully (alt 2)!</p>";
-        
+            $response = $fileMetadata->saveToDatabase($databaseConnection);
+            if(!$response)
+            {
+                echo "<p>$fileName has been uploaded successfully, but metadata is not saved!</p>";                
+            }
+            else
+            {
+                echo "<p>$fileName has been uploaded successfully (alt 2)!</p>";
+            }
     }
 
 require_once ("Includes/closeDB.php");

@@ -114,6 +114,9 @@
     function uploadFile(file) {
         var formData = new FormData($('#upload-file')[0]);
         formData.append('file', file)
+        formData.append('size', file.size)
+        formData.append('userid', 0)
+        formData.append('filename', file.name)
         $.ajax({
             url: 'admin_upload.php',  //server script to process data
             type: 'POST',
