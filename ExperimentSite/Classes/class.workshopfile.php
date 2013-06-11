@@ -34,6 +34,18 @@
             return NULL;    
         }
     
+        public function getJsonArray()
+        {
+            $array = array('workshopfileid' => $this->workshopfileid, 
+            'workshopid' => $this->workshopid,
+            'languageid' => $this->languageid,
+            'filename' => $this->filename,
+            'size' => $this->size,
+            'userid' => $this->userid, 
+            'createddate' => $this->createddate);
+            return $array; 
+         } 
+
         public function saveToDatabase($databaseConnection)
         {
             if($this->workshopfileid)
@@ -56,12 +68,15 @@
         {
             $query = "INSERT INTO workshopfiles (workshopid, languageid, filename, size, userid, createddate) "
                     . " VALUES ($this->workshopid, $this->languageid, '$this->filename', $this->size, $this->userid, NOW())";
-            echo "$query";
+
                     if(!mysqli_query($databaseConnection, $query))
                     {
                         echo mysql_error();
                         return FALSE;
                     }
+
+                    $this->workshopfileid = $databaseConnection->insert_id;
+
                     return TRUE;
         }
     

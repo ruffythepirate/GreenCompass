@@ -132,7 +132,8 @@
                 $('#upload-feedback').html('<h3>Upload starting...</h3>')
             },
             success: function (data, textStatus, jqXHR) {
-                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data);
+                //var obj = jQuery.parseJSON(data);
+                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data);// + obj.message);
             },
             error: function () {
                 $('#upload-feedback').html('<h3>file upload failed!</h3>')
