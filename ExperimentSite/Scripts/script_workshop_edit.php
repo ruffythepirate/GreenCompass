@@ -1,5 +1,6 @@
 <script type="text/javascript">
 
+
     function handleFileDrop(event) {
         $(event.target).removeClass("hover");
 
@@ -108,6 +109,32 @@
 
         updateWorkshopPreview();
 
+        $('.delete-workshopfile').click(function (item) {
+            var workshopfileid = $(this).attr('data-workshopfileid');
+            var formData = new FormData($('#upload-file')[0]);
+            formData.append('workshopfileid', workshopfileid)
+            $.ajax({
+                url: 'ajax_delete_workshopfile.php?workshopfileid=' + workshopfileid,
+                type: 'DELETE',
+                xhr: function () {
+                    var myXhr = $.ajaxSettings.xhr();
+                    return myXhr;
+                },
+                beforeSend: function () {
+
+                },
+                success: function (data, textStatus, jqXHR) {
+
+                },
+                error: function () {
+
+                },
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
 
     });
 
@@ -133,7 +160,7 @@
             },
             success: function (data, textStatus, jqXHR) {
                 //var obj = jQuery.parseJSON(data);
-                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data);// + obj.message);
+                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data); // + obj.message);
             },
             error: function () {
                 $('#upload-feedback').html('<h3>file upload failed!</h3>')
