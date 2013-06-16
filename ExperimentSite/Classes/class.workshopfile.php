@@ -34,6 +34,16 @@
             return NULL;    
         }
     
+        public static function deleteByNameAndWorkshopId($databaseConnection, $filename, $workshopid)
+        {
+            $query = "DELETE FROM workshopfiles WHERE workshopid=$workshopid AND filename='$filename'";
+            if(!mysqli_query($databaseConnection, $query))
+            {
+                 return FALSE;
+            }
+            return TRUE;    
+        }
+    
         public function getJsonArray()
         {
             $array = array('workshopfileid' => $this->workshopfileid, 
@@ -45,7 +55,7 @@
             'createddate' => $this->createddate);
             return $array; 
          } 
-
+    
         public function saveToDatabase($databaseConnection)
         {
             if($this->workshopfileid)
@@ -68,15 +78,15 @@
         {
             $query = "INSERT INTO workshopfiles (workshopid, languageid, filename, size, userid, createddate) "
                     . " VALUES ($this->workshopid, $this->languageid, '$this->filename', $this->size, $this->userid, NOW())";
-
+    
                     if(!mysqli_query($databaseConnection, $query))
                     {
                         echo mysql_error();
                         return FALSE;
                     }
-
+    
                     $this->workshopfileid = $databaseConnection->insert_id;
-
+    
                     return TRUE;
         }
     

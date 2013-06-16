@@ -93,7 +93,7 @@
                     echo "<td>$workshopFile->createddate</td>";
                     echo "<td><a href=\"\">Here</a></td>";
                     echo "<td>Hide</td>";
-                    echo "<td><a class=\"delete-workshopfile\" data-look=\"hey\" data-workshopfileid=\"$workshopFile->workshopfileid\" href=\"#\">X</a></td>";
+                    echo "<td><a class=\"delete-workshopfile\" data-workshopfileid=\"$workshopFile->workshopfileid\" href=\"#\">X</a></td>";
                 }
             echo "</table>";
                 }
