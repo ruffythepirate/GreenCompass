@@ -36,6 +36,10 @@
     } else{
             $file = $_FILES['file'];
             $fileName = $file['name'];
+            $fileName = str_replace(" ","_",$fileName);
+            
+            $tmpFileName = $file['tmp_name'];
+            echo "Temp path is: $tmpFileName.";
             $fileIsMoved = move_uploaded_file(
                 $file['tmp_name'],
                 $uploadFolder . $fileName);
