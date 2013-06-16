@@ -111,8 +111,6 @@
 
         $('.delete-workshopfile').click(function (item) {
             var workshopfileid = $(this).attr('data-workshopfileid');
-            var formData = new FormData($('#upload-file')[0]);
-            formData.append('workshopfileid', workshopfileid)
             $.ajax({
                 url: 'ajax_delete_workshopfile.php?workshopfileid=' + workshopfileid,
                 type: 'DELETE',

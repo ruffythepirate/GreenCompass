@@ -12,10 +12,12 @@ $workshopfileid = $_REQUEST['workshopfileid'];
     if($workshopFile != null)
     {
         //2. If object exists, remove file from hard drive.
-        if(file_exists("FileUploads/$workshopFile->workshopid/$workshopFile->filename"))
+        $filePath = "FileUploads/$workshopFile->workshopid/$workshopFile->filename";
+        echo "Checking if filepath '$filePath' exists...";
+        if(file_exists($filePath))
         {
             echo "Moving file...";
-            rename("FileUploads/$workshopFile->workshopid/$workshopFile->filename",
+            rename($filePath,
             "FileUploads/old/$workshopFile->workshopid/$workshopFile->filename");
         }
         //3. After removing file, remove all entries in database with matching name / workshopid.
