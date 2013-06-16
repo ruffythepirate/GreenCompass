@@ -1,30 +1,52 @@
 <?php
-require_once ("Includes/session.php");
-require_once('Classes/class.workshopfile.php');    
-
-$workshopfileid = $_REQUEST['workshopfileid'];
-
-    echo "DELETE workshopfileid = '$workshopfileid'";
-
-    //1. Load the object from the database.
-    $workshopFile = WorkshopFile::fromDatabase($databaseConnection, $workshopfileid);
-
-    if($workshopFile != null)
-    {
-        //2. If object exists, remove file from hard drive.
-        $filePath = "FileUploads/$workshopFile->workshopid/$workshopFile->filename";
-        echo "Checking if filepath '$filePath' exists...";
-        if(file_exists($filePath))
+    require_once ("Includes/session.php");
+    require_once('Classes/class.workshopfile.php');    
+    
+    $workshopfileid = $_REQUEST['workshopfileid'];
+    
+        echo "DELETE workshopfileid = '$workshopfileid'";
+    
+        //1. Load the object from the database.
+        $workshopFile = WorkshopFile::fromDatabase($databaseConnection, $workshopfileid);
+    
+        if($workshopFile != null)
         {
-            echo "Moving file...";
-            rename($filePath,
-            "FileUploads/old/$workshopFile->workshopid/$workshopFile->filename");
-        }
-        //3. After removing file, remove all entries in database with matching name / workshopid.
-        $deleteSuccess = WorkshopFile::deleteByNameAndWorkshopId($databaseConnection, $workshopFile->filename, $workshopFile->workshopid);
-        echo "Deleting from DB... $deleteSuccess.";
-    }
+            //2. If object exists, remove file from hard drive.
+            $filePath = "FileUploads/$workshopFile->workshopid/";
+            $backupFilePath = "FileUploads/old/$workshopFile->workshopid/";
+    
+            if(file_exists($filePath  . $workshopFile->filename))
+            {
+            if(!file_exists($backupFilePath))
+            {
+                if(!file_exists("FileUploads/old/"))
+                {
+                echo "Creating backup folder /FileUploads/old...";
+                $createFolderResult = mkdir("FileUploads/old/");                    
+                }
 
-    require_once ("Includes/closeDB.php");
+                echo "Creating backup folder $backupFilePath...";
+                $createFolderResult = mkdir($backupFilePath);
+                if(!$createFolderResult)
+                {
+                    echo "Failed to create backup folder...";
+                    exit();
+                }
+            }
+                echo "Moving file...";
+                $successRename = rename($filePath  . $workshopFile->filename,
+                 $backupFilePath . $workshopFile->filename);
+                 if(!$successRename)
+                 {
+                    echo "Failed to remove file from folder!";
+                    exit();                
+                 }
+            }
+        }
+            //3. After removing file, remove all entries in database with matching name / workshopid.
+            $deleteSuccess = WorkshopFile::deleteByNameAndWorkshopId($databaseConnection, $workshopFile->filename, $workshopFile->workshopid);
+            echo "Deleting from DB... $deleteSuccess.";
+    
+        require_once ("Includes/closeDB.php");
 ?>
 

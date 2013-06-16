@@ -127,7 +127,7 @@
                 error: function () {
 
                 },
-                data: formData,
+                //data: formData,
                 cache: false,
                 contentType: false,
                 processData: false
