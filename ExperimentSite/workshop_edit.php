@@ -28,6 +28,10 @@
     
 ?>
 
+<script>
+    window.workshopid = <?php echo "$id";?>
+</script>
+
 <div id="main">
 
     <div class="section">
@@ -75,7 +79,7 @@
     </div>
 
     <div class="section">
-
+        <div id="available-workshop-files">
         <?php
             
                 $workshopFiles = getWorkshopFiles($databaseConnection, $id);
@@ -98,6 +102,7 @@
             echo "</table>";
                 }
         ?>
+        </div>
 
         <form id="upload-file" action="admin_upload.php" method="POST" enctype="multipart/form-data">
 

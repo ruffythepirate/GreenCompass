@@ -14,6 +14,18 @@
         }
     }
 
+    function updateWorkshopFiles(workshopid) {
+        $.ajax({
+                type: "GET",
+                url: "ajax_get_workshopfiles.php",
+                data: { workshopid: workshopid }
+            })
+                .done(
+                function (result) {
+                    $("#available-workshop-files").html(result);
+                });
+    }
+
     $(document).ready(function () {
 
         $('#button-create-new').click(function () {
@@ -122,7 +134,7 @@
 
                 },
                 success: function (data, textStatus, jqXHR) {
-
+                    updateWorkshopFiles(window.workshopid)
                 },
                 error: function () {
 
@@ -159,6 +171,8 @@
             success: function (data, textStatus, jqXHR) {
                 //var obj = jQuery.parseJSON(data);
                 $('#upload-feedback').html('<h3>file uploaded!</h3>' + data); // + obj.message);
+                updateWorkshopFiles(window.workshopid)
+
             },
             error: function () {
                 $('#upload-feedback').html('<h3>file upload failed!</h3>')
