@@ -1,32 +1,28 @@
     <?php 
-        require_once ("Includes/simplecms-config.php"); 
-        require_once  ("Includes/connectDB.php");
-        include("Includes/header.php");         
+        require_once  ("Includes/session.php");
      ?>
 
+    <?php 
+    if(!logged_on) 
+    {
+        header("Location: logon.php");
+        exit();
+    }
+    else if(is_admin())
+    {
+        header("Location: admin_dashboard.php");        
+        exit();
+    }
+    else if(is_teacher())
+    {
+        header("Location: teacher_dashboard.php");
+        exit();
+    }
 
-    <div id="main">
-    <h3>Get started with your website</h3>
+   require_once  ("Includes/header.php");
 
-    <ol class="round">
-        <li class="one">
-            <h5>Login as admin </h5>
-           The site admin username and password are stored in the config file in the Includes directory. 
-        </li>
-        <li class="two">
-            <h5>Customize your site</h5>
-             After you login, you can add, delete, and modify web pages.
-         </li>
-        <li class="asterisk">
-            <div class="visit">
-                To learn more about PHP, visit <a href="http://php.net" title="PHP.net Website">http://php.net</a>. 
-            </div>
-         </li>
-    </ol>
-
-
-    </div>
-
+    ?>
+    You're user has no authorization... sorry >.<
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <?php 

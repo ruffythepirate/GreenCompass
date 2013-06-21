@@ -24,7 +24,7 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title"><a href="/index.php">My Site</a></p>
+                    <p class="site-title"><a href="/index.php">Green Compass Network</a></p>
                 </div>
                 <div class="float-right">
                     <section id="login">
@@ -59,22 +59,16 @@
                 <section class="navigation" data-role="navbar">
                     <nav>
                         <ul id="menu">
-                            <li><a href="/index.php">Home</a></li>
-                            <?php
-                                $statement = $databaseConnection->prepare("SELECT id, menulabel FROM pages");
-                                $statement->execute();
+                            <?php if(is_admin()) {
+                            echo '<li><a href="/admin_dashboard.php">Admin Dashboard</a></li>';
+                            echo '<li><a href="/admin_users.php">Users</a></li>';
+                            echo '<li><a href="/admin_workshop_create.php">Workshops</a></li>';
+                            echo '<li><a href="/admin_schools.php">Workshops</a></li>';
+                            echo '<li><a href="/admin_batches.php">Workshops</a></li>';
+                            } elseif(is_teacher()) {
+                            echo '<li><a href="/teacher_dashboard.php">Teacher Dashboard</a></li>';
+                             }?>
 
-                                if($statement->error)
-                                {
-                                    die("Database query failed: " . $statement->error);
-                                }
-
-                                $statement->bind_result($id, $menulabel);
-                                while($statement->fetch())
-                                {
-                                    echo "<li><a href=\"/page.php?pageid=$id\">$menulabel</a></li>\n";
-                                }
-                            ?>
                         </ul>
                     </nav>
             </section>
