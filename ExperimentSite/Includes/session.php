@@ -33,8 +33,8 @@
     
     function get_current_language()
     {
-                global $databaseConnection;
-    if(logged_on())
+        global $databaseConnection;
+        if(logged_on())
         {
             if(isset ($_SESSION['languageid']))
             {
@@ -43,14 +43,13 @@
             else
             {
                 $user = User::fromDatabase($databaseConnection, $_SESSION['userid']);
-                if(isset($user) && isset($user->id))
+                if(isset($user) && isset($user->languageid))
                 {
-                    return $user->id;
+                    return $user->languageid;
                 }
             }
             return NULL;
         }
-    
     }
     
     
