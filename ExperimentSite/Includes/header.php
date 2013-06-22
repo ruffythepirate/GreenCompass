@@ -1,4 +1,5 @@
 <?php require_once ("Includes/session.php"); ?>
+<?php require_once ("Classes/class.language.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,6 +50,49 @@
                         </ul>
                         <?php if (logged_on()) {
                             echo "<div class=\"welcomeMessage\">Welcome, <strong>{$_SESSION['username']}</strong></div>\n";
+                            $languages = Language::getLanguages($databaseConnection);
+
+                            $currentLanguageId = get_current_language();
+
+                            if(count( $languages) > 0)
+                            {
+                                echo '<select id="page_language">';
+                                foreach($languages as $language)
+                                {
+                                    if($language->languageid == $currentLanguageId)
+                                    {
+                                        echo "<option value='$language->languageid' selected>$language->name</option>";
+                                    }   
+                                    else
+                                    {
+                                        echo "<option value='$language->languageid'>$language->name</option>";                                        
+                                    }  
+                                }
+                                echo '</select>';
+                                echo 'languageid = ' . $currentLanguageId;
+                                ?>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                var current_language_id = $('#page_language').val();
+                                
+                                $('#page_language').change(function () {
+                                    var new_language_id = $('#page_language').val();
+                                    if (new_language_id != current_language_id) {
+                                        $.ajax({
+                                            url: 'ajax_set_language.php?languageid=' + new_language_id,
+                                            type: 'POST',
+                                            success: function (data, textStatus, jqXHR) {
+                                                location.reload(true);
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+                            <?php 
+                            } 
+
+
                         } ?>
                     </section>
                 </div>
