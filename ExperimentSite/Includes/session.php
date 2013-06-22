@@ -2,6 +2,7 @@
     session_start();
     require_once  ("Includes/connectDB.php");
     require_once  ("Classes/class.user.php");
+    require_once  ("Classes/class.role.php");
     
     function logged_on()
     {
@@ -9,16 +10,30 @@
     }  
         function is_admin()
     {
-        global $databaseConnection;
-        $query = "SELECT user_id FROM users_in_roles UIR INNER JOIN roles R on UIR.role_id = R.id WHERE R.name = 'admin' AND UIR.user_id = ? LIMIT 1";
-        $statement = $databaseConnection->prepare($query);
-        $statement->bind_param('d', $_SESSION['userid']);
-        $statement->execute();
-        $statement->store_result();
-        return $statement->num_rows == 1;
+            global $databaseConnection;
+        return has_role('admin');
+//        global $databaseConnection;
+//        $query = "SELECT user_id FROM users_in_roles UIR INNER JOIN roles R on UIR.role_id = R.id WHERE R.name = 'admin' AND UIR.user_id = ? LIMIT 1";
+//        $statement = $databaseConnection->prepare($query);
+//        $statement->bind_param('d', $_SESSION['userid']);
+//        $statement->execute();
+//        $statement->store_result();
+//        return $statement->num_rows == 1;
     }
     
-    
+    function has_role($roleName)
+    {
+            global $databaseConnection;
+    if(logged_on())
+        {
+            $userRoles = Role::getForUser($databaseConnection, $_SESSION['userid']);
+
+            return array_key_exists($roleName, $userRoles);
+        }
+        return FALSE;
+
+    }
+
     function confirm_is_admin() {
         if (!logged_on())
         {
@@ -55,6 +70,8 @@
     
     function is_teacher()
     {
-    return TRUE;
+            global $databaseConnection;
+
+        return has_role('teacher');
     }
 ?>

@@ -21,6 +21,5 @@
                     array_push($resultList, $newLanguage);
                 }
                 return $resultList;    
-    
         }
     }

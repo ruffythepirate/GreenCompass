@@ -34,12 +34,6 @@
                         if (logged_on())
                         {
                             echo '<li><a href="/logoff.php">Sign out</a></li>' . "\n";
-                            if (is_admin())
-                            {
-                                echo '<li><a href="/addpage.php">Add</a></li>' . "\n";
-                                echo '<li><a href="/selectpagetoedit.php">Edit</a></li>' . "\n";
-                                echo '<li><a href="/deletepage.php">Delete</a></li>' . "\n";
-                            }
                         }
                         else
                         {
@@ -69,7 +63,6 @@
                                     }  
                                 }
                                 echo '</select>';
-                                echo 'languageid = ' . $currentLanguageId;
                                 ?>
                         <script type="text/javascript">
                             $(document).ready(function () {
@@ -107,8 +100,8 @@
                             echo '<li><a href="/admin_dashboard.php">Admin Dashboard</a></li>';
                             echo '<li><a href="/admin_users.php">Users</a></li>';
                             echo '<li><a href="/admin_workshop_create.php">Workshops</a></li>';
-                            echo '<li><a href="/admin_schools.php">Workshops</a></li>';
-                            echo '<li><a href="/admin_batches.php">Workshops</a></li>';
+                            echo '<li><a href="/admin_schools.php">Schools</a></li>';
+                            echo '<li><a href="/admin_batches.php">Batches</a></li>';
                             } elseif(is_teacher()) {
                             echo '<li><a href="/teacher_dashboard.php">Teacher Dashboard</a></li>';
                              }?>

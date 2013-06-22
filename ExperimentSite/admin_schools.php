@@ -56,13 +56,6 @@ function msg($s) {
         foreach($rows as $row)
         {
             $countrySchools[$row->countryid][] = $row;
-            echo "$row->name <br>" ;
-        }
-
-        foreach($countrySchools as $key => $value)
-        {
-            $arraySize = count($value);
-            echo "CountryId = $key, count = $arraySize<br>";
         }
 
         usort( $countries, 'countrySort' );

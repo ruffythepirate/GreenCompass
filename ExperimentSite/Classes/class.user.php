@@ -1,6 +1,5 @@
 <?php
 class User {
-    
     public $id;
     public $username;
     public $schoolid;
@@ -41,5 +40,4 @@ class User {
         }
         return TRUE;
     }
-
 }
