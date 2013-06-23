@@ -59,7 +59,7 @@ function msg($s) {
         }
 
         usort( $countries, 'countrySort' );
-        //ksort($countries);
+
         foreach($countries as $key => $value)
         {
             if(isset ($countrySchools[$value->countryid]))
@@ -86,31 +86,6 @@ function msg($s) {
 
 
         $result->close();
-        /*$statement = $databaseConnection->prepare($query);
-        $statement->execute();
-        $statement->store_result();
-        if ($statement->error)
-        {
-            print msg('Received Errors<br>');
-            //die('Database query failed: ' . $statement->error);
-        }
-
-        if ($statement->num_rows > 0)
-        {
-            $number_of_rows = $statement->num_rows;
-            print  'checking list<br>';
-            print  "number of rows: $number_of_rows<br>";
-            while($statement->next_result())
-            {
-               // $statement->next_result();
-                print  'iterating list item...<br>';
-//                print  $row['name'];
-            }
-        }
-        else
-        {
-            print msg('No Schools Available');
-        }*/
     ?>
 
         <a href="school_create.php"><?php print msg('Add New')?></a>
