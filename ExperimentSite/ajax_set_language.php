@@ -5,7 +5,7 @@
     if(logged_on())
     {
         $languageid = $_REQUEST['languageid'];
-        $user = User::fromDatabase($databaseConnection, $_SESSION['userid']);
+        $user = User::fromId($databaseConnection, $_SESSION['userid']);
 
         if(isset($user))
         {

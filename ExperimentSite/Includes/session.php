@@ -49,7 +49,7 @@
             }
             else
             {
-                $user = User::fromDatabase($databaseConnection, $_SESSION['userid']);
+                $user = User::fromId($databaseConnection, $_SESSION['userid']);
                 if(isset($user) && isset($user->languageid))
                 {
                     return $user->languageid;

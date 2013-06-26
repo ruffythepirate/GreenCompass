@@ -6,26 +6,26 @@
     
     function generateUsersTable($users)
     {
-    echo "<table>\n";
-    echo "    <tr>\n";
-    echo "        <th>Name</th>\n";
-    echo "        <th>E-mail</th>\n";
-    echo "        <th>Created</th>\n";
-    echo "        <th>Edit</th>\n";
-    echo "        <th>Delete</th>\n";
-    echo "    </tr>\n";
-    if(count($users) > 0)
-    { 
-        foreach($users as $user)
-        {
-            echo "<tr><td>$user->username</td>\n";
-            echo "<td>$user->email</td>\n";
-            echo "<td>$user->created</td>\n";
-            echo "<td><a href=\"admin_user_edit.php\">Edit</a></td>\n";
-            echo "<td>X</td>\n";
+        echo "<table>\n";
+        echo "    <tr>\n";
+        echo "        <th>Name</th>\n";
+        echo "        <th>E-mail</th>\n";
+        echo "        <th>Created</th>\n";
+        echo "        <th>Edit</th>\n";
+        echo "        <th>Delete</th>\n";
+        echo "    </tr>\n";
+        if(count($users) > 0)
+        { 
+            foreach($users as $user)
+            {
+                echo "<tr><td>$user->username</td>\n";
+                echo "<td>$user->email</td>\n";
+                echo "<td>$user->created</td>\n";
+                echo "<td><a href=\"admin_user_edit.php\">Edit</a></td>\n";
+                echo "<td>X</td>\n";
+            }
         }
-    }
-    echo "</table>\n";
+        echo "</table>\n";
     }
 ?>
 
@@ -107,10 +107,8 @@
                             generateUsersTable($teachersForSchool);
                         }
                     }
-
                 }
             }
-        
         }
     ?>
     <a href="admin_user_new.php">Add New</a>

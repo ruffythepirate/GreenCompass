@@ -23,6 +23,8 @@
 
     ?>
     You're user has no authorization... sorry >.<
+
+    <?php phpinfo();?>
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <?php 
