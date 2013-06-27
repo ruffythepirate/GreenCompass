@@ -88,7 +88,7 @@ function msg($s) {
         $result->close();
     ?>
 
-        <a href="school_create.php"><?php print msg('Add New')?></a>
+        <a href="admin_school_new.php"><?php print msg('Add New')?></a>
     </div>
 
     </div>

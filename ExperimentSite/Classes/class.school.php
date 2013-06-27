@@ -27,6 +27,29 @@
             return $array;            
         }
 
+        public static function fromPost($post)
+        {
+            $schoolid =$post['schoolid'];
+            $name     =$post['name'];
+            $countryid=$post['countryid'];
+            return new School($schoolid, $name, $countryid, NULL);            
+        }
+
+        public function insertToDatabase($databaseConnection)
+        {
+            $query = "INSERT INTO schools (name, countryid, createddate) VALUES "
+            ." ('$this->name', $this->countryid, NOW()) ";
+
+            echo "Query: $query";
+            if(! mysqli_query($databaseConnection, $query))
+            {
+                echo mysql_error();
+                return FALSE;
+            }
+            $this->schoolid = $databaseConnection->insert_id;
+            return TRUE;
+        }
+
         public static function NameSort( $a, $b ) {
             return $a->name == $b->name ? 0 : ( $a->name > $b->name ) ? 1 : -1;
         }
