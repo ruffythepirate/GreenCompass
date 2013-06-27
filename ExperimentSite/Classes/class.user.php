@@ -96,7 +96,7 @@ class User {
         .  " FROM Users u"
         .  " INNER JOIN users_in_roles ur ON ur.user_id = u.id "
         .  " INNER JOIN roles r ON ur.role_id = r.id"
-        .  " WHERE r.value = '$roleValue' AND u.isactivated = 1";
+        .  " WHERE r.value = '$roleValue'";
 
         $array = array();
         $result = $databaseConnection->query($query);

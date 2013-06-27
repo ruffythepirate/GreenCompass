@@ -10,6 +10,7 @@
         echo "    <tr>\n";
         echo "        <th>Name</th>\n";
         echo "        <th>E-mail</th>\n";
+        echo "        <th>Active</th>\n";
         echo "        <th>Created</th>\n";
         echo "        <th>Edit</th>\n";
         echo "        <th>Delete</th>\n";
@@ -20,6 +21,7 @@
             {
                 echo "<tr><td>$user->username</td>\n";
                 echo "<td>$user->email</td>\n";
+                echo "<td>$user->isactivated</td>\n";
                 echo "<td>$user->created</td>\n";
                 echo "<td><a href=\"admin_user_edit.php\">Edit</a></td>\n";
                 echo "<td>X</td>\n";
