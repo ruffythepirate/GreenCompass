@@ -33,7 +33,7 @@ class User {
         $verificationcode = md5(time().'post-it'.rand(0,9999));
 
         $user = new User($id, $username, $schoolid, $languageid, $email, 
-            $created, $isactivated, $verificationcode);
+            $created, $verificationcode, $isactivated);
         return $user;
     }
 
@@ -56,7 +56,7 @@ class User {
     {
         $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
         .  " FROM Users "
-        . " WHERE verificationcode = $verificationcode AND isactivated = 0";
+        . " WHERE verificationcode = '$verificationcode' AND isactivated = 0";
 
         $result = $databaseConnection->query($query);
         if($row = $result->fetch_object())
@@ -73,6 +73,22 @@ class User {
         echo "Mail has been sent!\n";
 
     }
+
+    public function addRole($databaseConnection, $userRoleName)
+    {
+
+        $query = "INSERT INTO users_in_roles (user_id, role_id) "
+                . " SELECT $this->id, r.id "
+                . " FROM roles r WHERE r.value = '$userRoleName'";
+    
+        echo "<br>Query: $query <br>";
+        if(! mysqli_query($databaseConnection, $query))
+        {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
 
     public static function getUsersInRole($databaseConnection, $roleValue)
     {
@@ -94,8 +110,8 @@ class User {
 
     public function activateUser($databaseConnection, $verificationcode, $password)
     {
-        $query = "UPDATE Users SET password = SHA('$password'), activated = 1"
-                 ." WHERE verificationcode = '$verificationcode' AND activate = 0 ";
+        $query = "UPDATE Users SET password = SHA('$password'), isactivated = 1"
+                 ." WHERE verificationcode = '$verificationcode' AND isactivated = 0 ";
         if(! mysqli_query($databaseConnection, $query))
         {
             echo mysql_error();

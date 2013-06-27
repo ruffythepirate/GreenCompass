@@ -34,13 +34,20 @@
             $newUser = User::fromPostParameters($_POST);
             require_once("Includes/session.php");
             global $databaseConnection;
+            mysqli_autocommit( $databaseConnection, FALSE);
             if($newUser->insertToDatabase($databaseConnection))
             {
+                if($newUser->addRole($databaseConnection, $_POST['type']))
+                {
     
-    
-        //redirect to all users page.
-        header("Location: admin_users.php");        
-        exit();
+                    mysqli_commit($databaseConnection);
+                    //redirect to all users page.
+                    header("Location: admin_users.php");        
+                    exit();
+                }
+                else {
+                    echo "Failed to give role to user! role = '".$_POST['type'] ."'";
+                }
             } else
             {
                 echo "Failed to insert user to database!";
@@ -63,7 +70,6 @@
         <input type="hidden" name="type" value="teacher" />
         <fieldset>
             <label for="schoolid">School</label>
-
             <select name="schoolid">
                 <?php
                     $schools = School::getAll($databaseConnection);
