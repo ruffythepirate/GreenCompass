@@ -1,4 +1,7 @@
     <?php 
+    require_once("Includes/session.php");
+    require_role('admin');
+
         include("Includes/header.php");         
      ?>
 

@@ -1,4 +1,6 @@
 <?php
+    require_once("Includes/session.php");
+    require_role('admin');
 
 ?>
 

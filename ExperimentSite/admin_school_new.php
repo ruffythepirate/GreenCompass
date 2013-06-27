@@ -1,4 +1,7 @@
 <?php 
+    require_once("Includes/session.php");
+    require_role('admin');
+
     require_once("Classes/Validator.class.php");
     require_once("Classes/class.school.php");   
     require_once("Classes/class.country.php");
@@ -31,9 +34,6 @@
         {
             header("location: admin_schools.php");
             exit();
-        } else
-        {
-            echo "Failed to save school >.<";
         }
 
     }

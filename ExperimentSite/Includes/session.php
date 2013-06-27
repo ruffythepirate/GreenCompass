@@ -8,10 +8,21 @@
     {
         return isset($_SESSION['userid']);
     }  
-        function is_admin()
+    
+    function is_admin()
     {
             global $databaseConnection;
         return has_role('admin');
+    }
+
+    function require_role($roleName)
+    {
+        if(!has_role($roleName))
+        {
+            header("location: logon.php");
+            exit();
+        }
+
     }
     
     function has_role($roleName)
