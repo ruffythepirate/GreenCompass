@@ -35,20 +35,7 @@
         return $workshops;
     }
 
-     function getWorkshops($databaseConnection)
-    {
-        //We load the countries so that we can group on the later.        
-        $query = 'SELECT workshopid, workshopname, createddate FROM Workshops';
-        $result = $databaseConnection->query($query);
-        $workshops = array();
-        while($row = $result->fetch_object())
-        {
-            array_push($workshops, $row);
-        }
-        $result->close();
 
-        return $workshops;
-    }
 
     function getLanguages($databaseConnection)
     {

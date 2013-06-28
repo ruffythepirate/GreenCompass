@@ -15,7 +15,7 @@ $messages = array (
     )
 );
 
-function msg($s) {
+function work_msg($s) {
     global $LANG;
     global $messages;
     
@@ -38,33 +38,23 @@ function msg($s) {
         }
     }    
 
-    $workshops = getWorkshops($databaseConnection);
 ?>
 
     <div id="main">
 
     <div class="section">
 
-    <h3><?php print msg('Create Workshop')?></h3>
-        <form method="post" action="workshop_create.php">
+    <h3><?php print work_msg('Create Workshop')?></h3>
+        <form method="post" action="workshops.php">
             Name: <input type="text" name="workshopname"><br>
             <input type="submit" value="Save" >    
         </form>
             </div>
+
     <div class="section">
-    <h3><?php print msg('Already Created Workshops')?></h3>
-        <ul>
-        <?php
-            
-        foreach($workshops as $workshop)
-        {
-            echo "<li> <a href=\"admin_workshop_edit.php?id=$workshop->workshopid\">$workshop->workshopname</a></li>" ;
-        }
-        ?>
-        </ul>
+        <?php include ("/Partials/partial_admin_workshops.php"); ?>
     </div>
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <?php 
     include ("/Includes/footer.php");
- ?>

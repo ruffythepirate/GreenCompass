@@ -3,7 +3,10 @@
     require_role('admin');
 require_once("Includes/header.php");
 ?>
-Work in progress...
+    <div class="section">
+        <?php include ("/Partials/partial_admin_workshops.php"); ?>
+    </div>
+
 
 </div>
 <?php

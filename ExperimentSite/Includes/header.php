@@ -100,7 +100,7 @@
                             <?php if(is_admin()) {
                             echo '<li><a href="/admin_dashboard.php">Admin Dashboard</a></li>';
                             echo '<li><a href="/admin_users.php">Users</a></li>';
-                            echo '<li><a href="/admin_workshop_create.php">Workshops</a></li>';
+                            echo '<li><a href="/admin_workshops.php">Workshops</a></li>';
                             echo '<li><a href="/admin_schools.php">Schools</a></li>';
                             echo '<li><a href="/admin_batches.php">Batches</a></li>';
                             } elseif(is_teacher()) {
