@@ -163,7 +163,7 @@
     {
         echo "\n".'<div id="translation-section-'.$workshopTranslation->languageid .'"class="section translation-section">';
         echo "\n".'<h3>Translation</h3>';
-        echo "\n"."<form action=\"workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
+        echo "\n"."<form action=\"admin_workshop_edit.php?id=$workshopTranslation->workshopid\" method=\"POST\">";
         echo "\n".'<fieldset>';
         echo "\n"."<input type=\"hidden\" name=\"languageid\" value=\"$workshopTranslation->languageid\"/>";
         echo "\n"."<input type=\"hidden\" name=\"workshopid\" value=\"$workshopTranslation->workshopid\"/>";

@@ -58,7 +58,7 @@ function msg($s) {
             
         foreach($workshops as $workshop)
         {
-            echo "<li> <a href=\"workshop_edit.php?id=$workshop->workshopid\">$workshop->workshopname</a></li>" ;
+            echo "<li> <a href=\"admin_workshop_edit.php?id=$workshop->workshopid\">$workshop->workshopname</a></li>" ;
         }
         ?>
         </ul>

@@ -7,6 +7,16 @@
     
     $fileName = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
     $workshopId = $_POST['workshopid'];
+    $userId = $_SESSION['userid'];
+
+    if(!isset($userId) || !isset($workshopId))
+    {
+        exit();
+    }
+    //We put this data in so that the meta data can be read.
+    $_POST['userid'] = $userId;
+
+
     $uploadFolder = "FileUploads/$workshopId/";
     
     //Makes sure the upload folder exists.
