@@ -20,6 +20,9 @@
         <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="Scripts/modernizr.development.js"></script>
         <script type="text/javascript" src="Scripts/jquery.validate.js"></script>
+        <script type="text/javascript" src="Scripts/noty/jquery.noty.js"></script>
+        <script type="text/javascript" src="Scripts/noty/layouts/top.js"></script>
+        <script type="text/javascript" src="Scripts/noty/themes/default.js"></script>
     </head>
     <body>
         <div class="outer-wrapper">
@@ -68,7 +71,7 @@
                         <script type="text/javascript">
                             $(document).ready(function () {
                                 var current_language_id = $('#page_language').val();
-                                
+
                                 $('#page_language').change(function () {
                                     var new_language_id = $('#page_language').val();
                                     if (new_language_id != current_language_id) {

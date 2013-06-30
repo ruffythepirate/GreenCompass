@@ -7,7 +7,9 @@ require_once("Includes/header.php");
         <?php include ("/Partials/partial_admin_workshops.php"); ?>
     </div>
 
-
+    <div class="section">
+        <?php include ("/Partials/partial_admin_news.php"); ?>
+    </div>
 </div>
 <?php
 require_once("Includes/footer.php");

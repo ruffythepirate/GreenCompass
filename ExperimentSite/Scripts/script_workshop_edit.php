@@ -139,7 +139,6 @@
                 error: function () {
 
                 },
-                //data: formData,
                 cache: false,
                 contentType: false,
                 processData: false
