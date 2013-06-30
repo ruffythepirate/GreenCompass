@@ -7,6 +7,7 @@
         public $text;
         public $ispublished;
         public $created;
+        public $formatcreated;
     
         public static function getNews($databaseConnection)
         {
@@ -88,6 +89,10 @@
             $newsItem->text         = $otherObject->text;
             $newsItem->ispublished  = $otherObject->ispublished;
             $newsItem->created      = $otherObject->created;
+           
+            $date = new DateTime( $newsItem->created);
+            $newsItem->formatcreated = $date->format("Y-m-d");
+
             return $newsItem;
         }
     

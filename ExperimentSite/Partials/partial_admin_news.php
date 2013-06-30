@@ -16,7 +16,7 @@ require_once ("/Includes/session.php");
             {
                 if($newsItem->ispublished)
                 {
-                    echo "<li><b>$newsItem->username</b> - $newsItem->text</li>";
+                    echo "<li><b>$newsItem->username</b> - $newsItem->text [$newsItem->formatcreated]</li>";
                 }
             }
         ?>
@@ -28,7 +28,7 @@ require_once ("/Includes/session.php");
             for (var i = 0; i < newsArray.length; i++) {
                 var newsItem = newsArray[i];
                 var itemHtml = "<li><b>" + newsItem.username + "</b> - "
-                    + newsItem.text + "</li>";
+                    + newsItem.text + " ["+newsItem.formatcreated+"]</li>";
                 newHtml += itemHtml;
             }
 
