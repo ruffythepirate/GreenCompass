@@ -37,7 +37,38 @@ class WorkshopTranslation {
             return $row;
         }
         return NULL;    
+     }
+
+    public static function fromWorkshopAndLanguageId($databaseConnection, $workshopid, $languageid)
+    {
+        $query = "SELECT workshoptranslationid, workshopid, title, languageid, "
+        . " background, goals, expectedresults, timeline, createddate FROM workshoptranslations "
+        . "WHERE workshopid=$workshopid AND languageid = $languageid";
+        $result = $databaseConnection->query($query);
+
+        if($row = $result->fetch_object())
+        {
+            return fromDBRow($row);
         }
+        return NULL;    
+     }
+
+     public static function fromDBRow($other)
+     {
+                 $newItem = new WorkshopTranslation();
+
+        $newItem->languageid =            $other->languageid;
+        $newItem->workshopid =            $other->workshopid;
+        $newItem->workshoptranslationid = $other->workshoptranslationid;
+        $newItem->title =                 $other->title;
+        $newItem->background =            $other->background;
+        $newItem->goals =                 $other->goals;
+        $newItem->timeline =              $other->timeline;
+        $newItem->expectedresults =       $other->expectedresults;
+
+        return $newItem;
+
+     }
 
     public function saveToDatabase($databaseConnection)
     {

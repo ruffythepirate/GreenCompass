@@ -22,7 +22,11 @@
             header("location: logon.php");
             exit();
         }
+    }
 
+    function get_user_id()
+    {
+        return $_SESSION['userid'];
     }
     
     function has_role($roleName)
