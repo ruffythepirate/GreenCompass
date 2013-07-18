@@ -40,6 +40,26 @@
             }
         }
 
+        public static function deleteNews($databaseConnection, $newsid)
+        {
+            $query = "DELETE FROM news WHERE newsid = $newsid";
+
+            if(! mysqli_query($databaseConnection, $query))
+            {
+                throw new Exception("Failed to delete news ($newsid) from DB! " . mysql_error());                
+            }
+        }
+
+        public static function toggleNewsPublish($databaseConnection, $newsid)
+        {
+            $query = "Update news SET ispublished = ispublished ^ 1 WHERE newsid = $newsid";
+
+            if(! mysqli_query($databaseConnection, $query))
+            {
+                throw new Exception("Failed to toggle publish ($newsid) from DB! " . mysql_error());                
+            }
+        }
+
         private function insertToDatabase($databaseConnection)
         {
             $query = "INSERT INTO news (userid, text, ispublished, created) "

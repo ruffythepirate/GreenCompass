@@ -1,72 +1,50 @@
-<?php
-require_once ("/Classes/class.news.php");
-require_once ("/Includes/session.php");
-    global $databaseConnection;
-    $allNewsItems = News::getNews($databaseConnection);
-?>
+<div class="news">
     <h1>News</h1>
     <form id="news-form" method="post" action="ajax_news_get.php">
         <input type="hidden" value="1" id="form-ispublished" name="ispublished"> 
         <input type="text" name="text" id="form-text">
         <a id="submit_news" href="#" class="ajax_submit">Post</a>
     </form>
-    <ul class="news-list">
-        <?php
-            foreach($allNewsItems as $newsItem)
-            {
-                if($newsItem->ispublished)
-                {
-                    echo "<li><b>$newsItem->username</b> - $newsItem->text [$newsItem->formatcreated]</li>";
-                }
-            }
-        ?>
-    </ul>
-    <script>
 
-        function setShownNews(newsArray) {
-            var newHtml = "";
-            for (var i = 0; i < newsArray.length; i++) {
-                var newsItem = newsArray[i];
-                var itemHtml = "<li><b>" + newsItem.username + "</b> - "
-                    + newsItem.text + " ["+newsItem.formatcreated+"]</li>";
-                newHtml += itemHtml;
+    <div class="news-list-container">
+        <?php include('partial_admin_news_list.php');?>
+    </div>
+
+        <script>
+
+            function getNews() {
+                $.ajax({
+                    type: "GET",
+                    url: "ajax_news_get.php"
+                }).done(
+                     function (result) {
+                         $('.news-list-container').html(result);
+                     }); ;
             }
 
-            $('.news-list').html(newHtml);
-        }
+            function sendNews() {
+                var newsText = $('#form-text').val();
+                var newsIsPublished = $('#form-ispublished').val();
 
-        function getNews() {
-            $.ajax({
-                type: "GET",
-                url: "ajax_news_get.php"
-            }).done(
-                function (result) {
-                    var receivedNews = $.parseJSON(result);
-                    setShownNews(receivedNews);
-                }); ;
-        }
+                $.ajax({
+                    url: "ajax_news_new.php",
+                    type: "POST",
+                    success: function (data, textStatus, jqXHR) {
+                        getNews();
+                    },
+                    error: function () {
+                        getNews();
+                    },
+                    data: { text: newsText, ispublished: newsIsPublished }
+                });
 
-        function sendNews() {
-            var newsText = $('#form-text').val();
-            var newsIsPublished = $('#form-ispublished').val();
+            }
 
-            $.ajax({
-                url: "ajax_news_new.php",
-                type: "POST",
-                success: function (data, textStatus, jqXHR) {
-                    getNews();
-                },
-                error: function () {
-                    getNews();
-                },
-                data: { text: newsText, ispublished: newsIsPublished }
+            $(document).ready(function () {
+                $('#submit_news').click(function (button) {
+                    sendNews();
+                });
             });
-
-        }
-
-        $(document).ready(function () {
-            $('#submit_news').click(function (button) {
-                sendNews();
-            });
-        });
     </script>
+
+</div>
