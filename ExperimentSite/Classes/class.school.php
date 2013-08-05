@@ -27,6 +27,40 @@
             return $array;            
         }
 
+        public static function getAllNotInBatch($databaseConnection, $batchId)
+        {
+            $query = "SELECT schoolid, name, countryid, createddate FROM Schools";
+
+            if(isset($batchId))
+            {
+                $query = $query . " WHERE schoolid NOT IN (SELECT schoolid from batchschools WHERE batchid = $batchId)";
+            }
+
+            $result = $databaseConnection->query($query);
+
+            $array = array();
+            while($row = $result->fetch_object())
+            {
+                array_push($array, new School($row->schoolid, $row->name, $row->countryid, $row->createddate));
+            }
+            return $array;            
+        }
+
+        public static function getAllInBatch($databaseConnection, $batchId)
+        {
+            $query = "SELECT schoolid, name, countryid, createddate FROM Schools"
+                   . " WHERE schoolid IN (SELECT schoolid from batchschools WHERE batchid = $batchId)";
+
+            $result = $databaseConnection->query($query);
+
+            $array = array();
+            while($row = $result->fetch_object())
+            {
+                array_push($array, new School($row->schoolid, $row->name, $row->countryid, $row->createddate));
+            }
+            return $array;            
+        }
+
         public static function fromPost($post)
         {
             $schoolid =$post['schoolid'];
