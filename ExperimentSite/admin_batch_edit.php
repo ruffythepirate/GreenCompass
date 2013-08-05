@@ -7,6 +7,8 @@ require_role('admin');
 
     $batchId = $_REQUEST['batchId'];
 
+    $postPath = "admin_batch_edit.php" . (isset($batchId) ? "?batchId=$batchId" : "");
+
     if(isset($batchId))
     {
         $batch = Batch::fromId($databaseConnection, $batchId);
@@ -37,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 include "Includes/Header.php";
 ?>
 <div class="section"><h2>Batch General Info</h2>
-    <form method="POST" action="admin_batch_edit.php<?php if(isset($batchId)) {print "?batchId=$batchId";}?>">
+    <form method="POST" action="<?php print "$postPath";?>">
     <input type="hidden" name="part" value="general">
         <label for="name">Name</label> <br>
         <input type="text" name="name" <?php if(isset($batch)) {print "value=\"$batch->name\"";}?>><br>
