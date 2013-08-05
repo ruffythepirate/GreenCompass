@@ -15,7 +15,7 @@ if(count($activeBatches) > 0)
     foreach($activeBatches as $batch) 
     {
         echo "<tr>";
-        echo "<td>$batch->name</td><td>$batch->createddate</td>";
+        echo "<td><a href=\"admin_batch_edit.php?batchId=$batch->batchid\">$batch->name</a></td><td>$batch->createddate</td>";
         echo "</tr>";
     }
     ?>

@@ -33,7 +33,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         $batchToUpdate = Batch::fromPost($_POST);
         $batchToUpdate->batchid = $batchId;
-        $batchToUpdate->saveToDatabase($databaseConnection);        
+        $batchToUpdate->saveToDatabase($databaseConnection);  
+        
+        $batch = Batch::fromId($databaseConnection, $batchId);
     }
 }  
 
