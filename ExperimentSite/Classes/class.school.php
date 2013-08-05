@@ -27,6 +27,19 @@
             return $array;            
         }
 
+        public static function getById($databaseConnection, $schoolid)
+        {
+            $query = "SELECT schoolid, name, countryid, createddate FROM Schools WHERE schoolid = $schoolid";
+
+            $result = $databaseConnection->query($query);
+
+            if($row = $result->fetch_object())
+            {
+                return new School($row->schoolid, $row->name, $row->countryid, $row->createddate);
+            }
+            return NULL;
+        }
+
         public static function getAllNotInBatch($databaseConnection, $batchId)
         {
             $query = "SELECT schoolid, name, countryid, createddate FROM Schools";

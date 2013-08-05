@@ -1,6 +1,6 @@
 <?php
 class User {
-    public $id;
+    public $userid;
     public $username;
     public $schoolid;
     public $languageid;
@@ -11,7 +11,7 @@ class User {
 
     function __construct($id, $username, $schoolid, $languageid, $email, $created, $verificationcode, $isactivated )
     {
-        $this->id = $id;
+        $this->userid = $id;
         $this->username = $username;
         $this->schoolid = $schoolid;
         $this->languageid = $languageid;
@@ -21,9 +21,15 @@ class User {
         $this->isactivated = $isactivated;
     }
 
+    private static function fromDBRow($row)
+    {
+                    return new User($row->id, $row->username,
+                $row->schoolid, $row->languageid, $row->email, $row->created, $row->verificationcode, $row->isactivated);
+    }
+
     public static function fromPostParameters($postParameters )
     {
-        $id = NULL;
+        $userid = NULL;
         $username = $postParameters['username'];
         $schoolid = $postParameters['schoolid'];
         $languageid = $postParameters['schoolid'];
@@ -46,8 +52,7 @@ class User {
         $result = $databaseConnection->query($query);
         if($row = $result->fetch_object())
         {
-            return new User($row->id, $row->username,
-                $row->schoolid, $row->languageid, $row->email, $row->created, $row->verificationcode, $row->isactivated);
+            return User::fromDBRow($row);
         }
         return NULL;
     }
@@ -78,7 +83,7 @@ class User {
     {
 
         $query = "INSERT INTO users_in_roles (user_id, role_id) "
-                . " SELECT $this->id, r.id "
+                . " SELECT $this->userid, r.id "
                 . " FROM roles r WHERE r.value = '$userRoleName'";
     
         echo "<br>Query: $query <br>";
@@ -88,7 +93,6 @@ class User {
         }
         return TRUE;
     }
-
 
     public static function getUsersInRole($databaseConnection, $roleValue)
     {
@@ -118,7 +122,7 @@ class User {
             return FALSE;
         }
 
-        $this->id = $databaseConnection->insert_id;
+        $this->userid = $databaseConnection->insert_id;
 
         return TRUE;
 
@@ -141,7 +145,7 @@ class User {
             return FALSE;
         }
 
-        $this->id = $databaseConnection->insert_id;
+        $this->userid = $databaseConnection->insert_id;
 
         return TRUE;
     }
@@ -150,12 +154,53 @@ class User {
     {
         $query = "UPDATE Users "
                 . " SET LanguageId = $newLanguageId "
-                . " WHERE id = $this->id";
+                . " WHERE id = $this->userid";
         
         if(!mysqli_query($databaseConnection, $query))
         {
-            throw new Exception("Failed to update user $this->id with languageId = $newLanguageId");
+            throw new Exception("Failed to update user $this->userid with languageId = $newLanguageId");
         }
         return TRUE;
+    }
+
+    public static function getBatchSchoolTeachersInBatch($databaseConnection, $batchId)
+    {
+        $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
+        .  " FROM Users "
+        . " WHERE isactivated = 1"
+        . " AND id IN (SELECT userid from BatchTeachers WHERE batchid = $batchId)";
+
+        $result = $databaseConnection->query($query);
+
+        $array = array();
+        while($row = $result->fetch_object())
+        {
+            array_push($array, User::fromDBRow($row) );
+        }
+
+        return $array;
+    }
+
+    public static function getBatchSchoolTeachersNotInBatch($databaseConnection, $batchId)
+    {
+        $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
+        .  " FROM Users "
+        . " WHERE isactivated = 1"
+        . " AND schoolid IN (SELECT schoolid from BatchSchools WHERE batchid = $batchId)"
+        . " AND id NOT IN (SELECT userid from BatchTeachers WHERE batchid = $batchId)";
+
+        $result = $databaseConnection->query($query);
+
+        $array = array();
+        while($row = $result->fetch_object())
+        {
+            array_push($array, User::fromDBRow($row) );
+        }
+
+        return $array;        
+    }
+
+    public static function CompareBySchool( $a, $b ) {
+            return $a->schoolid - $b->schoolid;
     }
 }
