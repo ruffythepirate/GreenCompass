@@ -45,7 +45,7 @@
         {
             if(isset($this->batchid))
             {
-                $this->updateToDatabase($databaseConnection);
+                $this->updateInDatabase($databaseConnection);
             }   
             else
             {
@@ -55,8 +55,8 @@
     
         private function updateInDatabase($databaseConnection)
         {
-            $query = "UPDATE Batches SET name = '$this->name' ";
-            if(isset($this->startdate))
+            $query = "UPDATE batches SET name = '$this->name' ";
+            if(isset($this->startdate) && $this->startdate != '')
             {
                 $query = $query . " , startdate = '$this->startdate' ";
             } else 

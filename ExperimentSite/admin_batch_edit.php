@@ -31,8 +31,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         exit();
     } else if($_POST['part'] == 'general')
     {
-        $newBatch = Batch::fromPost($_POST);
-        $newBatch->saveToDatabase($databaseConnection);        
+        $batchToUpdate = Batch::fromPost($_POST);
+        $batchToUpdate->batchid = $batchId;
+        $batchToUpdate->saveToDatabase($databaseConnection);        
     }
 }  
 
@@ -44,7 +45,7 @@ include "Includes/Header.php";
         <label for="name">Name</label> <br>
         <input type="text" name="name" <?php if(isset($batch)) {print "value=\"$batch->name\"";}?>><br>
     <label for="start-date">Start Date</label><br>
-        <input type="text" name="startdate"><br>
+        <input type="date" name="startdate" <?php if(isset($batch) && isset($batch->startdate)) {print "value=$batch->startdate";}?>><br>
     <label for="state">State</label>    <br>
     <select name="state">
         <option value="1">Not activated</option>
