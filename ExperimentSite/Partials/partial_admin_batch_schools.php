@@ -12,8 +12,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['schoolid']))
 {
     if($_POST['action'] == 'add')
     {
-
         BatchSchool::AddBatchSchool($databaseConnection, $_REQUEST['batchId'], $_POST['schoolid']);        
+    } else if($_POST['action'] == 'delete')
+    {
+        BatchSchool::DeleteBatchSchool($databaseConnection, $_REQUEST['batchId'], $_POST['schoolid']);        
     }
 }
 
@@ -35,7 +37,9 @@ echo "<tr><th>Name</th><th>Users</th><th>Country</th><th>Remove</th></tr>";
 
     foreach($batchSchools as $school)
     {
-        print "<tr><td>$school->name</td><td></td><td></td><td></td></tr>";
+        print "<tr><td>$school->name</td><td></td><td></td>"
+        . "<td><form method='POST' action=$postPath> <input type=\"hidden\" value=\"$school->schoolid\" name=\"schoolid\"> <input type=\"hidden\" name=\"action\" value=\"delete\"> <input type=\"submit\" value=\"Delete\"></form></td>" 
+        . "</tr>";
     }
 echo "</table>";
  ?>

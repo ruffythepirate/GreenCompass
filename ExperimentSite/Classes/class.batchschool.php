@@ -15,4 +15,14 @@ class BatchSchool
             throw new Exception("Exception occurred when trying to add batch school (batchid = $batchId, schoolId = $schoolId");
         }
     }
+
+    public static function DeleteBatchSchool($databaseConnection, $batchId, $schoolId)
+    {
+        $query="DELETE FROM BatchSchools WHERE batchid = $batchId AND schoolid = $schoolId";
+
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to delete batch school (batchid = $batchId, schoolid = $schoolId)");
+        }
+    }
 }
