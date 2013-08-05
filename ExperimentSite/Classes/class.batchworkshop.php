@@ -9,6 +9,26 @@
         public $createddate;
     
     
+    public static function AddBatchWorkshop($databaseConnection, $batchId, $workshopId)
+    {
+        $query="INSERT INTO BatchWorkshops (batchid, workshopid, createddate ) VALUES ($batchId, $workshopId, NOW())";
+
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to add batch workshop (batchid = $batchId, workshopId = $workshopId");
+        }
+    }
+
+    public static function DeleteBatchWorkshop($databaseConnection, $batchId, $workshopId)
+    {
+        $query="DELETE FROM BatchWorkshops WHERE batchid = $batchId AND workshopId = $workshopId";
+
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to delete batch workshop (batchid = $batchId, workshopId = $workshopId)");
+        }
+    }
+
         public static function forUser($databaseConnection, $userId)
         {
             $query = "SELECT bw.* FROM batchworkshops bw "
