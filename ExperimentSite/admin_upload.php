@@ -17,7 +17,7 @@
     $_POST['userid'] = $userId;
 
 
-    $uploadFolder = "FileUploads/$workshopId/";
+    $uploadFolder = "FileUploads/workshop/$workshopId/";
     
     //Makes sure the upload folder exists.
     if(!file_exists($uploadFolder))

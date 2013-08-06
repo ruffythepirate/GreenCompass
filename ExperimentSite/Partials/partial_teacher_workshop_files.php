@@ -29,7 +29,7 @@
         print "<td>". getFileSizeString($workshopFile->Size) . "</td>";
         print "<td>$uploader->username</td>";
         print "<td>$workshopFile->createddate</td>";
-        print "<td><a href=\"workshop/$workshopFile->workshopid/$workshopFile->filename\">Here</a>";
+        print "<td><a href=\"download_workshopfile.php?type=workshop&parentid=$workshopFile->workshopid&filename=$workshopFile->filename\">Here</a>";
         print "</tr>";
     }
 ?>
