@@ -24,17 +24,17 @@ if(count($batchworkshops) > 0)
     <?php
         foreach($batchworkshops as $workshop)
         {
-            $translation = WorkshopTranslations::fromWorkshopAndLanguageId($databaseConnection, 
+            $translation = WorkshopTranslation::fromWorkshopAndLanguageId($databaseConnection, 
                                                                         $workshop->workshopid,
-                                                                        get_current_language()) ;
+                                                                        get_current_language());
             if($translation != NULL)
             {
 
             echo "<tr>";
-            echo "<td>$translation->title</td>";
+            echo "<td><a href=\"teacher_workshop.php?batchworkshopid=$workshop->batchworkshopid\">$translation->title</a></td>";
             echo "<td>0</td>";
             echo "<td>N/A</td>";
-            echo "<td>$workshop->publisheddate</td>";
+            echo "<td>$workshop->publishdate</td>";
             echo "</tr>";
             }
             else

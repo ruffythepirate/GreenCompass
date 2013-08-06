@@ -1,5 +1,6 @@
-,
 <?php
+    require_once "Util/FileHelp.php";    
+
     function validate($params)
     {
         $validationArray = array();
@@ -51,24 +52,6 @@
         return $languages;    
     }
 
-    function getFileSizeString($fileSize)
-    {
-        $sizeString = "" . $fileSize;
-        if($fileSize > 1e9)
-        {
-            $sizeString = number_format($fileSize/ 1e9, 1, '.','') . " GB";
-        }
-        elseif ($fileSize > 1e6)
-        {
-            $sizeString = number_format($fileSize/ 1e6, 1, '.','') . " MB";
-        }
-        elseif ($fileSize > 1e3)
-        {
-            $sizeString = number_format($fileSize/ 1e3, 1, '.','') . " kB";
-        }
-        return $sizeString;
-    }
-
     function getWorkshopsUntranslatedLanguages($databaseConnection, $workshopid)
     {
         //mysql_real_escape_string($workshopid);
@@ -115,19 +98,11 @@
         return $returnResult;
     }
 
+    require_once "Classes/WorkshopFile.php";
+
     function getWorkshopFiles($databaseConnection, $workshopid)
     {
-        $query = "SELECT workshopfileid, workshopid, languageid, filename, size, userid, createddate FROM workshopfiles WHERE workshopid=$workshopid";
-
-        $result = $databaseConnection->query($query);
-        
-        $workshopFiles = array();
-        while($row = $result->fetch_object())
-        {
-            array_push($workshopFiles, $row);
-        }
-        $result->close();
-        return $workshopFiles;
+        return WorkshopFile::getWorkshopFiles($databaseConnection, $workshopid);
     }
 
     function getWorkshopTranslations($databaseConnection, $workshopid)

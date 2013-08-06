@@ -1,4 +1,7 @@
 <?php
+require_once("Includes/session.php");
+require_role('teacher');
+
 require_once("Includes/header.php");
 ?>
 <div class="section">

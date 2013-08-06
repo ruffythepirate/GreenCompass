@@ -57,11 +57,25 @@
             return $array;
         }
 
+        public static function fromId($databaseConnection, $batchWorkshopId)
+        {
+            $query = "SELECT bw.* FROM batchworkshops bw "
+                   . "WHERE bw.batchworkshopid = $batchWorkshopId";
+
+            $result = $databaseConnection->query($query);
+
+            if($row = $result->fetch_object())
+            {
+                return BatchWorkshop::fromDBRow($row);
+            }
+            return NULL;
+        }
+
         public static function publishedForUser($databaseConnection, $userId)
         {
             $query = "SELECT bw.* FROM batchworkshops bw "
                    . "INNER JOIN batchteachers bt ON bw.batchid = bt.batchid "
-                   . "WHERE bt.userid = $userId AND bw.publishdate >= NOW()";
+                   . "WHERE bt.userid = $userId AND bw.publishdate <= NOW()";
     
             $result = $databaseConnection->query($query);
     

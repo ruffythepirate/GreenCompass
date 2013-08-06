@@ -48,7 +48,7 @@ class WorkshopTranslation {
 
         if($row = $result->fetch_object())
         {
-            return fromDBRow($row);
+            return WorkshopTranslation::fromDBRow($row);
         }
         return NULL;    
      }

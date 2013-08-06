@@ -34,6 +34,21 @@
             return NULL;    
         }
     
+        public static function getWorkshopFiles($databaseConnection, $workshopid)
+        {
+            $query = "SELECT workshopfileid, workshopid, languageid, filename, size, userid, createddate FROM workshopfiles WHERE workshopid=$workshopid";
+
+            $result = $databaseConnection->query($query);
+            
+            $workshopFiles = array();
+            while($row = $result->fetch_object())
+            {
+                array_push($workshopFiles, $row);
+            }
+            $result->close();
+            return $workshopFiles;
+        }
+
         public static function deleteByNameAndWorkshopId($databaseConnection, $filename, $workshopid)
         {
             $query = "DELETE FROM workshopfiles WHERE workshopid=$workshopid AND filename='$filename'";
