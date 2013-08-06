@@ -52,9 +52,7 @@ class BatchWorkshopFile {
                . "AND bwf.userid = $userId";
 
          $returnArray = array();
-         
-         echo "$query";
-
+        
          $result = $databaseConnection->query($query);
 
          while($row = $result->fetch_object())
@@ -108,7 +106,6 @@ class BatchWorkshopFile {
         $query = "INSERT INTO batchworkshopfiles (batchworkshopid, filename, size, userid, createddate) "
                 . " VALUES ($this->batchworkshopid, '$this->filename', $this->size, $this->userid, NOW())";
     
-        echo "$query";
         if(!mysqli_query($databaseConnection, $query))
         {
             throw new Exception("Exception occurred when trying to save a batch workshop file ($this->filename) " . mysql_error() );

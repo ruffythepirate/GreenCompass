@@ -105,7 +105,7 @@
             success: function (data, textStatus, jqXHR) {
                 //var obj = jQuery.parseJSON(data);
                 $('#upload-feedback').html('<h3>file uploaded!</h3>' + data); // + obj.message);
-                updateWorkshopFiles(window.workshopid)
+                updateWorkshopFiles(<?php echo"$batchWorkshopId";?>)
 
             },
             error: function () {

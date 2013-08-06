@@ -85,5 +85,3 @@
         }
     
     require_once ("Includes/closeDB.php");
-?>
-

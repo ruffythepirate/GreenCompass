@@ -4,6 +4,7 @@
         <?php
             
             require_once "Classes/class.batchworkshopfile.php";
+            require_once "Util/FileHelp.php";
 
             global $databaseConnection;
             global $batchWorkshopId;
