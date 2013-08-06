@@ -8,6 +8,17 @@
         public $publishdate;
         public $createddate;
     
+    public static function UpdatePublishDate($databaseConnection, $batchWorkshopId, $newPublishDate)
+    {
+        $query = "UPDATE BatchWorkshops SET publishdate = "
+                 . (isset($newPublishDate) && $newPublishDate != '' ? " '$newPublishDate'" : " NULL ")
+                 . " WHERE batchworkshopid = $batchWorkshopId";
+                 
+         if(!mysqli_query($databaseConnection, $query))
+         {
+             throw new Exception("Exception occurred when trying to update the publish date to ($newPublishDate) for batchWorkshopId = $batchWorkshopId");
+         } 
+    }
     
     public static function AddBatchWorkshop($databaseConnection, $batchId, $workshopId)
     {

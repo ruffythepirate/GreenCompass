@@ -96,6 +96,18 @@ td {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
+td.value-changing {
+    background-color: #d7d936
+}
+
+td.value-updated {
+    background-color: #00ff21
+}
+
+td.value-changefailed {
+    background-color: #f00
+}
+
 .popup { 
     display:none; /* Hide the DIV */
     position:fixed;  
