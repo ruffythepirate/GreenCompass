@@ -24,6 +24,19 @@
         }
     }
 
+    function require_one_of_roles($roles)
+    {
+        foreach($roles as $role)
+        {
+            if(has_role($role))
+            {
+                return;
+            }
+        }
+        header("location: logon.php");
+        exit();
+    }
+
     function get_user_id()
     {
         return $_SESSION['userid'];

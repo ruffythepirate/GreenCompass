@@ -13,3 +13,5 @@
     {
         news::toggleNewsPublish($databaseConnection, $newsId);        
     }
+
+    require_once ("Includes/closeDB.php");

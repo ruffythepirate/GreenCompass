@@ -35,46 +35,27 @@
 ?>
 </table>
 
-<h2>Uploaded by Admin</h2>
+<h2>Uploaded by Others</h2>
 <table>
 <tr><th>Name</th><th>Size</th><th>Uploaded By</th><th>Created</th><th>Download</th></tr>
 <?php
-    $adminBatchWorkshopFiles = BatchWorkshopFile::GetByBatchWorkshopIdAndRole($databaseConnection, $batchWorkshopId, 'admin');
-    foreach($adminBatchWorkshopFiles as $batchFile)
+    $othersBatchWorkshopFiles = BatchWorkshopFile::GetByBatchWorkshopId($databaseConnection, $batchWorkshopId);
+    foreach($othersBatchWorkshopFiles as $batchFile)
     {
-        if(!isset($uploader) || $uploader->userid != $batchFile->userid)
+        if($batchFile->userid != get_user_id())
         {
-            $uploader = User::fromId($databaseConnection, $batchFile->userid);
+            if(!isset($uploader) || $uploader->userid != $batchFile->userid)
+            {
+                $uploader = User::fromId($databaseConnection, $batchFile->userid);
+            }
+            print "<tr>";
+            print "<td>$batchFile->filename</td>";
+            print "<td>". getFileSizeString($batchFile->Size) . "</td>";
+            print "<td>$uploader->username</td>";
+            print "<td>$batchFile->createddate</td>";
+            print "<td><a href=\"batch/$batchFile->batchworkshopid/$batchFile->filename\">Here</a>";
+            print "</tr>";
         }
-        print "<tr>";
-        print "<td>$batchFile->filename</td>";
-        print "<td>". getFileSizeString($batchFile->Size) . "</td>";
-        print "<td>$uploader->username</td>";
-        print "<td>$batchFile->createddate</td>";
-        print "<td><a href=\"batch/$batchFile->batchworkshopid/$batchFile->filename\">Here</a>";
-        print "</tr>";
-    }
-?>
-</table>
-
-<h2>Uploaded by Teachers</h2>
-<table>
-<tr><th>Name</th><th>Size</th><th>Uploaded By</th><th>Created</th><th>Download</th></tr>
-<?php
-    $teacherBatchWorkshopFiles = BatchWorkshopFile::GetByBatchWorkshopIdAndRole($databaseConnection, $batchWorkshopId, 'teacher');
-    foreach($teacherBatchWorkshopFiles as $batchFile)
-    {
-        if(!isset($uploader) || $uploader->userid != $batchFile->userid)
-        {
-            $uploader = User::fromId($databaseConnection, $batchFile->userid);
-        }
-        print "<tr>";
-        print "<td>$batchFile->filename</td>";
-        print "<td>". getFileSizeString($batchFile->Size) . "</td>";
-        print "<td>$uploader->username</td>";
-        print "<td>$batchFile->createddate</td>";
-        print "<td><a href=\"batch/$batchFile->batchworkshopid/$batchFile->filename\">Here</a>";
-        print "</tr>";
     }
 ?>
 </table>

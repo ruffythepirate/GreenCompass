@@ -8,6 +8,19 @@ class BatchWorkshopFile {
     public $userid;
     public $createddate;
 
+    public static function fromDictionary($dictionary)
+     {
+         $return = new BatchWorkshopFile();
+    
+         $return->batchworkshopfileid = $dictionary['batchworkshopfileid'];
+         $return->batchworkshopid = $dictionary['batchworkshopid'];
+         $return->languageid = $dictionary['languageid'];
+         $return->filename = $dictionary['filename'];
+         $return->size = $dictionary['size'];
+         $return->userid = $dictionary['userid'];
+         $return->createddate = $dictionary['createddate'];
+         return $return;
+    }
 
     public static function GetByBatchWorkshopIdAndRole($databaseConnection, $batchWorkshopId, $roleValue)
     {
@@ -31,6 +44,90 @@ class BatchWorkshopFile {
 
          return $returnArray;
     }
+
+    public static function GetByBatchWorkshopIdAndUserId($databaseConnection, $batchWorkshopId, $userId)
+    {
+        $query = "SELECT bwf.* FROM BatchWorkshopFiles bwf "
+               . "WHERE bwf.batchworkshopid = $batchWorkshopId "
+               . "AND bwf.userid = $userId";
+
+         $returnArray = array();
+         
+         echo "$query";
+
+         $result = $databaseConnection->query($query);
+
+         while($row = $result->fetch_object())
+         {
+             $workshop = BatchWorkshopFile::fromDBRow($row);
+             array_push($returnArray, $workshop);
+         }
+
+         return $returnArray;
+    }
+
+    public static function GetByBatchWorkshopId($databaseConnection, $batchWorkshopId)
+    {
+        $query = "SELECT bwf.* FROM BatchWorkshopFiles bwf "
+               . "WHERE bwf.batchworkshopid = $batchWorkshopId ";
+               
+
+         $returnArray = array();
+         
+         $result = $databaseConnection->query($query);
+
+         while($row = $result->fetch_object())
+         {
+             $workshop = BatchWorkshopFile::fromDBRow($row);
+             array_push($returnArray, $workshop);
+         }
+
+         return $returnArray;
+    }
+
+    public function saveToDatabase($databaseConnection)
+    {
+        if($this->batchworkshopfileid)
+        {
+            $exists = BatchWorkshopFile::fromDatabase($databaseConnection, $this->batchworkshopfileid) != null;            
+            if($exists)
+            {
+                return $this->updateToDatabase($databaseConnection);
+            }
+            else{
+                return $this->insertToDatabase($databaseConnection);
+            }
+        } else 
+        {
+            return $this->insertToDatabase($databaseConnection);
+        }
+    }
+    
+    private function insertToDatabase($databaseConnection)
+    {
+        $query = "INSERT INTO batchworkshopfiles (batchworkshopid, filename, size, userid, createddate) "
+                . " VALUES ($this->batchworkshopid, '$this->filename', $this->size, $this->userid, NOW())";
+    
+        echo "$query";
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to save a batch workshop file ($this->filename) " . mysql_error() );
+        }
+    
+        $this->batchworkshopfileid = $databaseConnection->insert_id;
+    }
+    
+    private function updateToDatabase($databaseConnection)
+    {
+        $query = "UPDATE batchworkshopfiles SET languageid = $this->languageid "
+        .", filename='$this->filename', size=$this->size, userid=$this->userid"
+        ." WHERE batchworkshopfileid = $this->batchworkshopfileid";
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to update a batch workshop file ($this->filename) " . mysql_error() );
+        }
+     }
+
 
     private static function fromDBRow($other) {
         $returnValue = new BatchWorkshopFile();

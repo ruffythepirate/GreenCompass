@@ -2,7 +2,6 @@
     require_once("Includes/session.php");
     require_role('admin');
 
-    require_once ("Includes/session.php");
      require_once('Classes/class.user.php');    
 
      require_once('Classes/class.workshopfile.php');    
@@ -42,3 +41,4 @@
                  }
 
 
+        require_once ("Includes/closeDB.php");

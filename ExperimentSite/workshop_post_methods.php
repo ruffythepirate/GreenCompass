@@ -98,7 +98,7 @@
         return $returnResult;
     }
 
-    require_once "Classes/WorkshopFile.php";
+    require_once "Classes/class.WorkshopFile.php";
 
     function getWorkshopFiles($databaseConnection, $workshopid)
     {
