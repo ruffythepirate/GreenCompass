@@ -19,6 +19,15 @@
     $workshopTranslation = WorkshopTranslation::fromWorkshopAndLanguageId($databaseConnection, 
                                                                         $batchWorkshop->workshopid,
                                                                         get_current_language());
+
+    print "<div class=\"section\">";
+    print "<h1>$workshopTranslation->title</h1>";
+    print "</div>";
+
+    print "<div class=\"section\">";
+    include "Partials/partial_workshop_summary.php";
+    print "</div>";
+
     print "<div class=\"section\">";
     include "Partials/partial_teacher_workshop_files.php";
     print "</div>";

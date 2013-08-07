@@ -42,7 +42,11 @@ a.form_submit {
 
 .title{}
 
-.background{}
+.background
+{
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
 
 .goals 
 {
