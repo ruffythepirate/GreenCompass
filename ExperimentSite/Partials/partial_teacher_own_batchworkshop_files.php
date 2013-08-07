@@ -1,6 +1,13 @@
         <h2>Uploaded by You</h2>
         <table>
-        <tr><th>Name</th><th>Size</th><th>Uploaded By</th><th>Created</th><th>Download</th></tr>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Uploaded By</th>
+            <th>Created</th>
+            <th>Download</th>
+            <th>Delete</th>
+        </tr>
         <?php
             
             require_once "Classes/class.batchworkshopfile.php";
@@ -20,8 +27,24 @@
                 print "<td>". getFileSizeString($batchFile->Size) . "</td>";
                 print "<td>$uploader->username</td>";
                 print "<td>$batchFile->createddate</td>";
-                print "<td><a href=\"batch/$batchFile->batchworkshopid/$batchFile->filename\">Here</a>";
+                print "<td><a href=\"download_workshopfile.php?type=batch&parentid=$batchFile->batchworkshopid&filename=$batchFile->filename\">Here</a>";
+                print "<td><a href=\"#\" class=\"delete-own-file\" data-batchworkshopfileid=\"$batchFile->batchworkshopfileid\">Delete</a>";
                 print "</tr>";
             }
         ?>
         </table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.delete-own-file').click(function () {
+            var fileid = $(this).attr('data-batchworkshopfileid');
+
+            $.ajax({
+                type: "POST",
+                url: "ajax_delete_batchworkshopfile.php",
+                data: { batchworkshopfileid: fileid }
+            }).done(function () {
+               updateWorkshopFiles(<?php echo"$batchWorkshopId";?>) 
+            });
+        });
+    });
+</script>

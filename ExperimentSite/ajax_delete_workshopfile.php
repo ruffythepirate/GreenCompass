@@ -15,7 +15,7 @@
         if($workshopFile != null)
         {
             //2. If object exists, remove file from hard drive.
-            $filePath = "FileUploads/$workshopFile->workshopid/";
+            $filePath = "FileUploads/workshop/$workshopFile->workshopid/";
             $backupFilePath = "FileUploads/old/$workshopFile->workshopid/";
     
             if(file_exists($filePath  . $workshopFile->filename))
@@ -47,7 +47,7 @@
             }
         }
             //3. After removing file, remove all entries in database with matching name / workshopid.
-            $deleteSuccess = WorkshopFile::deleteByNameAndWorkshopId($databaseConnection, $workshopFile->filename, $workshopFile->workshopid);
+            $deleteSuccess = WorkshopFile::deleteByNameAndBatchWorkshopId($databaseConnection, $workshopFile->filename, $workshopFile->batchworkshopid);
             echo "Deleting from DB... $deleteSuccess.";
     
         require_once ("Includes/closeDB.php");

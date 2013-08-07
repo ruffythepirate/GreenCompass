@@ -45,6 +45,45 @@ class BatchWorkshopFile {
          return $returnArray;
     }
 
+    public static function getById($databaseConnection, $batchWorkshopFileId)
+    {
+        $query = "SELECT bwf.* FROM BatchWOrkshopFiles bwf "
+               . "WHERE bwf.batchworkshopfileid = $batchWorkshopFileId";
+
+        $result = $databaseConnection->query($query);
+
+        if($row = $result->fetch_object())
+        {
+            return BatchWorkshopFile::fromDBRow($row);
+        }
+        return NULL;
+    }
+
+    public static function deleteById($databaseConnection, $batchWorkshopFileId)
+    {
+        $query = "DELETE FROM BatchWorkshopFiles "
+               . "WHERE batchworkshopfileid = $batchWorkshopFileId";
+
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to delete batchworkshopfile ($batchWorkshopFileId)");
+        }
+    }
+    
+    public static function deleteByNameAndBatchWorkshopId($databaseConnection, $batchWorkshopId, $filename)
+    {
+        $query = "DELETE FROM BatchWorkshopFiles "
+               . "WHERE batchworkshopid = $batchWorkshopId "
+               . "AND filename = '$filename'";
+
+        echo "$query";
+
+        if(!mysqli_query($databaseConnection, $query))
+        {
+            throw new Exception("Exception occurred when trying to delete batchworkshopfile ($batchWorkshopId, $filename)");
+        }
+    }
+
     public static function GetByBatchWorkshopIdAndUserId($databaseConnection, $batchWorkshopId, $userId)
     {
         $query = "SELECT bwf.* FROM BatchWorkshopFiles bwf "
