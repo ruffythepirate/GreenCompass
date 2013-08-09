@@ -9,7 +9,7 @@ class Workshop {
 
         public static function getAllNotInBatch($databaseConnection, $batchId)
         {
-            $query = "SELECT workshopid, workshopname, createddate FROM Workshops";
+            $query = "SELECT workshopid, workshopname, createddate FROM workshops";
 
             if(isset($batchId))
             {
@@ -28,7 +28,7 @@ class Workshop {
 
         public static function getAll($databaseConnection)
         {
-            $query = "SELECT workshopid, workshopname, createddate FROM Workshops";
+            $query = "SELECT workshopid, workshopname, createddate FROM workshops";
 
             $result = $databaseConnection->query($query);
 
@@ -43,7 +43,7 @@ class Workshop {
         public static function getAllInBatch($databaseConnection, $batchId)
         {
             $query = "SELECT ws.workshopid AS workshopid, ws.workshopname as workshopname, ws.createddate as createddate, bws.batchworkshopid as batchworkshopid, bws.publishdate as publishdate"
-                   . " FROM Workshops ws"
+                   . " FROM workshops ws"
                    . " INNER JOIN batchworkshops bws ON bws.workshopid = ws.workshopid "
                    . " WHERE bws.batchid = $batchId";
 

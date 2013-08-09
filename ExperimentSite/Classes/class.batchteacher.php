@@ -18,7 +18,7 @@ class BatchTeacher {
 
     public static function DeleteBatchTeacher($databaseConnection, $batchId, $userId)
     {
-        $query = "DELETE FROM BatchTeachers WHERE batchid= $batchId AND userid = $userId";
+        $query = "DELETE FROM batchteachers WHERE batchid= $batchId AND userid = $userId";
 
         if(!mysqli_query($databaseConnection, $query))
         {

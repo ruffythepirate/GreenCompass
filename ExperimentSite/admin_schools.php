@@ -1,8 +1,8 @@
-    <?php 
+<?php 
     require_once("Includes/session.php");
     require_role('admin');
 
-        include("Includes/header.php");         
+    require_once("Includes/header.php");         
      ?>
 
 <?php
@@ -38,8 +38,9 @@ function msg($s) {
             return $a->name == $b->name ? 0 : ( $a->name > $b->name ) ? 1 : -1;
         }
 
+        $countries = array();
         //We load the countries so that we can group on the later.        
-        $query = 'SELECT countryid, name FROM Countries';
+        $query = 'SELECT countryid, name FROM countries';
         $result = $databaseConnection->query($query);
         while($row = $result->fetch_object())
         {
@@ -47,10 +48,11 @@ function msg($s) {
         }
         $result->close();
 
-        $query = 'SELECT schoolid, name, countryid, createddate FROM Schools';
+        $query = 'SELECT schoolid, name, countryid, createddate FROM schools';
         
         $result = $databaseConnection->query($query);
 
+        $rows = array();
         while($row =   $result->fetch_object())
         {
             $rows[] = $row;
@@ -76,7 +78,7 @@ function msg($s) {
                      print"<tr>\n";
                      print"<td>$school->name</td>\n";
                      print"<td>0</td>\n";
-                     $dateAsDateTime = new DateTime($school->createddate);
+                     $dateAsDateTime = new DateTime($school->createddate, new DateTimeZone('Etc/GMT+1'));
                      $formattedDate = $dateAsDateTime->format('Y-m-d');
                      print"<td>$formattedDate</td>\n";
                      print"<td>Edit</td>\n";
@@ -99,5 +101,5 @@ function msg($s) {
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <?php 
-    include ("/Includes/footer.php");
+    include ("Includes/footer.php");
  ?>

@@ -32,7 +32,7 @@
 
     public static function DeleteBatchWorkshop($databaseConnection, $batchId, $workshopId)
     {
-        $query="DELETE FROM BatchWorkshops WHERE batchid = $batchId AND workshopId = $workshopId";
+        $query="DELETE FROM batchworkshops WHERE batchid = $batchId AND workshopId = $workshopId";
 
         if(!mysqli_query($databaseConnection, $query))
         {

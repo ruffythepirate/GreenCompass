@@ -1,5 +1,4 @@
-<?php
-    session_start();
+<?php session_start();
     require_once  ("Includes/connectDB.php");
     require_once  ("Classes/class.user.php");
     require_once  ("Classes/class.role.php");

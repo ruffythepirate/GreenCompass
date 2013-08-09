@@ -1,6 +1,6 @@
 <?php
-require_once ("/Classes/class.news.php");
-require_once ("/Includes/session.php");
+require_once ("Classes/class.news.php");
+require_once ("Includes/session.php");
     $isAdmin = is_admin();
     global $databaseConnection;
     $allNewsItems = News::getNews($databaseConnection);

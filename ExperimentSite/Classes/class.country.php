@@ -11,7 +11,7 @@
 
         public static function getAll($databaseConnection)
         {
-            $query = "SELECT * FROM Countries";
+            $query = "SELECT * FROM countries";
 
             $result = $databaseConnection->query($query);
 

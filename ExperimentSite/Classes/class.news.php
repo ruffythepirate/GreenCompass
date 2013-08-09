@@ -110,7 +110,7 @@
             $newsItem->ispublished  = $otherObject->ispublished;
             $newsItem->created      = $otherObject->created;
            
-            $date = new DateTime( $newsItem->created);
+            $date = new DateTime( $newsItem->created, new DateTimeZone('Etc/GMT+1'));
             $newsItem->formatcreated = $date->format("Y-m-d");
 
             return $newsItem;

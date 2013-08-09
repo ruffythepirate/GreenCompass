@@ -24,7 +24,7 @@
     function getWorkshopNames($databaseConnection)
     {
         //We load the countries so that we can group on the later.        
-        $query = 'SELECT workshopname FROM Workshops';
+        $query = 'SELECT workshopname FROM workshops';
         $result = $databaseConnection->query($query);
         $workshops = array();
         while($row = $result->fetch_object())
@@ -85,7 +85,7 @@
     function getWorkshop($databaseConnection, $workshopid)
     {
         //We load the countries so that we can group on the later.        
-        $query = "SELECT workshopid, workshopname, createddate FROM Workshops WHERE workshopid='$workshopid'";
+        $query = "SELECT workshopid, workshopname, createddate FROM workshops WHERE workshopid='$workshopid'";
         $result = $databaseConnection->query($query);
         $returnResult = NULL;
         $row = $result->fetch_object();
@@ -98,7 +98,7 @@
         return $returnResult;
     }
 
-    require_once "Classes/class.WorkshopFile.php";
+    require_once "Classes/class.workshopfile.php";
 
     function getWorkshopFiles($databaseConnection, $workshopid)
     {

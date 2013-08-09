@@ -2,7 +2,7 @@
     require_once("Includes/session.php");
     require_role('admin');
     
-    include("Includes/Header.php");
+    include("Includes/header.php");
 ?>
 
 <div class="section">

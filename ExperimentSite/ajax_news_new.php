@@ -1,7 +1,7 @@
 <?php
-require_once("/Includes/session.php");
+require_once("Includes/session.php");
 require_role('admin');
-require_once("/Classes/class.news.php");
+require_once("Classes/class.news.php");
 
 if(isset($_POST['text']))
 {

@@ -1,5 +1,5 @@
 <?php
-require_once "Includes/Session.php";
+require_once "Includes/session.php";
 require_once "Classes/class.batch.php";
 
 global $databaseConnection;

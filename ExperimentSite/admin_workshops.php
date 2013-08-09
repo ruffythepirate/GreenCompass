@@ -1,10 +1,10 @@
-    <?php 
+<?php 
     require_once("Includes/session.php");
     require_role('admin');
 
 
-        include("Includes/header.php");         
-        include("workshop_post_methods.php");         
+        require_once ("Includes/header.php");         
+        require_once("workshop_post_methods.php");         
      ?>
 
 <?php
@@ -52,9 +52,9 @@ function work_msg($s) {
             </div>
 
     <div class="section">
-        <?php include ("/Partials/partial_admin_workshops.php"); ?>
+        <?php include ("Partials/partial_admin_workshops.php"); ?>
     </div>
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <?php 
-    include ("/Includes/footer.php");
+    include ("Includes/footer.php");

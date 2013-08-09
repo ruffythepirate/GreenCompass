@@ -1,5 +1,4 @@
 <?php
-    
     $pageTitle = 'Edit Workshop';
     include("Includes/header.php");         
     require_once("Classes/class.workshoptranslation.php");     
@@ -158,7 +157,7 @@
 </div>
 <?php
     
-    include ("/Includes/footer.php");
+    include ("Includes/footer.php");
 ?>
 
 

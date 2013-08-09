@@ -6,7 +6,7 @@
     require_once "Classes/class.batchworkshopfile.php";
     require_once "Classes/class.workshopfile.php";
     require_once "Classes/class.user.php";
-    require_once "Includes/Session.php";
+    require_once "Includes/session.php";
     require_once "Util/FileHelp.php";
 
     global $databaseConnection;

@@ -74,7 +74,7 @@
     
         public static function fromId($databaseConnection, $batchId)
         {
-            $query = "SELECT batchid, name, startdate, createddate FROM Batches WHERE batchid = $batchId";
+            $query = "SELECT batchid, name, startdate, createddate FROM batches WHERE batchid = $batchId";
 
             $result = $databaseConnection->query($query);
 

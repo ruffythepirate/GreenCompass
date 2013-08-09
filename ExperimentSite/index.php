@@ -1,12 +1,9 @@
-    <?php 
+<?php 
         require_once  ("Includes/session.php");
-     ?>
-
-    <?php 
     if(!logged_on) 
     {
-        header("Location: logon.php");
-        exit();
+//        header("Location: logon.php");
+//        exit();
     }
     else if(is_admin())
     {

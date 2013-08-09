@@ -46,7 +46,7 @@ class User {
     public static function fromId($databaseConnection, $userId)
     {
         $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
-        .  " FROM Users "
+        .  " FROM users "
         . " WHERE id = $userId AND isactivated = 1";
 
         $result = $databaseConnection->query($query);
@@ -60,7 +60,7 @@ class User {
     public static function fromVerificationCode($databaseConnection, $verificationcode)
     {
         $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
-        .  " FROM Users "
+        .  " FROM users "
         . " WHERE verificationcode = '$verificationcode' AND isactivated = 0";
 
         $result = $databaseConnection->query($query);
@@ -97,7 +97,7 @@ class User {
     public static function getUsersInRole($databaseConnection, $roleValue)
     {
         $query = "SELECT u.id as id, u.username as username , u.schoolid as schoolid, u.languageid as languageid, u.email as email, u.created as created, u.verificationcode as verificationcode, u.isactivated as isactivated"
-        .  " FROM Users u"
+        .  " FROM users u"
         .  " INNER JOIN users_in_roles ur ON ur.user_id = u.id "
         .  " INNER JOIN roles r ON ur.role_id = r.id"
         .  " WHERE r.value = '$roleValue'";
@@ -114,7 +114,7 @@ class User {
 
     public function activateUser($databaseConnection, $verificationcode, $password)
     {
-        $query = "UPDATE Users SET password = SHA('$password'), isactivated = 1"
+        $query = "UPDATE users SET password = SHA('$password'), isactivated = 1"
                  ." WHERE verificationcode = '$verificationcode' AND isactivated = 0 ";
         if(! mysqli_query($databaseConnection, $query))
         {
@@ -133,7 +133,7 @@ class User {
 
         $isactivated = $this->isactivated == TRUE ? '1' : '0';
 
-        $query = "INSERT INTO Users (username, schoolid, languageid, "
+        $query = "INSERT INTO users (username, schoolid, languageid, "
                     . "email, created, isactivated, verificationcode  ) "
                     . "VALUES ('$this->username', $this->schoolid, $this->languageid"
                     . ", '$this->email', NOW(), $isactivated, '$this->verificationcode')";
@@ -152,8 +152,8 @@ class User {
 
     public function setLanguage($databaseConnection, $newLanguageId)
     {
-        $query = "UPDATE Users "
-                . " SET LanguageId = $newLanguageId "
+        $query = "UPDATE users "
+                . " SET languageId = $newLanguageId "
                 . " WHERE id = $this->userid";
         
         if(!mysqli_query($databaseConnection, $query))
@@ -166,9 +166,9 @@ class User {
     public static function getBatchSchoolTeachersInBatch($databaseConnection, $batchId)
     {
         $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
-        .  " FROM Users "
+        .  " FROM users "
         . " WHERE isactivated = 1"
-        . " AND id IN (SELECT userid from BatchTeachers WHERE batchid = $batchId)";
+        . " AND id IN (SELECT userid from batchteachers WHERE batchid = $batchId)";
 
         $result = $databaseConnection->query($query);
 
@@ -184,10 +184,10 @@ class User {
     public static function getBatchSchoolTeachersNotInBatch($databaseConnection, $batchId)
     {
         $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
-        .  " FROM Users "
+        .  " FROM users "
         . " WHERE isactivated = 1"
-        . " AND schoolid IN (SELECT schoolid from BatchSchools WHERE batchid = $batchId)"
-        . " AND id NOT IN (SELECT userid from BatchTeachers WHERE batchid = $batchId)";
+        . " AND schoolid IN (SELECT schoolid from batchschools WHERE batchid = $batchId)"
+        . " AND id NOT IN (SELECT userid from batchteachers WHERE batchid = $batchId)";
 
         $result = $databaseConnection->query($query);
 

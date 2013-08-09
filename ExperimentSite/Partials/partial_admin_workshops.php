@@ -27,7 +27,7 @@ function msg($s) {
      function getWorkshops($databaseConnection)
     {
         //We load the countries so that we can group on the later.        
-        $query = 'SELECT workshopid, workshopname, createddate FROM Workshops';
+        $query = 'SELECT workshopid, workshopname, createddate FROM workshops';
         $result = $databaseConnection->query($query);
         $workshops = array();
         while($row = $result->fetch_object())

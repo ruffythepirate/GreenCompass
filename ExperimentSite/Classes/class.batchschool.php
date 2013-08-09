@@ -18,7 +18,7 @@ class BatchSchool
 
     public static function DeleteBatchSchool($databaseConnection, $batchId, $schoolId)
     {
-        $query="DELETE FROM BatchSchools WHERE batchid = $batchId AND schoolid = $schoolId";
+        $query="DELETE FROM batchschools WHERE batchid = $batchId AND schoolid = $schoolId";
 
         if(!mysqli_query($databaseConnection, $query))
         {

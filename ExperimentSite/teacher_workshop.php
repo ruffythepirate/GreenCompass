@@ -4,7 +4,7 @@
 
     global $databaseConnection;
 
-    require_once('Includes/Header.php');
+    require_once('Includes/header.php');
 
 
     require_once('Classes/class.workshoptranslation.php');

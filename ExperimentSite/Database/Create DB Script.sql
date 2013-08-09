@@ -1,188 +1,290 @@
-CREATE DATABASE  IF NOT EXISTS `simplecms979` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `simplecms979`;
--- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
---
--- Host: localhost    Database: simplecms979
--- ------------------------------------------------------
--- Server version	5.5.28
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+USE `mydb` ;
 
---
--- Table structure for table `countries`
---
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`batches`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`batches` ;
 
-DROP TABLE IF EXISTS `countries`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `countries` (
-  `countryid` int(10) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`countryid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batches` (
+  `batchid` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `startdate` DATETIME NULL DEFAULT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`batchid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
 
---
--- Dumping data for table `countries`
---
 
-LOCK TABLES `countries` WRITE;
-/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES (1,'Sweden'),(2,'China');
-/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
-UNLOCK TABLES;
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`batchschools`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchschools` ;
 
---
--- Table structure for table `pages`
---
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchschools` (
+  `batchschoolid` INT(11) NOT NULL AUTO_INCREMENT ,
+  `schoolid` INT(11) NOT NULL ,
+  `batchid` INT(11) NOT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`batchschoolid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8;
 
-DROP TABLE IF EXISTS `pages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `menulabel` varchar(50) DEFAULT NULL,
-  `content` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `pages`
---
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`batchteachers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchteachers` ;
 
-LOCK TABLES `pages` WRITE;
-/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'Some Page','With some content? Is this like a complete blog or what!?');
-/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchteachers` (
+  `batchteacherid` INT(11) NOT NULL AUTO_INCREMENT ,
+  `userid` INT(11) NOT NULL ,
+  `batchid` INT(11) NOT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`batchteacherid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
 
---
--- Table structure for table `roles`
---
 
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`batchworkshopfiles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchworkshopfiles` ;
 
---
--- Dumping data for table `roles`
---
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchworkshopfiles` (
+  `batchworkshopfileid` INT(10) NOT NULL AUTO_INCREMENT ,
+  `batchworkshopid` INT(10) NOT NULL ,
+  `languageid` INT(10) NULL DEFAULT NULL ,
+  `filename` VARCHAR(100) NOT NULL ,
+  `size` INT(10) NOT NULL ,
+  `userid` INT(10) NOT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`batchworkshopfileid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8;
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'admin'),(2,'user');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `schools`
---
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`batchworkshops`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchworkshops` ;
 
-DROP TABLE IF EXISTS `schools`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `schools` (
-  `schoolid` int(10) NOT NULL DEFAULT '1',
-  `name` varchar(50) NOT NULL,
-  `countryid` int(10) DEFAULT NULL,
-  `createddate` datetime NOT NULL,
-  PRIMARY KEY (`schoolid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchworkshops` (
+  `batchworkshopid` INT(11) NOT NULL AUTO_INCREMENT ,
+  `batchid` INT(11) NOT NULL ,
+  `workshopid` INT(11) NOT NULL ,
+  `publishdate` DATETIME NULL DEFAULT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`batchworkshopid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8;
 
---
--- Dumping data for table `schools`
---
 
-LOCK TABLES `schools` WRITE;
-/*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (1,'Lundaskolan',1,'2013-04-12 00:00:00'),(2,'Zhimaskolan',2,'2013-04-12 00:00:00'),(3,'Malmöskolan',1,'2013-04-12 00:00:00');
-/*!40000 ALTER TABLE `schools` ENABLE KEYS */;
-UNLOCK TABLES;
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`countries`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`countries` ;
 
---
--- Table structure for table `users`
---
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`countries` (
+  `countryid` INT(10) NOT NULL ,
+  `name` VARCHAR(50) NOT NULL ,
+  PRIMARY KEY (`countryid`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `password` char(40) DEFAULT NULL,
-  `schoolid` int(10) DEFAULT NULL,
-  `languageid` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `users`
---
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`languages`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`languages` ;
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','c7afc502d6b6aecdf462a2a675703e7f516896a8',NULL,NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`languages` (
+  `languageid` INT(10) NOT NULL ,
+  `name` VARCHAR(50) NOT NULL ,
+  PRIMARY KEY (`languageid`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
---
--- Table structure for table `users_in_roles`
---
 
-DROP TABLE IF EXISTS `users_in_roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users_in_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `role_id` (`role_id`),
-  CONSTRAINT `users_in_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `users_in_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`news`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`news` ;
 
---
--- Dumping data for table `users_in_roles`
---
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`news` (
+  `newsid` INT(10) NOT NULL AUTO_INCREMENT ,
+  `userid` INT(10) NOT NULL ,
+  `text` MEDIUMTEXT NOT NULL ,
+  `ispublished` BIT(1) NOT NULL ,
+  `created` DATETIME NOT NULL ,
+  PRIMARY KEY (`newsid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8;
 
-LOCK TABLES `users_in_roles` WRITE;
-/*!40000 ALTER TABLE `users_in_roles` DISABLE KEYS */;
-INSERT INTO `users_in_roles` VALUES (1,1,1);
-/*!40000 ALTER TABLE `users_in_roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Dumping routines for database 'simplecms979'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`pages`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`pages` ;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`pages` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `menulabel` VARCHAR(50) NULL DEFAULT NULL ,
+  `content` TEXT NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
 
--- Dump completed on 2013-04-20  7:21:25
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`roles` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`roles` (
+  `id` INT(11) NOT NULL ,
+  `name` VARCHAR(50) NOT NULL ,
+  `value` VARCHAR(10) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`schools`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`schools` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`schools` (
+  `schoolid` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(50) NOT NULL ,
+  `countryid` INT(10) NULL DEFAULT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`schoolid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`users` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `username` VARCHAR(50) NULL DEFAULT NULL ,
+  `password` CHAR(40) NULL DEFAULT NULL ,
+  `schoolid` INT(10) NULL DEFAULT NULL ,
+  `languageid` INT(10) NULL DEFAULT NULL ,
+  `email` VARCHAR(100) NOT NULL ,
+  `isactivated` BIT(1) NOT NULL DEFAULT b'0' ,
+  `verificationcode` VARCHAR(32) NULL DEFAULT NULL ,
+  `created` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 16
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`users_in_roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`users_in_roles` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`users_in_roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `user_id` INT(11) NOT NULL ,
+  `role_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `user_id` (`user_id` ASC) ,
+  INDEX `role_id` (`role_id` ASC) ,
+  CONSTRAINT `users_in_roles_ibfk_1`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `ruffythe_greencompass`.`users` (`id` ),
+  CONSTRAINT `users_in_roles_ibfk_2`
+    FOREIGN KEY (`role_id` )
+    REFERENCES `ruffythe_greencompass`.`roles` (`id` ))
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`workshopfiles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`workshopfiles` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshopfiles` (
+  `workshopfileid` INT(10) NOT NULL AUTO_INCREMENT ,
+  `workshopid` INT(10) NOT NULL ,
+  `languageid` INT(10) NULL DEFAULT NULL ,
+  `filename` VARCHAR(100) NOT NULL ,
+  `size` INT(10) NOT NULL ,
+  `userid` INT(10) NOT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`workshopfileid`) ,
+  UNIQUE INDEX `NameAndKey` (`filename` ASC, `workshopid` ASC) ,
+  INDEX `userid_idx` (`userid` ASC) ,
+  CONSTRAINT `userid`
+    FOREIGN KEY (`userid` )
+    REFERENCES `ruffythe_greencompass`.`users` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`workshops`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`workshops` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshops` (
+  `workshopid` INT(10) NOT NULL AUTO_INCREMENT ,
+  `workshopname` VARCHAR(30) NOT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  PRIMARY KEY (`workshopid`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `ruffythe_greencompass`.`workshoptranslations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ruffythe_greencompass`.`workshoptranslations` ;
+
+CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshoptranslations` (
+  `workshoptranslationid` INT(10) NOT NULL AUTO_INCREMENT ,
+  `workshopid` INT(10) NOT NULL ,
+  `languageid` INT(10) NOT NULL ,
+  `background` TEXT NULL DEFAULT NULL ,
+  `goals` TEXT NULL DEFAULT NULL ,
+  `expectedresults` TEXT NULL DEFAULT NULL ,
+  `timeline` TEXT NULL DEFAULT NULL ,
+  `createddate` DATETIME NOT NULL ,
+  `title` VARCHAR(50) NULL DEFAULT NULL ,
+  PRIMARY KEY (`workshoptranslationid`) ,
+  UNIQUE INDEX `workshoptranslationid_UNIQUE` (`workshoptranslationid` ASC) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 12
+DEFAULT CHARACTER SET = utf8;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

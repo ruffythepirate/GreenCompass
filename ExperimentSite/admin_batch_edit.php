@@ -1,5 +1,5 @@
 <?php
-require_once "Includes/Session.php";
+require_once "Includes/session.php";
 require_role('admin');    
 
   require_once "Classes/class.batch.php";
@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 }  
 
-include "Includes/Header.php";
+include "Includes/header.php";
 ?>
 <div class="section"><h2>Batch General Info</h2>
     <form method="POST" action="<?php print "$postPath";?>">

@@ -1,7 +1,7 @@
 <?php
-require_once ("/Classes/class.batchworkshop.php");
-require_once ("/Classes/class.workshoptranslation.php");
-require_once ("/Includes/session.php");
+require_once ("Classes/class.batchworkshop.php");
+require_once ("Classes/class.workshoptranslation.php");
+require_once ("Includes/session.php");
 
 if(!logged_on())
 {

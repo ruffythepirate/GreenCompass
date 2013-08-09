@@ -78,7 +78,7 @@ function msg($s) {
                 <?php 
 
         //We load the countries so that we can group on the later.        
-        $query = 'SELECT countryid, name FROM Countries';
+        $query = 'SELECT countryid, name FROM countries';
         $result = $databaseConnection->query($query);
         while($row = $result->fetch_object())
         {
@@ -111,4 +111,4 @@ function msg($s) {
 </script>
 
 <?php 
-    include ("/Includes/footer.php");
+    include ("Includes/footer.php");

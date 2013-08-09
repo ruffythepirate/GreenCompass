@@ -24,7 +24,7 @@ class BatchWorkshopFile {
 
     public static function GetByBatchWorkshopIdAndRole($databaseConnection, $batchWorkshopId, $roleValue)
     {
-        $query = "SELECT bwf.* FROM BatchWorkshopFiles bwf "
+        $query = "SELECT bwf.* FROM batchworkshopfiles bwf "
                . "INNER JOIN Users u ON u.id = bwf.userid "
                . "INNER JOIN users_in_roles uir ON u.id = uir.user_id "
                . "INNER JOIN roles r ON r.id = uir.role_id "
@@ -47,7 +47,7 @@ class BatchWorkshopFile {
 
     public static function getById($databaseConnection, $batchWorkshopFileId)
     {
-        $query = "SELECT bwf.* FROM BatchWOrkshopFiles bwf "
+        $query = "SELECT bwf.* FROM batchworkshopfiles bwf "
                . "WHERE bwf.batchworkshopfileid = $batchWorkshopFileId";
 
         $result = $databaseConnection->query($query);
@@ -61,7 +61,7 @@ class BatchWorkshopFile {
 
     public static function deleteById($databaseConnection, $batchWorkshopFileId)
     {
-        $query = "DELETE FROM BatchWorkshopFiles "
+        $query = "DELETE FROM batchworkshopfiles "
                . "WHERE batchworkshopfileid = $batchWorkshopFileId";
 
         if(!mysqli_query($databaseConnection, $query))
@@ -72,7 +72,7 @@ class BatchWorkshopFile {
     
     public static function deleteByNameAndBatchWorkshopId($databaseConnection, $batchWorkshopId, $filename)
     {
-        $query = "DELETE FROM BatchWorkshopFiles "
+        $query = "DELETE FROM batchworkshopfiles "
                . "WHERE batchworkshopid = $batchWorkshopId "
                . "AND filename = '$filename'";
 
@@ -86,7 +86,7 @@ class BatchWorkshopFile {
 
     public static function GetByBatchWorkshopIdAndUserId($databaseConnection, $batchWorkshopId, $userId)
     {
-        $query = "SELECT bwf.* FROM BatchWorkshopFiles bwf "
+        $query = "SELECT bwf.* FROM batchworkshopfiles bwf "
                . "WHERE bwf.batchworkshopid = $batchWorkshopId "
                . "AND bwf.userid = $userId";
 
@@ -105,7 +105,7 @@ class BatchWorkshopFile {
 
     public static function GetByBatchWorkshopId($databaseConnection, $batchWorkshopId)
     {
-        $query = "SELECT bwf.* FROM BatchWorkshopFiles bwf "
+        $query = "SELECT bwf.* FROM batchworkshopfiles bwf "
                . "WHERE bwf.batchworkshopid = $batchWorkshopId ";
                
 

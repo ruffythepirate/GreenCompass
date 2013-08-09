@@ -15,7 +15,7 @@
 
         public static function getAll($databaseConnection)
         {
-            $query = "SELECT schoolid, name, countryid, createddate FROM Schools";
+            $query = "SELECT schoolid, name, countryid, createddate FROM schools";
 
             $result = $databaseConnection->query($query);
 
@@ -29,7 +29,7 @@
 
         public static function getById($databaseConnection, $schoolid)
         {
-            $query = "SELECT schoolid, name, countryid, createddate FROM Schools WHERE schoolid = $schoolid";
+            $query = "SELECT schoolid, name, countryid, createddate FROM schools WHERE schoolid = $schoolid";
 
             $result = $databaseConnection->query($query);
 
@@ -42,7 +42,7 @@
 
         public static function getAllNotInBatch($databaseConnection, $batchId)
         {
-            $query = "SELECT schoolid, name, countryid, createddate FROM Schools";
+            $query = "SELECT schoolid, name, countryid, createddate FROM schools";
 
             if(isset($batchId))
             {
@@ -61,7 +61,7 @@
 
         public static function getAllInBatch($databaseConnection, $batchId)
         {
-            $query = "SELECT schoolid, name, countryid, createddate FROM Schools"
+            $query = "SELECT schoolid, name, countryid, createddate FROM schools"
                    . " WHERE schoolid IN (SELECT schoolid from batchschools WHERE batchid = $batchId)";
 
             $result = $databaseConnection->query($query);
@@ -87,7 +87,6 @@
             $query = "INSERT INTO schools (name, countryid, createddate) VALUES "
             ." ('$this->name', $this->countryid, NOW()) ";
 
-            echo "Query: $query";
             if(! mysqli_query($databaseConnection, $query))
             {
                 echo mysql_error();

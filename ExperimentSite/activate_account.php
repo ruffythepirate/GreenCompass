@@ -16,7 +16,7 @@
         exit();
     }
     
-    require_once("Includes/Header.php");
+    require_once("Includes/header.php");
     if(isset($_POST['verificationcode']))
     {
             echo "Is da post!";
