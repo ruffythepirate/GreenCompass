@@ -16,10 +16,10 @@
 
     function updateWorkshopFiles(workshopid) {
         $.ajax({
-                type: "GET",
-                url: "ajax_get_workshopfiles.php",
-                data: { workshopid: workshopid }
-            })
+            type: "GET",
+            url: "ajax_get_workshopfiles.php",
+            data: { workshopid: workshopid }
+        })
                 .done(
                 function (result) {
                     $("#available-workshop-files").html(result);
@@ -49,9 +49,13 @@
             })
                 .done(
                 function (result) {
+
                     $("#workshop-forms").append(result);
                     $("#translation-language").append("<option value=" + languageId + ">" + languageName + "</option>");
                     $("#translation-language").val(languageId);
+                    $('#info-no-translations').hide();
+                    $('#select-language-div').show();
+
                     unloadPopupBox();
                     toggleVisibleTranslation();
                 });
@@ -108,8 +112,12 @@
             $('.translation-section').hide();
             //Displays the selected language section.
             var selectedLanguageId = $('#translation-language').val();
-            if (selectedLanguageId != '') {
+            if (selectedLanguageId != '' && selectedLanguageId != null) {
                 $("#translation-section-" + selectedLanguageId).show();
+                $('#workshop-preview').show();
+            } else
+            { 
+                $('#workshop-preview').hide();
             }
         }
 

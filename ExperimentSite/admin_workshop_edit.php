@@ -40,17 +40,17 @@
         <?php
             
             $languages = getWorkshopsTranslatedLanguages($databaseConnection, $id);
-            if(count($languages) > 0)
-            {
+            echo '<div id="select-language-div" ' . (count($languages) == 0 ? 'style="display: none;">' : '>');
             echo '<select id="translation-language">';
             foreach($languages as $language)
             {
                 echo "<option value=\"$language->languageid\">$language->name</option>";
             }
             echo "</select>";
-            } else 
+            echo '</div>';
+            if(count($languages) == 0)
             {
-            echo "There are currently no translations for this workshop.";                   
+                echo "<div id=\"info-no-translations\">There are currently no translations for this workshop.</div>";
             }
         ?>
         <a id="button-create-new" href="#">Create for New Language</a>
@@ -67,7 +67,7 @@
             }
         ?>
     </div>
-    <div id="workshop-preview" class="section">
+    <div id="workshop-preview" class="section" style="display: none;">
         <div class="title"></div>
         <h3>Background</h3>
         <div class="background"></div>
