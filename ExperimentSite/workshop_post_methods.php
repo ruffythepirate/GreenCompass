@@ -146,13 +146,13 @@
         echo "\n".'</div>';
         echo "\n".'<script>';
         echo "\n".'$(document).ready(function () {';
-        echo "\n"."$('#input-title-$workshopTranslation->languageid').change(function() { ";
+        echo "\n"."$('#input-title-$workshopTranslation->languageid').bind('input propertychange',function() { ";
         echo "\n".'updateWorkshopPreview();';
         echo "\n".'});';
-        echo "\n"."$('#input-background-$workshopTranslation->languageid').change(function() { ";
+        echo "\n"."$('#input-background-$workshopTranslation->languageid').bind('input propertychange',function() { ";
         echo "\n".'updateWorkshopPreview();';
         echo "\n".'});';
-        echo "\n"."$('#translation-section-$workshopTranslation->languageid textarea').change(function() { ";
+        echo "\n"."$('#translation-section-$workshopTranslation->languageid textarea').bind('input propertychange',function() { ";
         echo "\n".'updateWorkshopPreview();';
         echo "\n".'});';
         echo "\n".'});';

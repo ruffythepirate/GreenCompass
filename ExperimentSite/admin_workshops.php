@@ -45,7 +45,7 @@ function work_msg($s) {
     <div class="section">
 
     <h3><?php print work_msg('Create Workshop')?></h3>
-        <form method="post" action="workshops.php">
+        <form method="post" action="admin_workshops.php">
             Name: <input type="text" name="workshopname"><br>
             <input type="submit" value="Save" >    
         </form>

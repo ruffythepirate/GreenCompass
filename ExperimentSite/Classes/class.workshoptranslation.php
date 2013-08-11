@@ -96,16 +96,13 @@ class WorkshopTranslation {
     {
         $query = "UPDATE workshoptranslations SET  "
         . "title = '$this->title', background = '$this->background', goals = '$this->goals',"
-        . "timeline = '$this->timeline', expectedresults = '$this->expectedresults')"
-        . " WHERE workshoptranslationid = $workshoptranslationid";
+        . "timeline = '$this->timeline', expectedresults = '$this->expectedresults'"
+        . " WHERE workshoptranslationid = $this->workshoptranslationid";
 
         if(!mysqli_query($databaseConnection, $query))
             {
-                echo mysql_error();
-                return FALSE;
+                throw new Exception("Exception occurred when trying to update workshop translation: " . $query);
             }
-
-        return TRUE;
     }
 
 
@@ -122,6 +119,8 @@ class WorkshopTranslation {
                 echo mysql_error();
                 return FALSE;
             }
+
+        $this->workshoptranslationid = $databaseConnection->insert_id;
 
         return TRUE;
     }
