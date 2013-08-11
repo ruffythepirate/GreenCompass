@@ -40,6 +40,16 @@
             return NULL;
         }
 
+        public static function deleteById($databaseConnection, $schoolid)
+        {
+            $query = "DELETE FROM schools WHERE schoolid = $schoolid";
+
+            if(!mysqli_query($databaseConnection, $query))
+            {
+                throw new Exception("Exception occurred when deleting school! " . $schoolid);
+            }
+        }
+
         public static function getAllNotInBatch($databaseConnection, $batchId)
         {
             $query = "SELECT schoolid, name, countryid, createddate FROM schools";

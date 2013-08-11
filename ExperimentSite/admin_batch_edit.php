@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         $newBatch->saveToDatabase($databaseConnection);
 
         //2. We redirect to edit the newly created batch.
-        header("location: admin_batch_edit?batchId=$newBatch->batchid".".php");
+        header("location: admin_batch_edit.php?batchId=$newBatch->batchid");
         exit();
     } else if($_POST['part'] == 'general')
     {
@@ -68,5 +68,5 @@ include "Includes/header.php";
 </div>
 </div>
 <?php
-include "Includes/Footer.php";
+include "Includes/footer.php";
     

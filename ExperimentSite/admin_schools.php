@@ -32,67 +32,7 @@ function msg($s) {
     </div>
     <div class="section">
     <h3><?php print msg('Schools')?></h3>
-   <?php
-
-        function countrySort( $a, $b ) {
-            return $a->name == $b->name ? 0 : ( $a->name > $b->name ) ? 1 : -1;
-        }
-
-        $countries = array();
-        //We load the countries so that we can group on the later.        
-        $query = 'SELECT countryid, name FROM countries';
-        $result = $databaseConnection->query($query);
-        while($row = $result->fetch_object())
-        {
-            $countries[$row->countryid] = $row;
-        }
-        $result->close();
-
-        $query = 'SELECT schoolid, name, countryid, createddate FROM schools';
-        
-        $result = $databaseConnection->query($query);
-
-        $rows = array();
-        while($row =   $result->fetch_object())
-        {
-            $rows[] = $row;
-        }
-
-        foreach($rows as $row)
-        {
-            $countrySchools[$row->countryid][] = $row;
-        }
-
-        usort( $countries, 'countrySort' );
-
-        foreach($countries as $key => $value)
-        {
-            if(isset ($countrySchools[$value->countryid]))
-            {
-                 //We print out a table over the schools of this country
-                 print "<h4>$value->name</h4>";
-                 print "<table>";
-                 print "<tr><th>Name</th><th>Teachers</th><th>Created</th><th>Edit</th><th>Delete</th></tr>";
-                 foreach($countrySchools[$value->countryid] as $school)
-                 {
-                     print"<tr>\n";
-                     print"<td>$school->name</td>\n";
-                     print"<td>0</td>\n";
-                     $dateAsDateTime = new DateTime($school->createddate, new DateTimeZone('Etc/GMT+1'));
-                     $formattedDate = $dateAsDateTime->format('Y-m-d');
-                     print"<td>$formattedDate</td>\n";
-                     print"<td>Edit</td>\n";
-                     print"<td>Delete</td>\n";
-                     print"</tr>\n";
-                 }
-                 print "</table>";
-            }
-        }
-
-
-        $result->close();
-    ?>
-
+        <?php include "Partials/partial_admin_school_list.php"; ?>
         <a href="admin_school_new.php"><?php print msg('Add New')?></a>
     </div>
 

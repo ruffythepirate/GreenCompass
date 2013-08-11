@@ -5,7 +5,7 @@
     require_once("Classes/class.user.php");         
     
     include("workshop_post_methods.php");         
-    include ("/Scripts/script_workshop_edit.php");
+    include ("Scripts/script_workshop_edit.php");
 ?>
 
 <?php

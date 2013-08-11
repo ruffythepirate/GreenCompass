@@ -2,7 +2,6 @@
     require_once ("Includes/session.php");
     require_once ("Includes/simplecms-config.php"); 
     require_once ("Includes/connectDB.php");
-    include ("Includes/header.php");
 
     if (isset($_POST['submit']))
     {
@@ -21,12 +20,14 @@
             $statement->bind_result($_SESSION['userid'], $_SESSION['username']);
             $statement->fetch();
             header ("Location: index.php");
+            exit();
         }
         else
         {
-            echo "Username/password combination is incorrect.";
+            $feedback = "Username/password combination is incorrect.";
         }
     }
+    include ("Includes/header.php");
 ?>
 <div id="main">
     <h2>Log on</h2>
@@ -49,6 +50,7 @@
             </p>
         </fieldset>
     </form>
+    <?php echo "$feedback";?>
 </div>
 </div> <!-- End of outer-wrapper which opens in header.php -->
 <?php include ("Includes/footer.php"); ?>

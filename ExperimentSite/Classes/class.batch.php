@@ -68,7 +68,7 @@
     
             if(!mysqli_query($databaseConnection, $query))
             {
-                throw new Exception("Failed to Update Batch ($this->batchid) in DB! " . mysql_error());     
+                throw new Exception("Failed to Update Batch ($this->batchid) in DB! " . $query);     
             }
         }
     
@@ -95,7 +95,7 @@
                         
             if(!mysqli_query($databaseConnection, $query))
             {
-                throw new Exception("Failed to Insert Batch ($this->name) in DB! " . mysql_error());     
+                throw new Exception("Failed to Insert Batch ($this->name) in DB! " . $query);     
             }
 
             $this->batchid = $databaseConnection->insert_id;
