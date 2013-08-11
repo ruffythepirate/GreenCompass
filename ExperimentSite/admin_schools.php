@@ -33,7 +33,7 @@ function msg($s) {
     <div class="section">
     <h3><?php print msg('Schools')?></h3>
         <?php include "Partials/partial_admin_school_list.php"; ?>
-        <a href="admin_school_new.php"><?php print msg('Add New')?></a>
+        <a href="admin_school_edit.php"><?php print msg('Add New')?></a>
     </div>
 
     </div>

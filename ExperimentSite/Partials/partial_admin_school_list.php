@@ -51,7 +51,7 @@
                      $dateAsDateTime = new DateTime($school->createddate, new DateTimeZone('Etc/GMT+1'));
                      $formattedDate = $dateAsDateTime->format('Y-m-d');
                      print"<td>$formattedDate</td>\n";
-                     print"<td>Edit</td>\n";
+                     print"<td><a href=\"admin_school_edit.php?schoolId=$school->schoolid\">Edit</a></td>\n";
                      print"<td><a href=\"#\" class=\"delete-school\" data-schoolid=\"$school->schoolid\">Delete</a></td>\n";
                      print"</tr>\n";
                  }

@@ -27,6 +27,8 @@
             return $array;            
         }
 
+
+
         public static function getById($databaseConnection, $schoolid)
         {
             $query = "SELECT schoolid, name, countryid, createddate FROM schools WHERE schoolid = $schoolid";
@@ -92,6 +94,28 @@
             return new School($schoolid, $name, $countryid, NULL);            
         }
 
+        public function saveToDatabase($databaseConnection)
+        {
+            if(!isset($this->schoolid))
+            {
+                $this->insertToDatabase($databaseConnection);
+            }
+            else {
+                $this->updateInDatabase($databaseConnection);
+            }
+        }
+
+        public function updateInDatabase($databaseConnection)
+        {
+            $query = "UPDATE schools SET name = \"$this->name\", countryid = $this->countryid "
+            ." WHERE schoolid = $this->schoolid ";
+
+            if(! mysqli_query($databaseConnection, $query))
+            {
+                throw new Exception("Exception occurred when inserting school! ". $query);
+            }
+        }
+
         public function insertToDatabase($databaseConnection)
         {
             $query = "INSERT INTO schools (name, countryid, createddate) VALUES "
@@ -99,11 +123,9 @@
 
             if(! mysqli_query($databaseConnection, $query))
             {
-                echo mysql_error();
-                return FALSE;
+                throw new Exception("Exception occurred when inserting school! ". $query);
             }
             $this->schoolid = $databaseConnection->insert_id;
-            return TRUE;
         }
 
         public static function NameSort( $a, $b ) {
