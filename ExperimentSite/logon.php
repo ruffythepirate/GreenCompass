@@ -5,17 +5,17 @@
 
     if (isset($_POST['submit']))
     {
-        $username = $_POST['username'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $query = "SELECT id, username FROM users WHERE username = ? AND password = SHA(?) LIMIT 1";
+        $query = "SELECT id, username FROM users WHERE email = ? AND password = SHA(?) LIMIT 1";
         $statement = $databaseConnection->prepare($query);
-        $statement->bind_param('ss', $username, $password);
+        $statement->bind_param('ss', $email, $password);
 
         $statement->execute();
         $statement->store_result();
 
-        if ($statement->num_rows == 1)
+        if ($statement->num_rows >= 1)
         {
             $statement->bind_result($_SESSION['userid'], $_SESSION['username']);
             $statement->fetch();
@@ -36,8 +36,8 @@
             <legend>Log on</legend>
             <ol>
                 <li>
-                    <label for="username">Username:</label> 
-                    <input type="text" name="username" value="" id="username" />
+                    <label for="username">Email:</label> 
+                    <input type="text" name="email" value="" id="username" />
                 </li>
                 <li>
                     <label for="password">Password:</label>
