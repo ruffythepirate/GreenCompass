@@ -2,63 +2,67 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+DROP SCHEMA IF EXISTS `simplecms979` ;
+CREATE SCHEMA IF NOT EXISTS `simplecms979` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
+USE `simplecms979` ;
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`batches`
+-- Table `batches`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`batches` ;
+DROP TABLE IF EXISTS `batches` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batches` (
+CREATE  TABLE IF NOT EXISTS `batches` (
   `batchid` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `startdate` DATETIME NULL DEFAULT NULL ,
   `createddate` DATETIME NOT NULL ,
   PRIMARY KEY (`batchid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`batchschools`
+-- Table `batchschools`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchschools` ;
+DROP TABLE IF EXISTS `batchschools` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchschools` (
+CREATE  TABLE IF NOT EXISTS `batchschools` (
   `batchschoolid` INT(11) NOT NULL AUTO_INCREMENT ,
   `schoolid` INT(11) NOT NULL ,
   `batchid` INT(11) NOT NULL ,
   `createddate` DATETIME NOT NULL ,
   PRIMARY KEY (`batchschoolid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`batchteachers`
+-- Table `batchteachers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchteachers` ;
+DROP TABLE IF EXISTS `batchteachers` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchteachers` (
+CREATE  TABLE IF NOT EXISTS `batchteachers` (
   `batchteacherid` INT(11) NOT NULL AUTO_INCREMENT ,
   `userid` INT(11) NOT NULL ,
   `batchid` INT(11) NOT NULL ,
   `createddate` DATETIME NOT NULL ,
   PRIMARY KEY (`batchteacherid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`batchworkshopfiles`
+-- Table `batchworkshopfiles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchworkshopfiles` ;
+DROP TABLE IF EXISTS `batchworkshopfiles` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchworkshopfiles` (
+CREATE  TABLE IF NOT EXISTS `batchworkshopfiles` (
   `batchworkshopfileid` INT(10) NOT NULL AUTO_INCREMENT ,
   `batchworkshopid` INT(10) NOT NULL ,
   `languageid` INT(10) NULL DEFAULT NULL ,
@@ -73,11 +77,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`batchworkshops`
+-- Table `batchworkshops`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`batchworkshops` ;
+DROP TABLE IF EXISTS `batchworkshops` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchworkshops` (
+CREATE  TABLE IF NOT EXISTS `batchworkshops` (
   `batchworkshopid` INT(11) NOT NULL AUTO_INCREMENT ,
   `batchid` INT(11) NOT NULL ,
   `workshopid` INT(11) NOT NULL ,
@@ -85,16 +89,16 @@ CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`batchworkshops` (
   `createddate` DATETIME NOT NULL ,
   PRIMARY KEY (`batchworkshopid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`countries`
+-- Table `countries`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`countries` ;
+DROP TABLE IF EXISTS `countries` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`countries` (
+CREATE  TABLE IF NOT EXISTS `countries` (
   `countryid` INT(10) NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`countryid`) )
@@ -103,11 +107,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`languages`
+-- Table `languages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`languages` ;
+DROP TABLE IF EXISTS `languages` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`languages` (
+CREATE  TABLE IF NOT EXISTS `languages` (
   `languageid` INT(10) NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`languageid`) )
@@ -116,11 +120,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`news`
+-- Table `news`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`news` ;
+DROP TABLE IF EXISTS `news` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`news` (
+CREATE  TABLE IF NOT EXISTS `news` (
   `newsid` INT(10) NOT NULL AUTO_INCREMENT ,
   `userid` INT(10) NOT NULL ,
   `text` MEDIUMTEXT NOT NULL ,
@@ -128,16 +132,16 @@ CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`news` (
   `created` DATETIME NOT NULL ,
   PRIMARY KEY (`newsid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`pages`
+-- Table `pages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`pages` ;
+DROP TABLE IF EXISTS `pages` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`pages` (
+CREATE  TABLE IF NOT EXISTS `pages` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `menulabel` VARCHAR(50) NULL DEFAULT NULL ,
   `content` TEXT NULL DEFAULT NULL ,
@@ -148,11 +152,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`roles`
+-- Table `roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`roles` ;
+DROP TABLE IF EXISTS `roles` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`roles` (
+CREATE  TABLE IF NOT EXISTS `roles` (
   `id` INT(11) NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
   `value` VARCHAR(10) NOT NULL ,
@@ -162,27 +166,27 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`schools`
+-- Table `schools`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`schools` ;
+DROP TABLE IF EXISTS `schools` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`schools` (
+CREATE  TABLE IF NOT EXISTS `schools` (
   `schoolid` INT(10) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `countryid` INT(10) NULL DEFAULT NULL ,
   `createddate` DATETIME NOT NULL ,
   PRIMARY KEY (`schoolid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`users`
+-- Table `users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`users` ;
+DROP TABLE IF EXISTS `users` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`users` (
+CREATE  TABLE IF NOT EXISTS `users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(50) NULL DEFAULT NULL ,
   `password` CHAR(40) NULL DEFAULT NULL ,
@@ -192,41 +196,44 @@ CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`users` (
   `isactivated` BIT(1) NOT NULL DEFAULT b'0' ,
   `verificationcode` VARCHAR(32) NULL DEFAULT NULL ,
   `created` DATETIME NULL DEFAULT NULL ,
-  PRIMARY KEY (`id`) )
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 16
+AUTO_INCREMENT = 18
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`users_in_roles`
+-- Table `users_in_roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`users_in_roles` ;
+DROP TABLE IF EXISTS `users_in_roles` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`users_in_roles` (
+CREATE  TABLE IF NOT EXISTS `users_in_roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `user_id` INT(11) NOT NULL ,
   `role_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `user_id` (`user_id` ASC) ,
-  INDEX `role_id` (`role_id` ASC) ,
+  INDEX `users_in_roles_ibfk_2` (`role_id` ASC) ,
+  INDEX `users_in_roles_ibfk_1` (`user_id` ASC) ,
   CONSTRAINT `users_in_roles_ibfk_1`
     FOREIGN KEY (`user_id` )
-    REFERENCES `ruffythe_greencompass`.`users` (`id` ),
+    REFERENCES `users` (`id` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `users_in_roles_ibfk_2`
     FOREIGN KEY (`role_id` )
-    REFERENCES `ruffythe_greencompass`.`roles` (`id` ))
+    REFERENCES `roles` (`id` ))
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`workshopfiles`
+-- Table `workshopfiles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`workshopfiles` ;
+DROP TABLE IF EXISTS `workshopfiles` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshopfiles` (
+CREATE  TABLE IF NOT EXISTS `workshopfiles` (
   `workshopfileid` INT(10) NOT NULL AUTO_INCREMENT ,
   `workshopid` INT(10) NOT NULL ,
   `languageid` INT(10) NULL DEFAULT NULL ,
@@ -239,35 +246,35 @@ CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshopfiles` (
   INDEX `userid_idx` (`userid` ASC) ,
   CONSTRAINT `userid`
     FOREIGN KEY (`userid` )
-    REFERENCES `ruffythe_greencompass`.`users` (`id` )
+    REFERENCES `users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`workshops`
+-- Table `workshops`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`workshops` ;
+DROP TABLE IF EXISTS `workshops` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshops` (
+CREATE  TABLE IF NOT EXISTS `workshops` (
   `workshopid` INT(10) NOT NULL AUTO_INCREMENT ,
   `workshopname` VARCHAR(30) NOT NULL ,
   `createddate` DATETIME NOT NULL ,
   PRIMARY KEY (`workshopid`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `ruffythe_greencompass`.`workshoptranslations`
+-- Table `workshoptranslations`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ruffythe_greencompass`.`workshoptranslations` ;
+DROP TABLE IF EXISTS `workshoptranslations` ;
 
-CREATE  TABLE IF NOT EXISTS `ruffythe_greencompass`.`workshoptranslations` (
+CREATE  TABLE IF NOT EXISTS `workshoptranslations` (
   `workshoptranslationid` INT(10) NOT NULL AUTO_INCREMENT ,
   `workshopid` INT(10) NOT NULL ,
   `languageid` INT(10) NOT NULL ,
