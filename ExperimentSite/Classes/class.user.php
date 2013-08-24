@@ -57,6 +57,21 @@ class User {
         return NULL;
     }
 
+    public static function deleteById($databaseConnection, $userId)
+    {
+        $query = "DELETE FROM users "
+        . " WHERE id = ?";
+
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('i', $userId);
+            
+        if(!$statement->execute() )
+        {
+            throw new Exception("Failed to delete a user!");
+        }
+        return NULL;
+    }
+
     public static function fromVerificationCode($databaseConnection, $verificationcode)
     {
         $query = "SELECT id, username, schoolid, languageid, email, created, verificationcode, isactivated "
@@ -93,6 +108,7 @@ class User {
         {
             throw new Exception("Failed to add role to user!");
         }
+        return TRUE;
     }
 
     public static function getUsersInRole($databaseConnection, $roleValue)

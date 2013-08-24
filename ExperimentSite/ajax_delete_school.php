@@ -6,4 +6,4 @@ require_once "Classes/class.school.php";
 global $databaseConnection;
 
     //1. We delete the school.
-    School::deleteById($databaseConnection, $_POST['schoolId']);
+School::deleteById($databaseConnection, $_POST['schoolId']);

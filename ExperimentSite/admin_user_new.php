@@ -42,6 +42,7 @@
             {
                 if($newUser->addRole($databaseConnection, $_POST['type']))
                 {
+                    $newUser->sendVerificationEmail();
     
                     mysqli_commit($databaseConnection);
                     //redirect to all users page.
