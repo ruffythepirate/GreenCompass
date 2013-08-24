@@ -10,7 +10,7 @@
     
     public static function UpdatePublishDate($databaseConnection, $batchWorkshopId, $newPublishDate)
     {
-        $query = "UPDATE BatchWorkshops SET publishdate = "
+        $query = "UPDATE batchworkshops SET publishdate = "
                  . (isset($newPublishDate) && $newPublishDate != '' ? " '$newPublishDate'" : " NULL ")
                  . " WHERE batchworkshopid = $batchWorkshopId";
                  
@@ -22,11 +22,11 @@
     
     public static function AddBatchWorkshop($databaseConnection, $batchId, $workshopId)
     {
-        $query="INSERT INTO BatchWorkshops (batchid, workshopid, createddate ) VALUES ($batchId, $workshopId, NOW())";
+        $query="INSERT INTO batchworkshops (batchid, workshopid, createddate ) VALUES ($batchId, $workshopId, NOW())";
 
         if(!mysqli_query($databaseConnection, $query))
         {
-            throw new Exception("Exception occurred when trying to add batch workshop (batchid = $batchId, workshopId = $workshopId");
+            throw new Exception("Exception occurred when trying to add batch workshop (batchid = $batchId, workshopId = $workshopId.. $query" );
         }
     }
 

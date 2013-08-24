@@ -15,7 +15,6 @@
                     <div id="file-drop-zone">or drop files here</div>
                 </div>
                 <div id="submit-button">
-                    <a id="ajax-upload-button" href="#">Ajax Upload Button</a>
                     <button type="submit">Upload Files</button>
                 </div>
             </fieldset>
@@ -53,10 +52,6 @@
     }
 
     $(document).ready(function () {
-        $('#ajax-upload-button').click(function () {
-            var fileSelect = $('#file-select');
-            uploadFile(fileSelect.val());
-        });
 
         //Activates drag and drop
         if (window.FileReader && Modernizr.draganddrop) {

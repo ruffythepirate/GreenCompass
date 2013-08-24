@@ -61,12 +61,6 @@
                 });
         });
 
-        $('#ajax-upload-button').click(function () {
-            var fileSelect = $('#file-select');
-
-            uploadFile(fileSelect.val());
-        });
-
         //Activates drag and drop
         if (window.FileReader && Modernizr.draganddrop) {
             var fileDrag = $('#file-drop-zone');
@@ -128,31 +122,6 @@
         });
 
         updateWorkshopPreview();
-
-        $('.delete-workshopfile').click(function (item) {
-            var workshopfileid = $(this).attr('data-workshopfileid');
-            $.ajax({
-                url: 'ajax_delete_workshopfile.php?workshopfileid=' + workshopfileid,
-                type: 'DELETE',
-                xhr: function () {
-                    var myXhr = $.ajaxSettings.xhr();
-                    return myXhr;
-                },
-                beforeSend: function () {
-
-                },
-                success: function (data, textStatus, jqXHR) {
-                    updateWorkshopFiles(window.workshopid)
-                },
-                error: function () {
-
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-        });
-
     });
 
     function uploadFile(file) {
@@ -173,16 +142,14 @@
             },
             //Ajax events
             beforeSend: function () {
-                $('#upload-feedback').html('<h3>Upload starting...</h3>')
+                $('#upload-feedback').html('<h3>Uploading...</h3>')
             },
             success: function (data, textStatus, jqXHR) {
-                //var obj = jQuery.parseJSON(data);
-                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data); // + obj.message);
-                updateWorkshopFiles(window.workshopid)
+                $('#upload-feedback').html('<h3>File uploaded!</h3>');
 
             },
             error: function () {
-                $('#upload-feedback').html('<h3>file upload failed!</h3>')
+                $('#upload-feedback').html('<h3>Upload failed!</h3>')
             },
             // Form data
             data: formData,

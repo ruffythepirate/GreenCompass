@@ -87,7 +87,7 @@
 
         private function insertToDatabase($databaseConnection)
         {
-            $query = "INSERT INTO Batches (name, startdate, createddate)";
+            $query = "INSERT INTO batches (name, startdate, createddate)";
             
             $query = $query . " VALUES ('$this->name' ";
             $query = $query . ", NULL";

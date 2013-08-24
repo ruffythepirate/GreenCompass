@@ -3,6 +3,8 @@
     require_once  ("Classes/class.user.php");
     require_once  ("Classes/class.role.php");
     
+    date_default_timezone_set('Etc/GMT+1');
+
     function logged_on()
     {
         return isset($_SESSION['userid']);

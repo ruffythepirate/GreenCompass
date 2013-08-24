@@ -7,8 +7,6 @@
     
     $workshopfileid = $_REQUEST['workshopfileid'];
     
-        echo "DELETE workshopfileid = '$workshopfileid'";
-    
         //1. Load the object from the database.
         $workshopFile = WorkshopFile::fromDatabase($databaseConnection, $workshopfileid);
     
@@ -47,7 +45,7 @@
             }
         }
             //3. After removing file, remove all entries in database with matching name / workshopid.
-            $deleteSuccess = WorkshopFile::deleteByNameAndBatchWorkshopId($databaseConnection, $workshopFile->filename, $workshopFile->batchworkshopid);
+            $deleteSuccess = WorkshopFile::deleteByNameAndWorkshopId($databaseConnection, $workshopFile->filename, $workshopFile->workshopid);
             echo "Deleting from DB... $deleteSuccess.";
     
         require_once ("Includes/closeDB.php");

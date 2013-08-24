@@ -15,6 +15,10 @@
         {
             $sizeString = number_format($fileSize/ 1e3, 1, '.','') . " kB";
         }
+        else 
+        {
+            $sizeString = $sizeString . " B";
+        }
         return $sizeString;
     }
 

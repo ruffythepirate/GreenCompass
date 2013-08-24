@@ -37,8 +37,9 @@ echo "<tr><th>Name</th><th>Publish Date</th><th>Remove</th></tr>";
 
     foreach($batchWorkshops as $workshop)
     {
+
         print "<tr><td>$workshop->workshopname</td>"
-        . "<td class=\"publish-date-container\"><input type=\"date\" value=$workshop->publishdate min=". date("Y-m-d") ." data-batchworkshopid=\"$workshop->batchworkshopid\" ></td>"
+        . "<td class=\"publish-date-container\"><input type=\"date\" value=$workshop->publishdate min=". date("Y-m-d", time()) ." data-batchworkshopid=\"$workshop->batchworkshopid\" ></td>"
         . "<td><form method='POST' action=$postPath> <input type=\"hidden\" value=\"$workshop->workshopid\" name=\"workshopid\"> <input type=\"hidden\" name=\"action\" value=\"delete\"> <input type=\"submit\" value=\"Delete\"></form></td>" 
         . "</tr>";
     }
