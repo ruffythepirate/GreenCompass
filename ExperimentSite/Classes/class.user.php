@@ -83,15 +83,16 @@ class User {
     {
 
         $query = "INSERT INTO users_in_roles (user_id, role_id) "
-                . " SELECT $this->userid, r.id "
-                . " FROM roles r WHERE r.value = '$userRoleName'";
-    
-        echo "<br>Query: $query <br>";
-        if(! mysqli_query($databaseConnection, $query))
+                . " SELECT ?, r.id "
+                . " FROM roles r WHERE r.value = ?";
+              
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('is', $this->userid, $userRoleName);
+            
+        if(!$statement->execute() )
         {
-            return FALSE;
+            throw new Exception("Failed to add role to user!");
         }
-        return TRUE;
     }
 
     public static function getUsersInRole($databaseConnection, $roleValue)
@@ -114,12 +115,15 @@ class User {
 
     public function activateUser($databaseConnection, $verificationcode, $password)
     {
-        $query = "UPDATE users SET password = SHA('$password'), isactivated = 1"
-                 ." WHERE verificationcode = '$verificationcode' AND isactivated = 0 ";
-        if(! mysqli_query($databaseConnection, $query))
+        $query = "UPDATE users SET password = SHA(?), isactivated = 1"
+                 ." WHERE verificationcode = ? AND isactivated = 0 ";
+        
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('ss', $password, $verificationcode);
+
+        if(!$statement->execute() )
         {
-            echo mysql_error();
-            return FALSE;
+            throw new Exception("Failed to activate user!");
         }
 
         $this->userid = $databaseConnection->insert_id;
@@ -135,14 +139,15 @@ class User {
 
         $query = "INSERT INTO users (username, schoolid, languageid, "
                     . "email, created, isactivated, verificationcode  ) "
-                    . "VALUES ('$this->username', $this->schoolid, $this->languageid"
-                    . ", '$this->email', NOW(), $isactivated, '$this->verificationcode')";
+                    . "VALUES (?, ?, ?"
+                    . ", ?, NOW(), ?, ?)";
 
-        echo "query: $query";
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('siisis', $this->username, $this->schoolid, $this->languageid, $this->email, $isactivated, $this->verificationcode);
+
+        if(!$statement->execute() )
         {
-            
-            return FALSE;
+            throw new Exception("Failed to create user!");
         }
 
         $this->userid = $databaseConnection->insert_id;
@@ -153,10 +158,13 @@ class User {
     public function setLanguage($databaseConnection, $newLanguageId)
     {
         $query = "UPDATE users "
-                . " SET languageId = $newLanguageId "
-                . " WHERE id = $this->userid";
+                . " SET languageId = ? "
+                . " WHERE id = ?";
         
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('ii', $newLanguageId, $this->userid);
+
+        if(!$statement->execute() )
         {
             throw new Exception("Failed to update user $this->userid with languageId = $newLanguageId");
         }

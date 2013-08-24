@@ -62,9 +62,12 @@ class BatchWorkshopFile {
     public static function deleteById($databaseConnection, $batchWorkshopFileId)
     {
         $query = "DELETE FROM batchworkshopfiles "
-               . "WHERE batchworkshopfileid = $batchWorkshopFileId";
+               . "WHERE batchworkshopfileid = ?";
 
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('i', $batchWorkshopFileId);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to delete batchworkshopfile ($batchWorkshopFileId)");
         }
@@ -73,12 +76,13 @@ class BatchWorkshopFile {
     public static function deleteByNameAndBatchWorkshopId($databaseConnection, $batchWorkshopId, $filename)
     {
         $query = "DELETE FROM batchworkshopfiles "
-               . "WHERE batchworkshopid = $batchWorkshopId "
-               . "AND filename = '$filename'";
+               . "WHERE batchworkshopid = ? "
+               . "AND filename = ?";
 
-        echo "$query";
-
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('is', $batchWorkshopId, $filename);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to delete batchworkshopfile ($batchWorkshopId, $filename)");
         }
@@ -143,9 +147,12 @@ class BatchWorkshopFile {
     private function insertToDatabase($databaseConnection)
     {
         $query = "INSERT INTO batchworkshopfiles (batchworkshopid, filename, size, userid, createddate) "
-                . " VALUES ($this->batchworkshopid, '$this->filename', $this->size, $this->userid, NOW())";
-    
-        if(!mysqli_query($databaseConnection, $query))
+                . " VALUES (?, ?, ?, ?, NOW())";
+
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('isii', $this->batchworkshopid, $this->filename, $this->size, $this->userid);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to save a batch workshop file ($this->filename) " . mysql_error() );
         }
@@ -155,10 +162,15 @@ class BatchWorkshopFile {
     
     private function updateToDatabase($databaseConnection)
     {
-        $query = "UPDATE batchworkshopfiles SET languageid = $this->languageid "
-        .", filename='$this->filename', size=$this->size, userid=$this->userid"
-        ." WHERE batchworkshopfileid = $this->batchworkshopfileid";
-        if(!mysqli_query($databaseConnection, $query))
+        $query = "UPDATE batchworkshopfiles SET languageid = ? "
+        .", filename=?, size=?, userid=?"
+        ." WHERE batchworkshopfileid = ?";
+
+        
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('isiii', $this->languageid, $this->filename, $this->size, $this->userid, $this->batchworkshopfileid);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to update a batch workshop file ($this->filename) " . mysql_error() );
         }

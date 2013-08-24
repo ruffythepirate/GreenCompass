@@ -44,9 +44,12 @@
 
         public static function deleteById($databaseConnection, $schoolid)
         {
-            $query = "DELETE FROM schools WHERE schoolid = $schoolid";
+            $query = "DELETE FROM schools WHERE schoolid = ?";
 
-            if(!mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('i', $schoolid);
+            
+            if(!$statement->execute() )
             {
                 throw new Exception("Exception occurred when deleting school! " . $schoolid);
             }
@@ -107,10 +110,13 @@
 
         public function updateInDatabase($databaseConnection)
         {
-            $query = "UPDATE schools SET name = \"$this->name\", countryid = $this->countryid "
-            ." WHERE schoolid = $this->schoolid ";
-
-            if(! mysqli_query($databaseConnection, $query))
+            $query = "UPDATE schools SET name = ?, countryid = ? "
+            ." WHERE schoolid = ? ";
+            
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('sii', $this->name, $this->countryid, $this->schoolid);
+        
+        if(!$statement->execute() )
             {
                 throw new Exception("Exception occurred when inserting school! ". $query);
             }
@@ -119,9 +125,12 @@
         public function insertToDatabase($databaseConnection)
         {
             $query = "INSERT INTO schools (name, countryid, createddate) VALUES "
-            ." ('$this->name', $this->countryid, NOW()) ";
+            ." (?, ?, NOW()) ";
 
-            if(! mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('si', $this->name, $this->countryid);
+            
+            if(!$statement->execute() )
             {
                 throw new Exception("Exception occurred when inserting school! ". $query);
             }

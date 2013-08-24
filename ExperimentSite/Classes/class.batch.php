@@ -55,18 +55,28 @@
     
         private function updateInDatabase($databaseConnection)
         {
-            $query = "UPDATE batches SET name = '$this->name' ";
+            $query = "UPDATE batches SET name = ? ";
             if(isset($this->startdate) && $this->startdate != '')
             {
-                $query = $query . " , startdate = '$this->startdate' ";
+                $query = $query . " , startdate = ? ";
             } else 
             {
                 $query = $query . ", startdate = NULL ";
             }
     
-            $query = $query . " WHERE batchid = $this->batchid";
+            $query = $query . " WHERE batchid = ?";
     
-            if(!mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+
+            if(isset($this->startdate) && $this->startdate != '')
+            {
+                $statement->bind_param('ssi', $this->name, $this->startdate, $this->batchid);
+            } else {
+                $statement->bind_param('si',$this->name, $this->batchid);
+            }
+            
+                        
+            if(!$statement->execute() )
             {
                 throw new Exception("Failed to Update Batch ($this->batchid) in DB! " . $query);     
             }
@@ -89,11 +99,14 @@
         {
             $query = "INSERT INTO batches (name, startdate, createddate)";
             
-            $query = $query . " VALUES ('$this->name' ";
+            $query = $query . " VALUES (? ";
             $query = $query . ", NULL";
             $query = $query . ", NOW() )";
+
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('s', $this->name);
                         
-            if(!mysqli_query($databaseConnection, $query))
+            if(!$statement->execute() )
             {
                 throw new Exception("Failed to Insert Batch ($this->name) in DB! " . $query);     
             }

@@ -11,10 +11,22 @@
     public static function UpdatePublishDate($databaseConnection, $batchWorkshopId, $newPublishDate)
     {
         $query = "UPDATE batchworkshops SET publishdate = "
-                 . (isset($newPublishDate) && $newPublishDate != '' ? " '$newPublishDate'" : " NULL ")
-                 . " WHERE batchworkshopid = $batchWorkshopId";
+                 . (isset($newPublishDate) && $newPublishDate != '' ? " ?" : " NULL ")
+                 . " WHERE batchworkshopid = ?";
                  
-         if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+
+        if(isset($newPublishDate) && $newPublishDate != '')
+        {
+            $statement->bind_param('si', $newPublishDate, $batchWorkshopId);            
+        }
+        else
+        {
+            $statement->bind_param('i', $batchWorkshopId);           
+        }
+        
+        
+        if(!$statement->execute() )
          {
              throw new Exception("Exception occurred when trying to update the publish date to ($newPublishDate) for batchWorkshopId = $batchWorkshopId");
          } 
@@ -22,9 +34,12 @@
     
     public static function AddBatchWorkshop($databaseConnection, $batchId, $workshopId)
     {
-        $query="INSERT INTO batchworkshops (batchid, workshopid, createddate ) VALUES ($batchId, $workshopId, NOW())";
+        $query="INSERT INTO batchworkshops (batchid, workshopid, createddate ) VALUES (?, ?, NOW())";
 
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('ii', $batchId, $workshopId);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to add batch workshop (batchid = $batchId, workshopId = $workshopId.. $query" );
         }
@@ -32,9 +47,12 @@
 
     public static function DeleteBatchWorkshop($databaseConnection, $batchId, $workshopId)
     {
-        $query="DELETE FROM batchworkshops WHERE batchid = $batchId AND workshopId = $workshopId";
+        $query="DELETE FROM batchworkshops WHERE batchid = ? AND workshopId = ?";
 
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('ii', $batchId, $workshopId);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to delete batch workshop (batchid = $batchId, workshopId = $workshopId)");
         }

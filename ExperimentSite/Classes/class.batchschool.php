@@ -8,9 +8,12 @@ class BatchSchool
 
     public static function AddBatchSchool($databaseConnection, $batchId, $schoolId)
     {
-        $query="INSERT INTO batchschools (batchid, schoolid, createddate ) VALUES ($batchId, $schoolId, NOW())";
+        $query="INSERT INTO batchschools (batchid, schoolid, createddate ) VALUES (?, ?, NOW())";
 
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('ii', $batchId, $schoolId);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to add batch school (batchid = $batchId, schoolId = $schoolId.. $query");
         }
@@ -18,9 +21,12 @@ class BatchSchool
 
     public static function DeleteBatchSchool($databaseConnection, $batchId, $schoolId)
     {
-        $query="DELETE FROM batchschools WHERE batchid = $batchId AND schoolid = $schoolId";
+        $query="DELETE FROM batchschools WHERE batchid = ? AND schoolid = ?";
 
-        if(!mysqli_query($databaseConnection, $query))
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('ii', $batchId, $schoolId);
+        
+        if(!$statement->execute() )
         {
             throw new Exception("Exception occurred when trying to delete batch school (batchid = $batchId, schoolid = $schoolId).. $query");
         }

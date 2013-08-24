@@ -16,6 +16,7 @@
     ?></title>
         <link href="/Styles/Site.css" rel="stylesheet" type="text/css" />
         <link href="/Styles/GreenCompass.css" rel="stylesheet" type="text/css" />
+        <!--<link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
         <script type="text/javascript" src="Scripts/modernizr.development.js"></script>
@@ -23,6 +24,7 @@
         <script type="text/javascript" src="Scripts/noty/jquery.noty.js"></script>
         <script type="text/javascript" src="Scripts/noty/layouts/top.js"></script>
         <script type="text/javascript" src="Scripts/noty/themes/default.js"></script>
+        <script src="Bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="outer-wrapper">

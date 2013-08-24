@@ -42,9 +42,12 @@
 
         public static function deleteNews($databaseConnection, $newsid)
         {
-            $query = "DELETE FROM news WHERE newsid = $newsid";
+            $query = "DELETE FROM news WHERE newsid = ?";
 
-            if(! mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('i', $newsid);
+
+            if(! $statement->execute())
             {
                 throw new Exception("Failed to delete news ($newsid) from DB! " . mysql_error());                
             }
@@ -52,9 +55,11 @@
 
         public static function toggleNewsPublish($databaseConnection, $newsid)
         {
-            $query = "Update news SET ispublished = ispublished ^ 1 WHERE newsid = $newsid";
+            $query = "Update news SET ispublished = ispublished ^ 1 WHERE newsid = ?";
 
-            if(! mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('i', $newsid);
+            if(! $statement->execute())
             {
                 throw new Exception("Failed to toggle publish ($newsid) from DB! " . mysql_error());                
             }
@@ -63,9 +68,13 @@
         private function insertToDatabase($databaseConnection)
         {
             $query = "INSERT INTO news (userid, text, ispublished, created) "
-                   . " VALUES ($this->userid, '$this->text', $this->ispublished, NOW() )";
+                   . " VALUES (?, ?, ?, NOW() )";
+
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('isi', $this->userid, $this->text, $this->ispublished);
             
-            if(! mysqli_query($databaseConnection, $query))
+
+            if(! $statement->execute())
             {
                 throw new Exception("Failed to insert into DB! " . mysql_error());
             }
@@ -79,10 +88,14 @@
                 throw new Exception("Cannot update news when newsid is null!");
             }
 
-            $query = "UPDATE news SET text = '$this->text', ispublished='$this->ispublished' "
-                    . " WHERE newsid = $this->newsid";
+            $query = "UPDATE news SET text = ?, ispublished=? "
+                    . " WHERE newsid = ?";
 
-            if(! mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('sii', $this->text, $this->ispublished, 
+                        $this->newsid);
+                    
+            if(! $statement->execute())
             {
                 throw new Exception("Failed to update in DB! " . mysql_error());
             }            

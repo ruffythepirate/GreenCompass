@@ -95,11 +95,15 @@ class WorkshopTranslation {
     private function updateToDatabase($databaseConnection)
     {
         $query = "UPDATE workshoptranslations SET  "
-        . "title = '$this->title', background = '$this->background', goals = '$this->goals',"
-        . "timeline = '$this->timeline', expectedresults = '$this->expectedresults'"
-        . " WHERE workshoptranslationid = $this->workshoptranslationid";
+        . "title = ?, background = ?, goals = ?,"
+        . "timeline = ?, expectedresults = ?"
+        . " WHERE workshoptranslationid = ?";
 
-        if(!mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('sssssi', $this->title, $this->background, $this->goals,
+             $this->timeline, $this->expectedresults,$this->workshoptranslationid);
+
+            if(!$statement->execute() )
             {
                 throw new Exception("Exception occurred when trying to update workshop translation: " . $query);
             }
@@ -110,11 +114,16 @@ class WorkshopTranslation {
     {
         $query = "INSERT INTO workshoptranslations (languageid, workshopid, title, background, goals, timeline, expectedresults, createddate) "
         . "VALUES("
-        . "$this->languageid, $this->workshopid, "
-        . "'$this->title', '$this->background', '$this->goals',"
-        . "'$this->timeline', '$this->expectedresults', NOW() )";
+        . "?, ?, "
+        . "?, ?, ?,"
+        . "?, ?, NOW() )";
 
-        if(!mysqli_query($databaseConnection, $query))
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('iisssss', $this->languageid, $this->workshopid, 
+                $this->title, $this->background, $this->goals,
+             $this->timeline, $this->expectedresults);
+
+            if(!$statement->execute() )
             {
                 echo mysql_error();
                 return FALSE;

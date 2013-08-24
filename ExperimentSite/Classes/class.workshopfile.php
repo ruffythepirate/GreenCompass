@@ -51,8 +51,12 @@
 
         public static function deleteByNameAndWorkshopId($databaseConnection, $filename, $workshopid)
         {
-            $query = "DELETE FROM workshopfiles WHERE workshopid=$workshopid AND filename='$filename'";
-            if(!mysqli_query($databaseConnection, $query))
+            $query = "DELETE FROM workshopfiles WHERE workshopid=? AND filename=?";
+
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('is', $workshopid,$filename);
+
+        if(!$statement->execute() )
             {
                  return FALSE;
             }
@@ -92,28 +96,33 @@
         private function insertToDatabase($databaseConnection)
         {
             $query = "INSERT INTO workshopfiles (workshopid, languageid, filename, size, userid, createddate) "
-                    . " VALUES ($this->workshopid, $this->languageid, '$this->filename', $this->size, $this->userid, NOW())";
+                    . " VALUES (?, ?, ? ,?, ?, NOW())";
     
-                    if(!mysqli_query($databaseConnection, $query))
-                    {
-                        echo mysql_error();
-                        return FALSE;
-                    }
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('iisii', $this->workshopid, $this->languageid, $this->filename, $this->size, $this->userid);
+
+            if(!$statement->execute() )
+            {
+                throw new Exception("Failed to insert workshopfile!");
+            }
     
-                    $this->workshopfileid = $databaseConnection->insert_id;
+            $this->workshopfileid = $databaseConnection->insert_id;
     
-                    return TRUE;
+            return TRUE;
         }
     
         private function updateToDatabase($databaseConnection)
         {
-            $query = "UPDATE workshopfiles SET languageid = $this->languageid "
-            .", filename='$this->filename', size=$this->size, userid=$this->userid"
-            ." WHERE workshopfileid = $this->workshopfileid";
-            if(!mysqli_query($databaseConnection, $query))
+            $query = "UPDATE workshopfiles SET languageid = ? "
+            .", filename=?, size=?, userid=?"
+            ." WHERE workshopfileid = ?";
+
+            $statement = $databaseConnection->prepare($query);
+            $statement->bind_param('isiii', $this->languageid, $this->filename, $this->size, $this->userid, $this->workshopfileid);
+
+            if(!$statement->execute() )
             {
-                echo mysql_error();
-                return FALSE;
+                throw new Exception("Failed to update workshopfile!");
             }        
             return TRUE;
         }
