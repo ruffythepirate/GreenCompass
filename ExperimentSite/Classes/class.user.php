@@ -119,6 +119,7 @@ class User {
                  ." WHERE verificationcode = ? AND isactivated = 0 ";
         
         $statement = $databaseConnection->prepare($query);
+        
         $statement->bind_param('ss', $password, $verificationcode);
 
         if(!$statement->execute() )
@@ -129,8 +130,25 @@ class User {
         $this->userid = $databaseConnection->insert_id;
 
         return TRUE;
-
     }
+
+    public function setPassword($databaseConnection, $password)
+    {
+        $query = "UPDATE users SET password = SHA(?) "
+                 ." WHERE id = ? AND isactivated = 1";
+
+        $statement = $databaseConnection->prepare($query);
+        
+        $statement->bind_param('si', $password, $this->userid);
+
+        if(!$statement->execute() )
+        {
+            throw new Exception("Failed to set password!");
+        }
+
+        return TRUE;
+    }
+
 
     public function insertToDatabase($databaseConnection)
     {

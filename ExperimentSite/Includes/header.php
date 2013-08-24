@@ -40,6 +40,7 @@
                         if (logged_on())
                         {
                             echo '<li><a href="/logoff.php">Sign out</a></li>' . "\n";
+                            echo '<li><a href="/user_edit.php">Change Password</a></li>' . "\n";
                         }
                         else
                         {

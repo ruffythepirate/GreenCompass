@@ -42,6 +42,16 @@
     {
         return $_SESSION['userid'];
     }
+
+    function get_user()
+    {
+        global $databaseConnection;
+        if(isset($_SESSION['userid']))
+        {
+            return User::fromId($databaseConnection, $_SESSION['userid']);
+        }
+        return NULL;
+    }
     
     function has_role($roleName)
     {
