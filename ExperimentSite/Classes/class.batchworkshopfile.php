@@ -158,6 +158,7 @@ class BatchWorkshopFile {
         }
     
         $this->batchworkshopfileid = $databaseConnection->insert_id;
+        return TRUE;
     }
     
     private function updateToDatabase($databaseConnection)
@@ -174,6 +175,7 @@ class BatchWorkshopFile {
         {
             throw new Exception("Exception occurred when trying to update a batch workshop file ($this->filename) " . mysql_error() );
         }
+        return TRUE;
      }
 
 

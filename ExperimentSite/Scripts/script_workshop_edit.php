@@ -109,8 +109,7 @@
             if (selectedLanguageId != '' && selectedLanguageId != null) {
                 $("#translation-section-" + selectedLanguageId).show();
                 $('#workshop-preview').show();
-            } else
-            { 
+            } else {
                 $('#workshop-preview').hide();
             }
         }
@@ -136,7 +135,15 @@
             xhr: function () {  // custom xhr
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // check if upload property exists
-                    //    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
+                    myXhr.upload.addEventListener('progress', function (evt) {
+
+                        if (evt.lengthComputable) {
+                            var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+                            $('#upload-progress').html(percentComplete.toString() + "%");
+                        } else {
+                            $('#upload-progress').html("Unable to compute progress.");
+                        }
+                    }, false); // for handling the progress of the upload
                 }
                 return myXhr;
             },
@@ -146,10 +153,11 @@
             },
             success: function (data, textStatus, jqXHR) {
                 $('#upload-feedback').html('<h3>File uploaded!</h3>');
-
+                $('#upload-progress').html('');
             },
             error: function () {
                 $('#upload-feedback').html('<h3>Upload failed!</h3>')
+                $('#upload-progress').html('');
             },
             // Form data
             data: formData,

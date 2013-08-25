@@ -3,17 +3,17 @@
     function getFileSizeString($fileSize)
     {
         $sizeString = "" . $fileSize;
-        if($fileSize > 1e9)
+        if($fileSize > 1024*1024*1024)
         {
-            $sizeString = number_format($fileSize/ 1e9, 1, '.','') . " GB";
+            $sizeString = number_format($fileSize/ (1024*1024*1024), 1, '.','') . " GB";
         }
-        elseif ($fileSize > 1e6)
+        elseif ($fileSize > (1024*1024))
         {
-            $sizeString = number_format($fileSize/ 1e6, 1, '.','') . " MB";
+            $sizeString = number_format($fileSize/ (1024*1024), 1, '.','') . " MB";
         }
-        elseif ($fileSize > 1e3)
+        elseif ($fileSize > 1024)
         {
-            $sizeString = number_format($fileSize/ 1e3, 1, '.','') . " kB";
+            $sizeString = number_format($fileSize/ 1024, 1, '.','') . " kB";
         }
         else 
         {

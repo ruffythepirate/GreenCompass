@@ -19,6 +19,7 @@
                 </div>
             </fieldset>
         </form>
+        <div id="upload-progress"></div>
         <div id="upload-feedback">
         </div>
     </div>
@@ -89,7 +90,15 @@
             xhr: function () {  // custom xhr
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // check if upload property exists
-                    //    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
+                    myXhr.upload.addEventListener('progress', function (evt) {
+
+                        if (evt.lengthComputable) {
+                            var percentComplete = Math.round((evt.loaded * 100) / evt.total);
+                            $('#upload-progress').html(percentComplete.toString() + "%");
+                        } else {
+                            $('#upload-progress').html("Unable to compute progress.");
+                        }
+                    }, false); // for handling the progress of the upload
                 }
                 return myXhr;
             },
@@ -99,12 +108,14 @@
             },
             success: function (data, textStatus, jqXHR) {
                 //var obj = jQuery.parseJSON(data);
-                $('#upload-feedback').html('<h3>file uploaded!</h3>' + data); // + obj.message);
+                $('#upload-feedback').html('<h3>file uploaded!</h3>');
                 updateWorkshopFiles(<?php echo"$batchWorkshopId";?>)
+               $('#upload-progress').html('');
 
             },
             error: function () {
                 $('#upload-feedback').html('<h3>file upload failed!</h3>')
+               $('#upload-progress').html('');
             },
             // Form data
             data: formData,

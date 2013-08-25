@@ -14,5 +14,6 @@
                 </div>
             </fieldset>
         </form>
+        <div id="upload-progress"></div>
         <div id="upload-feedback">
         </div>

@@ -43,18 +43,13 @@
         $fileMetadata = BatchWorkshopFile::fromDictionary($_POST);
         $fileMetadata->saveToDatabase($databaseConnection);
     
-            $result = new OperationResult(10, "$fileName has been uploaded successfully! (alt 1)", NULL);
-                     $result->jsonEncode();
                      exit();
-        echo "";
-        exit();
     } else{
             $file = $_FILES['file'];
             $fileName = $file['name'];
             $fileName = str_replace(" ","_",$fileName);
             
             $tmpFileName = $file['tmp_name'];
-            echo "Temp path is: $tmpFileName.";
             $fileIsMoved = move_uploaded_file(
                 $file['tmp_name'],
                 $uploadFolder . $fileName);
@@ -64,26 +59,15 @@
             $response = $fileMetadata->saveToDatabase($databaseConnection);
             if(!$response)
             {
-                 $result = new OperationResult(1, "<p>$fileName has been uploaded successfully, but metadata is not saved!</p>",
-                 $fileMetadata);
-                 $result->jsonEncode();
-                 exit();
+
             }
             else
             {
-                 $result = new OperationResult(0, 
-                 "<p>$fileName has been uploaded successfully (alt 2)!</p>",
-                 $fileMetadata);
-                 $result->jsonEncode();
-                 exit();
+
             }
             }
             else {
-                 $result = new OperationResult(0, 
-                 "<p>Failed to copy $fileName!</p>",
-                 $fileMetadata);
-                 $result->jsonEncode();
-                 exit();                
+
             }
         }
     
