@@ -27,30 +27,62 @@
             $feedback = "Username/password combination is incorrect.";
         }
     }
-    include ("Includes/header.php");
 ?>
-<div id="main">
-    <h2>Log on</h2>
-        <form action="logon.php" method="post">
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title><?php 
+                echo "Logon: Green Compass";
+    ?></title>
+    <?php
+        include "Includes/partial_includes.php";
+    ?>
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+    </style>
+    </head>
+    <body>
+<div class="container">
+        <form action="logon.php" method="post" class="form-signin">
+            <h2 class="form-signin-heading">Welcome</h2>
             <fieldset>
-            <legend>Log on</legend>
-            <ol>
-                <li>
-                    <label for="username">Email:</label> 
-                    <input type="text" name="email" value="" id="username" />
-                </li>
-                <li>
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" value="" id="password" />
-                </li>
-            </ol>
-            <input type="submit" name="submit" value="Submit" />
-            <p>
-                <a href="index.php">Cancel</a>
-            </p>
+            <input type="text" class="input-block-level" name="email" placeholder="Email address" value="" id="username" />
+            <input type="password" class="input-block-level" name="password" placeholder="Password" value="" id="password" />
+            <button class="btn btn-large btn-primary" type="submit">Sign in</button>
         </fieldset>
     </form>
     <?php echo "$feedback";?>
 </div>
-</div> <!-- End of outer-wrapper which opens in header.php -->
-<?php include ("Includes/footer.php"); ?>
+    </body>

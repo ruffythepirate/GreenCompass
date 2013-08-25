@@ -14,95 +14,22 @@
                 echo "Green Compass";
             }
     ?></title>
-        <link href="/Styles/Site.css" rel="stylesheet" type="text/css" />
-        <link href="/Styles/GreenCompass.css" rel="stylesheet" type="text/css" />
-        <!--<link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="Scripts/modernizr.development.js"></script>
-        <script type="text/javascript" src="Scripts/jquery.validate.js"></script>
-        <script type="text/javascript" src="Scripts/noty/jquery.noty.js"></script>
-        <script type="text/javascript" src="Scripts/noty/layouts/top.js"></script>
-        <script type="text/javascript" src="Scripts/noty/themes/default.js"></script>
-        <script src="Bootstrap/js/bootstrap.min.js"></script>
+    <?php
+        include "Includes/partial_includes.php";
+    ?>
     </head>
     <body>
-        <div class="outer-wrapper">
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title"><a href="/index.php">Green Compass Network</a></p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        <ul id="login">
-                        <?php
-                        if (logged_on())
-                        {
-                            echo '<li><a href="/logoff.php">Sign out</a></li>' . "\n";
-                            echo '<li><a href="/user_edit.php">Change Password</a></li>' . "\n";
-                        }
-                        else
-                        {
-                            echo '<li><a href="/logon.php">Login</a></li>' . "\n";
-                            echo '<li><a href="/register.php">Register</a></li>' . "\n";
-                        }
-                        ?>
-                        </ul>
-                        <?php if (logged_on()) {
-                            echo "<div class=\"welcomeMessage\">Welcome, <strong>{$_SESSION['username']}</strong></div>\n";
-                            $languages = Language::getLanguages($databaseConnection);
-
-                            $currentLanguageId = get_current_language();
-
-                            if(count( $languages) > 0)
-                            {
-                                echo '<select id="page_language">';
-                                foreach($languages as $language)
-                                {
-                                    if($language->languageid == $currentLanguageId)
-                                    {
-                                        echo "<option value='$language->languageid' selected>$language->name</option>";
-                                    }   
-                                    else
-                                    {
-                                        echo "<option value='$language->languageid'>$language->name</option>";                                        
-                                    }  
-                                }
-                                echo '</select>';
-                                ?>
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                var current_language_id = $('#page_language').val();
-
-                                $('#page_language').change(function () {
-                                    var new_language_id = $('#page_language').val();
-                                    if (new_language_id != current_language_id) {
-                                        $.ajax({
-                                            url: 'ajax_set_language.php?languageid=' + new_language_id,
-                                            type: 'POST',
-                                            success: function (data, textStatus, jqXHR) {
-                                                location.reload(true);
-                                            }
-                                        });
-                                    }
-                                });
-                            });
-                        </script>
-                            <?php 
-                            } 
-
-
-                        } ?>
-                    </section>
-                </div>
-
-                <div class="clear-fix"></div>
-            </div>
-
-                <section class="navigation" data-role="navbar">
-                    <nav>
-                        <ul id="menu">
+            <div class="navbar navbar-inverse navbar-static-top">
+                <div class="navbar-inner">
+                <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Green Compass</a>
+                <div class="nav-collapse collapse">
+                        <ul id="menu" class="nav">
                             <?php if(is_admin()) {
                             echo '<li><a href="/admin_dashboard.php">Admin Dashboard</a></li>';
                             echo '<li><a href="/admin_users.php">Users</a></li>';
@@ -114,6 +41,25 @@
                              }?>
 
                         </ul>
-                    </nav>
-            </section>
-        </header>
+                    <div class="pull-right">
+                        <ul id="login" class="nav">
+                        <?php
+                        if (logged_on())
+                        {
+                            echo '<li><a href="/user_edit.php">Change Password</a></li>' . "\n";
+                            echo '<li><a href="/logoff.php">Sign out</a></li>' . "\n";
+                        }
+                        else
+                        {
+                            echo '<li><a href="/logon.php">Login</a></li>' . "\n";
+                        }
+                        ?>
+                        </ul>
+
+                    </div>
+                    </div>
+                    </div>                    
+                </div>
+                </div>
+         <div class="outer-wrapper">
+

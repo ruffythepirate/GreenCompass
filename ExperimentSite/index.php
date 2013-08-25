@@ -1,9 +1,9 @@
 <?php 
-        require_once  ("Includes/session.php");
-    if(!logged_on) 
+    require_once  ("Includes/session.php");
+    if(!logged_on()) 
     {
-//        header("Location: logon.php");
-//        exit();
+        header("Location: logon.php");
+        exit();
     }
     else if(is_admin())
     {
@@ -19,9 +19,7 @@
    require_once  ("Includes/header.php");
 
     ?>
-    You're user has no authorization... sorry >.<
 
-    <?php phpinfo();?>
 </div> <!-- End of outer-wrapper which opens in header.pho -->
 
 <?php 
