@@ -39,7 +39,7 @@
     {
         $schoolToEdit = School::getById($databaseConnection, $_REQUEST['schoolId']);
     } else {
-        $schoolToEdit = new School();
+        $schoolToEdit = new School(NULL, NULL, NULL, NULL);
     }
 
         include("Includes/header.php");         
