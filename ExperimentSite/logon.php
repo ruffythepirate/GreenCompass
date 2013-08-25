@@ -1,9 +1,9 @@
 <?php 
     require_once ("Includes/session.php");
-    require_once ("Includes/simplecms-config.php"); 
-    require_once ("Includes/connectDB.php");
+    //require_once ("Includes/simplecms-config.php"); 
+    //require_once ("Includes/connectDB.php");
 
-    if (isset($_POST['submit']))
+    if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -19,6 +19,8 @@
         {
             $statement->bind_result($_SESSION['userid'], $_SESSION['username']);
             $statement->fetch();
+            $feedback = "Logon successful!";
+
             header ("Location: index.php");
             exit();
         }
