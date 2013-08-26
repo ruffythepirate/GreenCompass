@@ -13,4 +13,4 @@
 </div>
 </div>
 <?php
-include("Includes/Footer.php");    
+include("Includes/footer.php");    

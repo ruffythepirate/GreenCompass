@@ -42,12 +42,16 @@
             {
                 if($newUser->addRole($databaseConnection, $_POST['type']))
                 {
-                    $newUser->sendVerificationEmail();
+                    //$newUser->sendVerificationEmail();
     
                     mysqli_commit($databaseConnection);
-                    //redirect to all users page.
-                    header("Location: admin_users.php");        
-                    exit();
+
+                    //Give info on new user
+                    $feedbackToUser = "A new user has been created! Send this link to the user to activate him: "
+                     . "<a href=\"activate_account.php?verificationcode=$newUser->verificationcode\">"
+                     . $_SERVER['HTTP_HOST'] . "/activate_account.php?verificationcode=$newUser->verificationcode"
+                     . "</a>.";
+
                 }
                 else {
                     echo "Failed to give role to user! role = '".$_POST['type'] ."'";
@@ -68,6 +72,14 @@
 <section class="section">
     <h1>Create User</h1>
 </section>
+<?php 
+    if(isset($feedbackToUser))
+    {
+        echo '<div class="section">'
+            . "$feedbackToUser"
+            . '</div>';
+    }
+?>
 <section class="section">
     <h2>Create Teacher</h2>
     <form id="create_teacher_form" action="admin_user_new.php" method="post">

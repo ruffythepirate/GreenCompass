@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="#">Green Compass</a>
+                <a class="brand" href="/">Green Compass</a>
                 <div class="nav-collapse collapse">
                         <ul id="menu" class="nav">
                             <?php if(is_admin()) {

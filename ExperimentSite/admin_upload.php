@@ -25,7 +25,7 @@
         $createFolderResult = mkdir($uploadFolder);
         if(!$createFolderResult)
         {
-            $result = new OperationResult(10, "Failed to create directory for upload!", NULL);
+            $result = new OperationResult(10, "Failed to create directory for upload! $uploadFolder", NULL);
             $result->jsonEncode();
             exit();
         }

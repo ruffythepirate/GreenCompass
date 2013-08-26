@@ -139,7 +139,7 @@
 
                         if (evt.lengthComputable) {
                             var percentComplete = Math.round((evt.loaded * 100) / evt.total);
-                            $('#upload-progress').html(percentComplete.toString() + "%");
+                            $('#upload-progress').html('loaded '+ evt.loaded + ' total ' + evt.total + ' '+ percentComplete.toString() + "%");
                         } else {
                             $('#upload-progress').html("Unable to compute progress.");
                         }
