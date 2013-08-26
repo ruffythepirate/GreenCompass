@@ -71,6 +71,19 @@ class Workshop {
             return $newItem;
         }
 
+    public static function deleteById($databaseConnection, $workshopId)
+    {
+        $query = "DELETE FROM workshops "
+        . " WHERE workshopid = ?";
 
+        $statement = $databaseConnection->prepare($query);
+        $statement->bind_param('i', $workshopId);
+            
+        if(!$statement->execute() )
+        {
+            throw new Exception("Failed to delete a workshop!");
+        }
+        return NULL;
+    }
 
 }

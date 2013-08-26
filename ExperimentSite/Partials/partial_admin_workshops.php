@@ -1,6 +1,5 @@
 
     <h3><?php print msg('Created Workshops')?></h3>
-        <ul>
         <?php
             
 $messages = array (
@@ -42,11 +41,45 @@ function msg($s) {
 
         $workshops = getWorkshops($databaseConnection);
 
-
+        echo "<table>";
+        echo "<tr><th>Name</th><th>Created</th><th>Delete</th></tr>";
         foreach($workshops as $workshop)
         {
-            echo "<li> <a href=\"admin_workshop_edit.php?id=$workshop->workshopid\">$workshop->workshopname</a></li>" ;
+            echo "<tr>";
+            echo "<td><a href=\"admin_workshop_edit.php?id=$workshop->workshopid\">$workshop->workshopname</a></td>" ;
+            echo "<td>$workshop->createddate</td>" ; 
+            echo "<td><a class=\"delete-workshop\" data-workshopid=\"$workshop->workshopid\" href=\"#\">Delete</a></td>" ;
+            echo "</tr>";
+ 
         }
+        echo "</table>";
         ?>
-</ul>
+        
+    <script>
 
+        function updateWorkshops() {
+        $.ajax({
+                type: "GET",
+                url: "ajax_get_workshops.php",
+                data: { }
+            })
+                .done(
+                function (result) {
+                    $("#available-workshops").html(result);
+                });
+        }
+
+        $(document).ready(function () {
+            $('.delete-workshop').click(function () {
+                var workshopId = $(this).attr('data-workshopid');
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax_delete_workshop.php",
+                    data: { workshopid: workshopId }
+                }).done(function () {
+                   updateWorkshops() 
+                });
+            })
+        });
+    </script>

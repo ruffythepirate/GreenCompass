@@ -51,7 +51,7 @@ function work_msg($s) {
         </form>
             </div>
 
-    <div class="section">
+    <div class="section" id="available-workshops">
         <?php include ("Partials/partial_admin_workshops.php"); ?>
     </div>
 </div> <!-- End of outer-wrapper which opens in header.pho -->
