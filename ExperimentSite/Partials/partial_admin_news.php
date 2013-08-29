@@ -43,6 +43,7 @@
             $(document).ready(function () {
                 $('#submit_news').click(function (button) {
                     sendNews();
+                    return false;
                 });
             });
     </script>

@@ -66,11 +66,13 @@ require_once ("Includes/session.php");
                         getNews();
                     }
                 });
-
+             return false;
 
                 //Posta request till att ändra publish.
             });
             $('.news-edit').click(function () {
+                                    return false;
+
                 //Öppna upp en dialog där användaren får ange den uppdaterade nyheten.
             });
 
@@ -89,6 +91,7 @@ require_once ("Includes/session.php");
                         getNews();
                     }
                 });
+                return false;
             });
         });
     </script>

@@ -58,10 +58,10 @@ function msg($s) {
     <script>
 
         function updateWorkshops() {
-        $.ajax({
+            $.ajax({
                 type: "GET",
                 url: "ajax_get_workshops.php",
-                data: { }
+                data: {}
             })
                 .done(
                 function (result) {
@@ -78,8 +78,9 @@ function msg($s) {
                     url: "ajax_delete_workshop.php",
                     data: { workshopid: workshopId }
                 }).done(function () {
-                   updateWorkshops() 
+                    updateWorkshops()
                 });
-            })
+                return false;
+            });
         });
     </script>

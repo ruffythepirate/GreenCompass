@@ -2,7 +2,6 @@
     require_once("Includes/session.php");
     require_role('admin');
 
-
         require_once ("Includes/header.php");         
         require_once("workshop_post_methods.php");         
      ?>

@@ -20,15 +20,22 @@
     </head>
     <body>
         <script>
-                $(function() {
-                  $(document).ajaxStart(function() {
-                    // Show loading dialog
-                  });
-                  $(document).ajaxStop(function() {
-                    // Hide loading dialog
-                  });
+            $(document).ready(function () {
+                $(document).ajaxStart(function () {
+                    $('#loading-screen-div').dialog({
+                        height: 200,
+                        modal: true,
+                        title: 'Please wait...',
+                        closeOnEscape: false,
+                        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); }
+                    });
                 });
+                $(document).ajaxStop(function () {
+                    $('#loading-screen-div').dialog("close");
+                });
+            });
         </script>
+          
 
             <div class="navbar navbar-inverse navbar-static-top">
                 <div class="navbar-inner">
@@ -74,5 +81,10 @@
                     </div>                    
                 </div>
                 </div>
+
+          <div id="loading-screen-div" style="display: none">
+                <img src="Images/ajax-loader.gif" alt="Loading, please wait"/>
+                <div id="loading-screen-feedback"></div>
+            </div>
          <div class="outer-wrapper">
 

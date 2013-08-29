@@ -124,5 +124,6 @@
             //We fetch the users list again.
             updateUsersList();
         });
+        return false;
     });
 </script>

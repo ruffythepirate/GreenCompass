@@ -3,14 +3,15 @@
     include("Includes/header.php");         
     require_once("Classes/class.workshoptranslation.php");     
     require_once("Classes/class.user.php");         
+
+    $id = $_REQUEST[id];
+    $workshopId = $id;
     
     include("workshop_post_methods.php");         
     include ("Scripts/script_workshop_edit.php");
 ?>
 
 <?php
-    $id = $_REQUEST[id];
-    $workshopId = $id;
     $workshop = getWorkshop($databaseConnection, $id);
     
     //We save the data that has been entered.

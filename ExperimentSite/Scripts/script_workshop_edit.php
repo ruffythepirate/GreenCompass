@@ -1,3 +1,5 @@
+<?php global $workshopId;?>
+
 <script type="text/javascript">
 
 
@@ -30,10 +32,12 @@
 
         $('#button-create-new').click(function () {
             loadPopupBox();
+            return false;
         });
 
         $('#close-add-language').click(function () {
             unloadPopupBox();
+            return false;
         });
 
         $('#add-language').click(function () {
@@ -59,6 +63,7 @@
                     unloadPopupBox();
                     toggleVisibleTranslation();
                 });
+                return false;
         });
 
         //Activates drag and drop
@@ -149,15 +154,17 @@
             },
             //Ajax events
             beforeSend: function () {
-                $('#upload-feedback').html('<h3>Uploading...</h3>')
+                $('#loading-screen-feedback').html('<h3>Uploading...</h3>')
             },
             success: function (data, textStatus, jqXHR) {
                 $('#upload-feedback').html('<h3>File uploaded!</h3>');
                 $('#upload-progress').html('');
+                $('#loading-screen-feedback').html('')
             },
             error: function () {
                 $('#upload-feedback').html('<h3>Upload failed!</h3>')
                 $('#upload-progress').html('');
+                $('#loading-screen-feedback').html('')
             },
             // Form data
             data: formData,
@@ -165,6 +172,8 @@
             cache: false,
             contentType: false,
             processData: false
+        }).done(function(){
+            updateWorkshopFiles(<?php echo"$workshopId";?>) 
         });
     }
 

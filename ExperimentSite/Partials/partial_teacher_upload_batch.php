@@ -94,9 +94,9 @@
 
                         if (evt.lengthComputable) {
                             var percentComplete = Math.round((evt.loaded * 100) / evt.total);
-                            $('#upload-progress').html(percentComplete.toString() + "%");
+                            $('#loading-screen-feedback').html(percentComplete.toString() + "%");
                         } else {
-                            $('#upload-progress').html("Unable to compute progress.");
+                            $('#loading-screen-feedback').html("Unable to compute progress.");
                         }
                     }, false); // for handling the progress of the upload
                 }
@@ -104,18 +104,18 @@
             },
             //Ajax events
             beforeSend: function () {
-                $('#upload-feedback').html('<h3>Upload starting...</h3>')
+                $('#loading-screen-feedback').html('<h3>Upload starting...</h3>')
             },
             success: function (data, textStatus, jqXHR) {
                 //var obj = jQuery.parseJSON(data);
-                $('#upload-feedback').html('<h3>file uploaded!</h3>');
+                $('#loading-screen-feedback').html('<h3>file uploaded!</h3>');
                 updateWorkshopFiles(<?php echo"$batchWorkshopId";?>)
-               $('#upload-progress').html('');
+               $('#loading-screen-feedback').html('');
 
             },
             error: function () {
-                $('#upload-feedback').html('<h3>file upload failed!</h3>')
-               $('#upload-progress').html('');
+                $('#loading-screen-feedback').html('<h3>file upload failed!</h3>')
+               $('#loading-screen-feedback').html('');
             },
             // Form data
             data: formData,

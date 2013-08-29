@@ -45,6 +45,7 @@
             }).done(function () {
                updateWorkshopFiles(<?php echo"$batchWorkshopId";?>) 
             });
+            return false;
         });
     });
 </script>

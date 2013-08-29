@@ -58,6 +58,7 @@
             }).done(function () {
                updateWorkshopFiles(<?php echo"$workshopId";?>) 
             });
+            return false;
         });
     });
 </script>
