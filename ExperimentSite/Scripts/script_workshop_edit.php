@@ -144,9 +144,9 @@
 
                         if (evt.lengthComputable) {
                             var percentComplete = Math.round((evt.loaded * 100) / evt.total);
-                            $('#upload-progress').html('loaded '+ evt.loaded + ' total ' + evt.total + ' '+ percentComplete.toString() + "%");
+                            $('#loading-screen-feedback').html('loaded '+ evt.loaded + ' total ' + evt.total + ' '+ percentComplete.toString() + "%");
                         } else {
-                            $('#upload-progress').html("Unable to compute progress.");
+                            $('#loading-screen-feedback').html("Unable to compute progress.");
                         }
                     }, false); // for handling the progress of the upload
                 }

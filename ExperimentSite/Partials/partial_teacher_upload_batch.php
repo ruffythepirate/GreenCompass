@@ -11,12 +11,7 @@
 
             <fieldset>
                 <legend>Workshop File Upload</legend>
-                <div><input type="file" id="file-select" name="fileselect[]" multiple="multiple" />
-                    <div id="file-drop-zone">or drop files here</div>
-                </div>
-                <div id="submit-button">
-                    <button type="submit">Upload Files</button>
-                </div>
+                    <div id="file-drop-zone">Drop files here</div>
             </fieldset>
         </form>
         <div id="upload-progress"></div>
