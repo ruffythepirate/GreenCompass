@@ -19,6 +19,17 @@
     ?>
     </head>
     <body>
+        <script>
+                $(function() {
+                  $(document).ajaxStart(function() {
+                    // Show loading dialog
+                  });
+                  $(document).ajaxStop(function() {
+                    // Hide loading dialog
+                  });
+                });
+        </script>
+
             <div class="navbar navbar-inverse navbar-static-top">
                 <div class="navbar-inner">
                 <div class="container">
@@ -36,8 +47,10 @@
                             echo '<li><a href="/admin_workshops.php">Workshops</a></li>';
                             echo '<li><a href="/admin_schools.php">Schools</a></li>';
                             echo '<li><a href="/admin_batches.php">Batches</a></li>';
+                            echo '<li><a href="/all_contact_info.php">Contacts</a></li>';
                             } elseif(is_teacher()) {
                             echo '<li><a href="/teacher_dashboard.php">Teacher Dashboard</a></li>';
+                            echo '<li><a href="/all_contact_info.php">Contacts</a></li>';
                              }?>
 
                         </ul>
