@@ -83,5 +83,6 @@
             //We fetch the school list again.
             updateSchoolList();
         });
+        return false;
     });
 </script>

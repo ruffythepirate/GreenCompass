@@ -1,7 +1,7 @@
 <?php
     
     require_once("Includes/session.php");
-    require_role('teacher');
+    require_one_of_roles(array('admin', 'teacher') );
 
     $batchWorkshopId = $_GET['batchworkshopid'];
 
