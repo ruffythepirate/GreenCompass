@@ -26,7 +26,7 @@
         }
         print "<tr>";
         print "<td>$workshopFile->filename</td>";
-        print "<td>". getFileSizeString($workshopFile->Size) . "</td>";
+        print "<td>". getFileSizeString($workshopFile->size) . "</td>";
         print "<td>$uploader->username</td>";
         print "<td>$workshopFile->createddate</td>";
         print "<td><a href=\"download_workshopfile.php?type=workshop&parentid=$workshopFile->workshopid&filename=$workshopFile->filename\">Here</a>";
@@ -50,7 +50,7 @@
             }
             print "<tr>";
             print "<td>$batchFile->filename</td>";
-            print "<td>". getFileSizeString($batchFile->Size) . "</td>";
+            print "<td>". getFileSizeString($batchFile->size) . "</td>";
             print "<td>$uploader->username</td>";
             print "<td>$batchFile->createddate</td>";
             print "<td><a href=\"batch/$batchFile->batchworkshopid/$batchFile->filename\">Here</a>";
