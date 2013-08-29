@@ -82,19 +82,20 @@
         global $databaseConnection;
         if(logged_on())
         {
-            if(isset ($_SESSION['languageid']))
-            {
-                return $_SESSION['languageid'];
-            }
-            else
-            {
-                $user = User::fromId($databaseConnection, $_SESSION['userid']);
-                if(isset($user) && isset($user->languageid))
-                {
-                    return $user->languageid;
-                }
-            }
-            return NULL;
+            return 1;
+        //    if(isset ($_SESSION['languageid']))
+        //    {
+        //        return $_SESSION['languageid'];
+        //    }
+        //    else
+        //    {
+        //        $user = User::fromId($databaseConnection, $_SESSION['userid']);
+        //        if(isset($user) && isset($user->languageid))
+        //        {
+        //            return $user->languageid;
+        //        }
+        //    }
+        //    return NULL;
         }
     }
     
