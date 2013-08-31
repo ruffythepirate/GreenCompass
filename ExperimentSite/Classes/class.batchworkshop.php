@@ -93,7 +93,7 @@
         {
             $query = "SELECT bw.* FROM batchworkshops bw "
                    . "INNER JOIN batchteachers bt ON bw.batchid = bt.batchid "
-                   . "WHERE bt.userid = $userId AND bw.publishdate <= NOW()";
+                   . "WHERE bt.userid = $userId ORDER BY bw.publishdate ASC";
     
             $result = $databaseConnection->query($query);
     
