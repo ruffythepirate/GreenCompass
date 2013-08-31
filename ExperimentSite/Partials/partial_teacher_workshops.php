@@ -20,7 +20,7 @@ if(count($batchworkshops) > 0)
     //We have workshops, create table with them.
 ?>
     <table>
-    <tr><th>Name</th><th>Files</th><th>Status</th><th>Published</th></tr>
+    <tr><th>Name</th><th>Published</th></tr>
     <?php
         foreach($batchworkshops as $workshop)
         {
@@ -32,8 +32,6 @@ if(count($batchworkshops) > 0)
 
             echo "<tr>";
             echo "<td><a href=\"teacher_workshop.php?batchworkshopid=$workshop->batchworkshopid\">$translation->title</a></td>";
-            echo "<td>0</td>";
-            echo "<td>N/A</td>";
             echo "<td>$workshop->publishdate</td>";
             echo "</tr>";
             }
