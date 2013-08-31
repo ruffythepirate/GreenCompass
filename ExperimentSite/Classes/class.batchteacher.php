@@ -7,7 +7,7 @@ class BatchTeacher {
 
     public static function AddBatchTeacher($databaseConnection, $batchId, $userId)
     {
-        $query = "INSERT INTO BatchTeachers (batchid, userid, createddate) VALUES (?, ?, NOW())";
+        $query = "INSERT INTO batchteachers (batchid, userid, createddate) VALUES (?, ?, NOW())";
 
         $statement = $databaseConnection->prepare($query);
         $statement->bind_param('ii', $batchId, $userId);
