@@ -15,7 +15,7 @@ class BatchWorkshopFile {
          $return->batchworkshopfileid = $dictionary['batchworkshopfileid'];
          $return->batchworkshopid = $dictionary['batchworkshopid'];
          $return->languageid = $dictionary['languageid'];
-         $return->filename = $dictionary['filename'];
+         $return->filename = str_replace(" ", "_", $dictionary['filename']);
          $return->size = $dictionary['size'];
          $return->userid = $dictionary['userid'];
          $return->createddate = $dictionary['createddate'];
@@ -185,7 +185,7 @@ class BatchWorkshopFile {
         $returnValue->batchworkshopfileid =   $other->batchworkshopfileid;
         $returnValue->batchworkshopid     =       $other->batchworkshopid;
         $returnValue->languageid          =            $other->languageid;
-        $returnValue->filename            =              $other->filename;
+        $returnValue->filename            =              str_replace(" ", "_", $other->filename);
         $returnValue->size                =                  $other->size;
         $returnValue->userid              =                $other->userid;
         $returnValue->createddate         =           $other->createddate;

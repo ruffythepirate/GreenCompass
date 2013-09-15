@@ -53,7 +53,7 @@
             print "<td>". getFileSizeString($batchFile->size) . "</td>";
             print "<td>$uploader->username</td>";
             print "<td>$batchFile->createddate</td>";
-            print "<td><a href=\"batch/$batchFile->batchworkshopid/$batchFile->filename\">Here</a>";
+            print "<td><a href=\"download_workshopfile.php?type=batch&parentid=$batchFile->batchworkshopid&filename=$batchFile->filename\">Here</a>";
             print "</tr>";
         }
     }
